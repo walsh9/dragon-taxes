@@ -1,6 +1,8 @@
+/* Helper methods */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 function getRandom(array) {
   return  array[getRandomInt(0, array.length - 1)];
 }
@@ -8,6 +10,12 @@ function getRandom(array) {
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+function toTitleCase(str)
+{
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 function milliToTime(milli) {
     var min = Math.floor(milli / (60 * 1000));
     var sec = Math.floor(milli % (60 * 1000) / 1000);
@@ -29,6 +37,41 @@ function ordinal(i) {
     }
     return i + "th";
 }
+
+/* Random Names */
+var familyNameParts = ["rock","wood","shard","bottom","wild","brook","berry","tall","swine","grove","barrel"];
+var familyNameSuffixes = ["sson","son","sworth","sford","smith","saar","stad","sen","berg","s"];
+var simpleGivenNames = ["John","Mary","Donna","William","Sarah","Terry","Saul","Prudence","Lucas","Oliver","James","Jack","Magnus","Charles","Jacob","Emma","Elise","Elsinore","Sofia","Clara","Anna","Lily"];
+var givenNamePrefixes = ["ber","den","don","gib","sal","ter","lil","wil","del","tem","zel","pal","tid","bren","til"];
+var givenNameMiddles = ["en","on","al","am","s","us","em","es","ss","min"];
+var givenNameSuffixes = ["na","ton","mi","mu","mo","la","va","jun","dun","da","do","to","ta","tus"];
+
+var randomGivenName = function() {
+    var chance = Math.random();
+    if (chance < 0.5) {
+        return getRandom(simpleGivenNames);
+    } else if (chance < 0.8) {
+        return toTitleCase(getRandom(givenNamePrefixes) + getRandom(givenNameSuffixes));
+    }
+    return toTitleCase(getRandom(givenNamePrefixes) + getRandom(givenNameMiddles) + getRandom(givenNameSuffixes));        
+};
+
+var randomFamilyName = function() {
+    var chance = Math.random();
+    if (chance < 0.2) {
+        return toTitleCase(getRandom(familyNameParts));
+    } else if (chance < 0.5) {
+        return toTitleCase(getRandom(familyNameParts) + getRandom(familyNameParts));
+    } else if (chance < 0.9) {
+        return toTitleCase(getRandom(familyNameParts) + getRandom(familyNameSuffixes));
+    }
+    return toTitleCase(getRandom(familyNameParts) + getRandom(familyNameParts) + getRandom(familyNameSuffixes));
+};
+var randomName = function() {
+  return randomGivenName() + " " + randomFamilyName();
+};
+
+/* Handlebars.js helpers */
 Handlebars.registerHelper('random', function(n) {
   return  getRandomInt(1, n);
 });
@@ -42,7 +85,7 @@ Handlebars.registerHelper('withCommas', function(n) {
 });
 
 Handlebars.registerHelper('randomName', function() {
-  return  "John Rockshard";
+  return  randomName();
 }); 
 
 Handlebars.registerHelper('date', function(person) {
@@ -76,6 +119,8 @@ var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","myste
 var artSubjects = ["landscape", "mountain", "lake", "castle", "village", "tree", "bridge", "cave", "battlefield"];
 var nobleTitles = ["Queen","King","Prince","Princess","Duke","Duchess"];
 var lands = ["Northland","Eastland","Southland"]; // No one lives in Westland.
+
+
 races.forEach(function(race) {
     treasures.push(race + " figurine");
     runes.push(race == "dragon" ? "draconic" : race + "ish");
@@ -89,7 +134,7 @@ var gemRates = {
     sapphire: getRandomInt(55,   90) * 10,
     opal:     getRandomInt(55,   90) * 10
 };
-var seasons = ["Frost","Feast","Roast","Xaust"];
+var seasons = ["Frost","Feast","Roast","Xaust"]; // The four seasons of the dragon fiscal calendar
 var days = 92;
 
 
@@ -115,6 +160,8 @@ var Art = function() {
   this.item = getRandom(artworks);
   this.adjective = getRandom(artAdjectives);
   this.subject = getRandom(artSubjects);
+  this.quality = getRandom(ranking);
+  this.condition = getRandom(ranking);
   this.value = getRandomInt(100, 10000) * getRandomInt(1,5);
 };
 
