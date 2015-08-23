@@ -15,6 +15,9 @@ body{
   -o-background-size: cover;
   background-size: cover;
   font-size: 10px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #timer {
@@ -230,11 +233,8 @@ white-space: nowrap;
 }
 
 
-.instructions {
-  width: 400px;
-  height: 600px; 
-}
 
+/* Appraisal Reports*/
 .appraisal-report {
   width: 450px;
   height: 350px;
@@ -303,7 +303,7 @@ white-space: nowrap;
     font-family: serif;
 }
 
-
+/* folded paper effect */
 .folded {
    color: rgba(20,20,20, 0.75);
    box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
@@ -321,3 +321,39 @@ white-space: nowrap;
 .r5 .r1, .r5 .r2, .r5 .r3, .r5 .r4 {
     display: none;
 }
+
+/* Modal Dialog boxes */
+.dialog {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 1000;
+    background: rgba(0,0,0,0.9);
+}
+.dialog div h1 {
+  margin: 10px 0;
+  padding: 0;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+.dialog div {
+  width: 700px;
+  margin: 100px auto;
+  background-color: #eec;
+  color: #111;
+  font-size: 16px;
+  border: 3px solid #844;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.js-hide {
+    visibility: hidden;
+}
+
+

@@ -7,10 +7,14 @@ function getRandom(array) {
   return  array[getRandomInt(0, array.length - 1)];
 }
 
-function numberWithCommas(x) {
-    if (x)
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function numberWithCommas(n) {
+    if (n)
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function stripCommas(s){
+    return s.replace(/,/g, "");
+}
+
 
 function toTitleCase(str)
 {
@@ -106,6 +110,7 @@ Handlebars.registerHelper('grovelling', function(person) {
 /* Compile Handlebar Templates */
 var magicAppraisalReport = Handlebars.compile($("#magic-appraisal-report").html());
 var artAppraisalReport = Handlebars.compile($("#art-appraisal-report").html());
+var treasureAppraisalReport = Handlebars.compile($("#treasure-appraisal-report").html());
 var complaintNote = Handlebars.compile($("#complaint-note").html());
 var royalComplaint = Handlebars.compile($("#royal-complaint").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
@@ -119,7 +124,7 @@ var runes = ["ancient","indecipherable","profane","mysterious"];
 var enchantments = ["protection","swiftness","luck","life","death","ancient","mysterious"];
 var auras = ["teal","holy","unholy","golden","orange","wistful","pale"];
 var ranking = ["AAA","AA","A","B","C"];
-var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved"];
+var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved","glass","onyx","silver"];
 var artDescriptors = ["Rare","Renowned","Masterful","Famous","Extraordinary","Elaborate"];
 var artworks = ["painting", "sculpture", "statue", "vase", "tapestry"];
 var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizzare","strange","colossal","miniature","majestic"];
@@ -160,12 +165,14 @@ var MagicItem = function() {
 
 var Treasure = function() {
   this.item = getRandom(treasures);
-  this.adjective = getRandom(treasureAdjectives);
+  this.adjective = toTitleCase((getRandom(treasureAdjectives)));
+  this.quality = getRandom(ranking);
+  this.condition = getRandom(ranking);
   this.value = getRandomInt(100, 10000) * getRandomInt(1,7);
 };
 
 var Art = function() {
-  this.descriptor = getRandom(artDescriptors);
+  this.descriptor = toTitleCase(getRandom(artDescriptors));
   this.item = getRandom(artworks);
   this.adjective = getRandom(artAdjectives);
   this.subject = getRandom(artSubjects);
@@ -192,6 +199,7 @@ var RoyalGrievance = function() {
 taxRules = {
     exemptionLimits : {
         art:  getRandomInt(500, 900) * 10,
+        treasure: getRandomInt(200,400) * 10,
         crops: getRandomInt(20, 50) * 10,
         herds: getRandomInt(30, 80) * 10,
         provincial: getRandomInt(60, 360) * 10,
@@ -215,36 +223,59 @@ for (var i = 0; i < royalComplaints; i++) {
     $('body').append(royalComplaint(item));
 }    
 
-
-var hoard = getRandomInt(100000,10000000);
-var magicItems = [];
-var arts = [];
+var hoard = {};
+hoard.gold = getRandomInt(100000,10000000);
+hoard.magicItems = [];
+hoard.art = [];
+hoard.treasures = [];
+var income = {};
+income.gold = 0;
+income.gems = 0;
+income.magic = 0;
+income.art = 0;
+income.other = 0;
 ledgerTable = $('#ledger-table');
 seasons.forEach(function(season){
     for (var day = 1; day <= days; day++) {
+        var item;
         var eventChance = Math.random();
         if (eventChance < 0.03) {
             var amount = getRandomInt(1000,20000);
-            hoard += amount;
-            raidtype = getRandom(["Plunder","Raid","Pillaging","Treasure Hunt"]);
-            ledgerTable.append(ledgerRow({day:day,season:season, description:raidtype, amount:amount, balance:hoard}));
-            if (Math.random() < 0.5) {
+            hoard.gold += amount;
+            income.gold += amount;
+            var raidtype = getRandom(["Plunder","Raid","Pillaging","Treasure Hunt"]);
+            ledgerTable.append(ledgerRow({day:day,season:season, description:raidtype, amount:amount, balance:hoard.gold}));
+            if (Math.random() < 0.3) {
                 var num_gems = getRandomInt(3,80);
                 var gem = getRandom(Object.keys(gemRates));
+                income.gems += num_gems * gemRates[gem];
                 gem = (gem == "ruby") ? " rubies" : " " + gem + "s";
                 ledgerTable.append(ledgerRow({description: "- " + num_gems + gem}));
             }
-            if (Math.random() < 0.5 && magicItems.length < 5) {
+            if (Math.random() < 0.3 && hoard.magicItems.length < 5) {
                 item = new MagicItem();
-                magicItems.push(item);
+                hoard.magicItems.push(item);
+                income.magic += item.value;
                 $('body').append(magicAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- Magic " + item.item}));
             }
-            if (Math.random() < 0.5 && arts.length < 5) {
+            if (Math.random() < 0.3 && hoard.art.length < 5) {
                 item = new Art();
-                arts.push(item);
+                hoard.art.push(item);
+                if (item.value >= taxRules.exemptionLimits.art) {
+                   income.art += item.value;
+                }
                 $('body').append(artAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.item) + " of " + item.subject}));
+            }
+            if (Math.random() < 0.3 && hoard.treasures.length < 5) {
+                item = new Treasure();
+                hoard.treasures.push(item);
+                if (item.value >= taxRules.exemptionLimits.treasure) {
+                   income.other += item.value;
+                }
+                $('body').append(treasureAppraisalReport(item));
+                ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.adjective) + " " + item.item}));
             }
         }
     }
@@ -262,7 +293,28 @@ var timer = function(){
     requestAnimationFrame(timer);  
   }
 };
-timer();
+var startGame = function () {
+    $("#intro").removeClass("js-show").addClass("js-hide");
+    startTime = Date.now();
+    timer();
+};
+$("#button-go").bind("click", startGame);
+
+
+var line = function (id) {
+    return Number(stripCommas( $("#" + id).val() ));
+};
+var evaluateTaxes = function() {
+  var diffs = [];
+  diffs.push(line("a1") - income.gold);
+  diffs.push(line("a2") - income.gems);
+  diffs.push(line("a3") - income.magic);
+  diffs.push(line("a4") - income.art);
+  diffs.push(line("a5") - income.other);
+  console.log(diffs);
+
+};
+
 
 
 

@@ -99,6 +99,19 @@ Taxes are due in five minutes!!!
 </div>
 </article>
 
+<div id="intro" class="dialog js-show">
+  <div>
+  <h1>Welcome!</h1>
+  <p>Welcome to a world of fantasy and magic! A world of mysterious humanoids like the erks, the drevs, the gronks, and the glorns. And above them all, high in mountain peaks, dwell the majestic dragons.  In this game you will see through the eyes of one of these magnificent creatures.</p>
+
+  <p>Dragons are wise, powerful, and long-lived but their pride brings them into conflict with other intelligent races. In 2008 D.Y. the High Dragon Council institued a system of taxes and penalties to establish a facade of order, aid them in diplomatic negotiations to prevent all out war between the dragons and the humanoid peoples, and funnel the vast wealth of the dragons to themselves.</p>
+
+  <p>As majestic as you may be, you're just an average dragon and in no position to oppose the council's degrees. You've procrastinated once again and now there are just five minutes until the courier arrives to collect your tax forms. Can you finish them in time? Grab a pen, paper, and a calculator, and press the "Go!" button when you're ready to begin!
+  </p>
+  <button id="button-go">Go!</button>
+  </div>
+</div>
+
     <!-- 
 <article class="special-form official">
 <div>
@@ -189,6 +202,27 @@ Taxes are due in five minutes!!!
     </article>
 </script>
 
+<script id="treasure-appraisal-report" type="text/x-handlebars-template">
+    <article class="appraisal-report official">
+    <div>
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Valuology</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+    <h1>Appraisal Report</h1>
+    <br/><em>Description of Article:</em>
+    <br/>{{adjective}} {{item}}
+    <br/>
+    <br/><em>Quality:</em> {{quality}}
+    <br/><em>Condition:</em> {{condition}}
+    <br/><em>Value:</em> {{withCommas value}} G
+    <footer>
+    <span class="sigline">Appraised by Certified Valuator <span class="sig">Draknaz Werntooth</span></span>
+    </footer>
+    </div>
+    </article>
+</script>
+
 <script id="ledger-row" type="text/x-handlebars-template">
     <tr><td>{{date}}</td><td>{{description}}</td><td>{{withCommas amount}}</td><td>{{withCommas balance}}</td></tr>
 </script>
@@ -198,11 +232,11 @@ Taxes are due in five minutes!!!
     <div>
     <h1>Instructions for filling out Form D-1045</h1>
     <p>Page 1 of 2</p>
-<h2><a id="Line_A1_0"></a>Line A1</h2>
-<h3><a id="Gold_coins_1"></a>Gold coins</h3>
+<h2>Line A1</h2>
+<h3>Gold coins</h3>
 <p>Total value of gold coins you aquired this year.  Only include cash on this line.</p>
-<h2><a id="Line_A2_4"></a>Line A2</h2>
-<h3><a id="Precious_Gems_5"></a>Precious Gems</h3>
+<h2>Line A2</h2>
+<h3>Precious Gems</h3>
 <p>Diamonds, Emeralds, Rubies, Sapphires, and Opals must be reported. This year’s values are in the following table:</p>
 <table>
 <thead>
@@ -234,15 +268,16 @@ Taxes are due in five minutes!!!
 </tr>
 </tbody>
 </table>
-<h2><a id="Line_A3_15"></a>Line A3</h2>
-<h3><a id="Magic_Items_16"></a>Magic Items</h3>
+<h2>Line A3</h2>
+<h3>Magic Items</h3>
 <p>Complete with Line A6 from Form D-347. Se Instructions for Form D-347 for more information.</p>
-<h2><a id="Line_A4_19"></a>Line A4</h2>
-<h3><a id="Artwork_20"></a>Artwork</h3>
-<p>Any paintings, sculptures,  tapestries, or vases valued at over {{rules.exemptionLimits.art}} must be reported. Please see a certified valuator for valuing you treasures.</p>
-<h2><a id="Line_A5_23"></a>Line A5</h2>
-<h3><a id="Other_24"></a>Other</h3>
-<h2><a id="Line_A6_26"></a>Line A6</h2>
+<h2>Line A4</h2>
+<h3>Artwork</h3>
+<p>Any paintings, sculptures, tapestries, or vases valued at over {{rules.exemptionLimits.art}} G must be reported. Please note, figurines are not considered sculptures. Please see a certified valuator for valuing you treasures.</p>
+<h2>Line A5</h2>
+<h3>Other</h3>
+Any other treasures valued at over {{rules.exemptionLimits.treasure}} G must also be reported.Please see a certified valuator for valuing you treasures.</p>
+<h2>Line A6</h2>
 <p>This is the sum of lines A1 through A5.
 This is your Hoard Gross Income for this year.</p>
 </div>
@@ -251,34 +286,34 @@ This is your Hoard Gross Income for this year.</p>
     <div>
     <h1>Instructions for filling out Form D-1045</h1>
     <p>Page 2 of 2</p>
-<h2><a id="Line_B1_30"></a>Line B1</h2>
-<h3><a id="Lair_Expenses_31"></a>Lair Expenses</h3>
+<h2>Line B1</h2>
+<h3>Lair Expenses</h3>
 <p>Please attach form DR-743 from a certified contractor.  Use the value on line A5 of form DR-743.</p>
-<h2><a id="Line_B2_34"></a>Line B2</h2>
-<h3><a id="Adventurer_Losses_35"></a>Adventurer Losses</h3>
-<h2><a id="Line_B3_37"></a>Line B3</h2>
-<h3><a id="Cultural_Magic_Credit_38"></a>Cultural Magic Credit</h3>
-<h2><a id="Line_B4_40"></a>Line B4</h2>
-<h2><a id="Section_C_42"></a>Section C</h2>
-<h3><a id="NonExempt_mayhem_43"></a>Non-Exempt mayhem</h3>
+<h2>Line B2</h2>
+<h3>Adventurer Losses</h3>
+<h2>Line B3</h2>
+<h3>Cultural Magic Credit</h3>
+<h2>Line B4</h2>
+<h2>Section C</h2>
+<h3>Non-Exempt mayhem</h3>
 <p>In an effort to maintain harmony and avoid all out war with the humans, tax penalties are assessed on certain types of mayhem. The DRS keeps record of all grievances reported to the high dragon council. If you fail to report non-exempt mayhem you may be found in contempt of the high dragon council.</p>
-<h2><a id="Line_C1_46"></a>Line C1</h2>
-<h3><a id="Agricultural_47"></a>Agricultural</h3>
+<h2>Line C1</h2>
+<h3>Agricultural</h3>
 <p>All damages to crops valued at over {{rules.exemptionLimits.crops}} G and all damages to livestock valued at over {{rules.exemptionLimits.herds}} G must be reported.</p>
-<h2><a id="Line_C2_50"></a>Line C2</h2>
-<h3><a id="Provincial_51"></a>Provincial</h3>
+<h2>Line C2</h2>
+<h3>Provincial</h3>
 <p>All complaints from shopkeepers and other townsefolke valued at {{rules.exemptionLimits.provincial}} and over must be reported.</p>
-<h2><a id="Line_C3_54"></a>Line C3</h2>
-<h3><a id="Royal_55"></a>Royal</h3>
+<h2>Line C3</h2>
+<h3>Royal</h3>
 <p>Please report all damages to property of Kings, Queens, Princes, and Princesses. Dukes and Duchesses are exempt and do NOT need to be reported.</p>
-<h2><a id="Line_C4_58"></a>Line C4</h2>
-<h3><a id="Subtotal_59"></a>Subtotal</h3>
-<h2><a id="Line_C5_61"></a>Line C5</h2>
-<h3><a id="Total__penalty_62"></a>Total  penalty</h3>
-<h2><a id="Line_D1_64"></a>Line D1</h2>
-<h3><a id="_65"></a></h3>
-<h2><a id="Line_D2_67"></a>Line D2</h2>
-<h3><a id="_68"></a></h3>
+<h2>Line C4</h2>
+<h3>Subtotal</h3>
+<h2>Line C5</h2>
+<h3>Total  penalty</h3>
+<h2>Line D1</h2>
+<h3></h3>
+<h2>Line D2</h2>
+<h3></h3>
     </div>
     </article>
 </script>
