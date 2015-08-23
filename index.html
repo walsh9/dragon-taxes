@@ -94,7 +94,7 @@ Taxes are due in five minutes!!!
 <div>
 <h1>Hoard Ledger</h1>
 <table id="ledger-table">
-  <tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>
+  <tr><th>Date</th><th>Description</th><th>Amount</th><th>Gold Balance</th></tr>
 </table>
 </div>
 </article>
@@ -131,7 +131,17 @@ Taxes are due in five minutes!!!
     <p class="r2">What the hell! Your feast the other night devastated my herd. That was
      {{value}} gold worth of animals you ate! I'm ruined! Consider this official notice of my claim to the high dragons.</p>
     <p>{{randomName}}, {{location}}</p>
-    <p>P.S. Please don't eat me</p>
+    <p>P.S. {{grovelling}}</p>
+    </div>
+    </article>
+</script>
+
+<script id="royal-complaint" type="text/x-handlebars-template">
+    <article class="royal-complaint">
+    <div>
+    <h1>Attention Dragon!</h1>
+    <p>You have encroached upon the lands of {{title}} {{name}} of {{location}}. This infraction has not gone unnoticed. Be advised that the High Dragon Council has been notified of damages in the sum of {{withCommas value}}. Please be more discreet in your future undertakings.</p>
+    <p class="from">{{aide}}, aide to the {{title}}</p>
     </div>
     </article>
 </script>

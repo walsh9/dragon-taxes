@@ -218,6 +218,7 @@ white-space: nowrap;
 
 .ledger table tr td:nth-child(4) {
     width: 100px;
+    text-align: right;
 }
 
 .special-form {
@@ -277,7 +278,7 @@ white-space: nowrap;
     vertical-align: bottom;
     font-family: "Satisfy", cursive;
 }
-
+/* Complaint Note */
 .complaint-note {
   font-size: 15px;
   width: 260px;
@@ -288,6 +289,20 @@ white-space: nowrap;
     margin: 0 0 0;
     padding: 0;
 }
+
+/* Royal Complaint */
+.royal-complaint {
+  font-size: 14px;
+  width: 300px;
+  height: 400px;
+}
+
+.royal-complaint h1 {
+    font-size: 18px;
+    text-align: center;
+    font-family: serif;
+}
+
 
 .folded {
    color: rgba(20,20,20, 0.75);
