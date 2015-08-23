@@ -17,12 +17,29 @@ body{
   font-size: 10px;
 }
 
+#timer {
+    color: rgba(100,255,255,0.4);
+    font-size: 58px;
+    font-family: Roboto Mono, sans-serif;
+    padding-top: 160px;
+    padding-left: 62px;
+    background-image: url(timer.png);
+    background-size: cover;
+    position: absolute;
+    height: 477px;
+    width: 266px;
+    top: 0px;
+    right: 0px;
+    -webkit-transform: scale(0.8,0.8);
+    transform: scale(0.8,0.8);
+}
 
 article {
   display: block;
   width: 200px;
   height: 200px;
   background-color: #f8f8f8;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5),  inset 0 0 100px 15px rgba(50,0,0,0.3);
   box-shadow: 0 0 10px rgba(0,0,0,0.5),  inset 0 0 100px 15px rgba(50,0,0,0.3);
   position: absolute;
   padding: 0;
@@ -41,6 +58,17 @@ article div {
 }
 .peasant-3 {
   font-family: "Annie Use Your Telescope", cursive;    
+}
+
+.sticky {
+  background-color: #f6f633;
+  width: 150px;
+  height: 150px;
+  right: 250px;
+  top: 50px;
+  font-family: "Kaushan Script", cursive;
+  color: rgba(60,20,20,0.8);
+  font-size: 25px;
 }
 
 
@@ -215,9 +243,9 @@ white-space: nowrap;
 }
 
 .complaint-note {
-  font-size: 13px;
-  width: 220px;
-  height: 260px;
+  font-size: 15px;
+  width: 260px;
+  height: 360px;
   background-color: #f8e2d2;    
 }
 .complaint-note h1 {

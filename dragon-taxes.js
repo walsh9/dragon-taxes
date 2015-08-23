@@ -8,6 +8,12 @@ function getRandom(array) {
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function milliToTime(milli) {
+    var min = Math.floor(milli / (60 * 1000));
+    var sec = Math.floor(milli % (60 * 1000) / 1000);
+    if (sec.toString().length == 1) sec = "0" + sec;
+    return "" + min + ":" + sec;
+}
 
 function ordinal(i) {
     var j = i % 10,
@@ -44,7 +50,7 @@ Handlebars.registerHelper('date', function(person) {
 });
 
 Handlebars.registerHelper('dragonEpithet', function() {
-  var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smokey"];
+  var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face"];
   return getRandom(epithets);
 }); 
 
@@ -109,6 +115,20 @@ seasons.forEach(function(season){
         ledgerTable.append(ledgerRow({day:day,season:season,description:"Test Entry",amount:amount,balance:hoard}));
     }
 });
+var startTime = Date.now();
+var timer = function(){
+  var timeLimit = 5 * 60 * 1000;
+  var currentTime = Date.now();
+  var elapsed = currentTime - startTime;
+  if (elapsed <= timeLimit) {
+    $('#timer').text(milliToTime(timeLimit - elapsed));
+    requestAnimationFrame(timer);
+  } else {
+    //Times up!
+    requestAnimationFrame(timer);  
+  }
+};
+timer();
 
 
 
