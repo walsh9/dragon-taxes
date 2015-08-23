@@ -1,0 +1,244 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+
+
+body{
+  background: url(bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-size: 10px;
+}
+
+
+article {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5),  inset 0 0 100px 15px rgba(50,0,0,0.3);
+  position: absolute;
+  padding: 0;
+}
+
+article div {
+  padding: 10px;
+  height: 100%;
+}
+
+.peasant-1 {
+  font-family: "Shadows Into Light", cursive;    
+}
+.peasant-2 {
+  font-family: "Waiting for the Sunrise", cursive;    
+}
+.peasant-3 {
+  font-family: "Annie Use Your Telescope", cursive;    
+}
+
+
+.tax-form, .special-form {
+  background-color: #f8f8f8;
+  width: 400px;
+  height: 600px;  
+}
+.tax-form table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.tax-form table tbody th {
+    width: 50px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+}
+.tax-form table tbody tr:first-child td {
+    border-top: solid 1px black;
+}
+.tax-form table tbody tr:last-child td {
+    border-bottom: solid 1px black;
+}
+.tax-form table em {
+    display: inline-block;
+    font-style: normal;
+    font-weight: bold;
+    width: 25px;
+}
+
+
+.tax-form table th + td,
+.tax-form table td:first-child {
+    width: 250px;
+    vertical-align: bottom;
+}
+
+.tax-form #d347 td {
+  border-width: 1px 1px 1px 0;
+  border-color: black; 
+  border-style: solid; 
+white-space: nowrap;
+  width: 100px;
+}
+.tax-form #d347 td:last-child {
+  border-width: 1px 1px 1px 0;
+  border-color: black; 
+  border-style: solid; 
+  width: 80px;
+}
+
+.tax-form #d347 td input {
+  border: 0;
+  width: 85%;
+  text-align: left;
+  margin: 0;  
+}
+.tax-form #d347 td:last-child input {
+  text-align: right;
+}
+
+.tax-form table label {
+    display: inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tax-form table span:after {
+    content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ';
+}
+.tax-form tr td:last-child {
+    border: 1px solid black;    
+}
+.tax-form table input {
+    background: transparent;
+    width: 60px;
+    text-align: right;
+    font-family: "Kaushan Script", cursive;
+    border-width:0;
+}
+.tax-form header input {
+     background: transparent;
+     border: 1px solid;   
+     font-family: "Kaushan Script", cursive;
+}
+
+/* Ledger */
+.ledger {
+    width: 400px;
+    min-height: 400px;
+    height: auto;
+    font-family: "Kaushan Script", cursive;
+    line-height: 14px;
+    background-image: repeating-linear-gradient(180deg,rgb(255,255,200),rgb(255,255,200) 15px, rgb(200,100,100) 15px, rgb(255,200,200) 16px);
+
+}
+.ledger table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.ledger table tr td:nth-child(1) {
+    width: 80px;
+}
+
+.ledger table tr td:nth-child(2) {
+    width: 200px;
+}
+
+.ledger table tr td:nth-child(4) {
+    width: 100px;
+}
+
+.special-form {
+   height: 300px;  
+}
+
+.official, .official h1 {
+  font-family: sans-serif;
+}
+
+
+.instructions {
+  width: 400px;
+  height: 600px; 
+}
+
+.appraisal-report {
+  width: 450px;
+  height: 350px;
+  font-size: 12px;  
+}
+.appraisal-report h1 {
+  margin: 10px 0;
+  padding: 0;
+  text-align: center; 
+  font-family: serif;
+  font-variant: small-caps;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.appraisal-report header p {
+  font-size: 8px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.appraisal-report footer {
+    border-top: 1px solid black;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    padding: 10px;
+}
+.appraisal-report em {
+    font-style: normal;
+    font-weight: bold;
+}
+.appraisal-report .sigline {
+    float: right;
+}
+.appraisal-report .sig {
+    font-size: 20px;
+    padding: 0;
+    line-height: 75%;
+    text-decoration: underline;
+    vertical-align: bottom;
+    font-family: cursive;
+}
+
+.complaint-note {
+  font-size: 13px;
+  width: 220px;
+  height: 260px;
+  background-color: #f8e2d2;    
+}
+.complaint-note h1 {
+    margin: 0 0 0;
+    padding: 0;
+}
+
+.folded {
+   color: rgba(20,20,20, 0.75);
+   box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
+   background: rgb(230,230,230);
+   background: -webkit-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: -moz-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+}
+.r1 .r2, .r1 .r3, .r1 .r4, .r1 .r5,
+.r2 .r1, .r2 .r3, .r2 .r4, .r2 .r5,
+.r3 .r1, .r3 .r2, .r3 .r4, .r3 .r5,
+.r4 .r1, .r4 .r2, .r4 .r3, .r4 .r5,
+.r5 .r1, .r5 .r2, .r5 .r3, .r5 .r4 {
+    display: none;
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dragon Tax Return Simulator 2015</title>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="styles.css"/>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</head>
+<body>
+
+
+<article class="tax-form official">
+<div>
+<header>
+<h1>D-347 Magical Items Report</h1>
+<form id="d347">
+<table>
+<tbody>
+<tr><td></td><td>Short Description</td><td>Value</td></tr>
+<tr><th rowspan="6">Non-Exempt Magical Items</th>
+    <td><em>A1.</em><input id="m1a"></td><td><input id="m1b"></td></tr>
+<tr><td><em>A2.</em><input id="m2a"></td><td><input id="m2b"></td></tr>
+<tr><td><em>A3.</em><input id="m3a"></td><td><input id="m3b"></td></tr>
+<tr><td><em>A4.</em><input id="m4a"></td><td><input id="m4b"></td></tr>
+<tr><td><em>A5.</em><input id="m5a"></td><td><input id="m5b"></td></tr>
+<tr><td><label><em>A6.</em><span>Add lines A1 to A5</span></label></td><td><input id="a6"></td></tr>
+</tbody>
+<tbody>
+<tr><td></td><td>Short Description</td><td>Value</td></tr>
+<tr><th rowspan="6">Deductible Magical Items</th>
+    <td><em>B1.</em><input id="m1a"></td><td><input id="m1b"></td></tr>
+<tr><td><em>B2.</em><input id="m2a"></td><td><input id="m2b"></td></tr>
+<tr><td><em>B3.</em><input id="m3a"></td><td><input id="m3b"></td></tr>
+<tr><td><em>B4.</em><input id="m4a"></td><td><input id="m4b"></td></tr>
+<tr><td><em>B5.</em><input id="m5a"></td><td><input id="m5b"></td></tr>
+<tr><td><label><em>B6.</em><span>Add lines of B1 through B5</span></label></td><td><input id="a6"></td></tr>
+</tbody>
+</table>
+</form>
+</div>
+</article>
+
+<article class="tax-form official">
+<div>
+<header>
+<h1>D-1045 Hoard Income Tax</h1>
+<span>Do not write in this space </span><input>
+</header>
+<form id="d1045">
+<table>
+<tbody>
+<tr><th rowspan="6">Hoard Gross Income</th>
+    <td><label><em>A1.</em><span>Gold Coins</span></label></td><td><input id="a1"></td></tr>
+<tr><td><label><em>A2.</em><span>Precious Gems</span></label></td><td><input id="a2"></td></tr>
+<tr><td><label><em>A3.</em><span>Magic Items. Attach from D-347</span></label></td><td><input id="a3"></td></tr>
+<tr><td><label><em>A4.</em><span>Artwork. Attach form D-223</span></label></td><td><input id="a4"></td></tr>
+<tr><td><label><em>A5.</em><span>Other</span></label></td><td><input id="a5"></td></tr>
+<tr><td><label><em>A6.</em><span>Add lines A1 through A5</span></label></td><td><input id="a6"></td></tr>
+</tbody>
+<tbody>
+<tr><th rowspan="5">Adjusted Hoard Gross</th>
+    <td><label><em>B1.</em><span>Lair Expenses. Attach form D-523</span></label></td><td><input></td></tr>
+<tr><td><label><em>B2.</em><span>Adventurer losses.</span></label></td><td><input></td></tr>
+<tr><td><label><em>B3.</em><span>Add lines B1 through B2</span></label></td><td><input></td></tr>
+<tr><td><label><em>B4.</em><span>Subtract line B3 from line A6</span></label></td><td><input></td></tr>
+</tbody>
+<tbody>
+<tr><th rowspan="4">Non-exempt Mayhem</th>
+    <td><label><em>C1.</em><span>Agricultural</span></label></td><td><input id="c1"></td></tr>
+<tr><td><label><em>C2.</em><span>Provincial</span></label></td><td><input id="c2"></td></tr>
+<tr><td><label><em>C3.</em><span>Royal</span></label></td><td><input id="c3"></td></tr>
+<tr><td><label><em>C4.</em><span>Add lines C1 through C3</span></label></td><td><input id="c4"></td></tr>
+</tbody>
+</table>
+</form>
+</div>
+</article>
+
+
+<article class="ledger">
+<div>
+<h1>Hoard Ledger</h1>
+<table id="ledger-table">
+  <tr><th>Date</th><th>Description</th><th>Amount</th><th>Balance</th></tr>
+</table>
+</div>
+</article>
+
+    <!-- 
+<article class="special-form official">
+<div>
+<h1>D200 Sub-form for reporting magical items</h1>
+<br/> A) Total value of non-exempt magical items<input>
+<br/> B) Value of exempt items<input>
+<br/> Column A - Column B<input>
+<br/> Reported
+<br/>
+<br/>
+</div>
+</article>
+
+<article class="instructions official">
+<div>
+<h1>D1040 Instructions Page 1</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolorem deleniti minus, quidem, quod qui quo perferendis corporis odio suscipit alias expedita reprehenderit, excepturi necessitatibus perspiciatis iste ut voluptatibus? Vitae.</p>
+<p>Reiciendis accusamus harum eaque, quod velit officia voluptatem ducimus non eveniet, deserunt, in error veritatis sint sed quidem! Culpa sequi, inventore, dolorum laborum laudantium est eum odit labore officiis ipsam.</p>
+<p>Quam, minus, laboriosam? Similique praesentium accusamus possimus quod, consequuntur odio voluptatum quas. Labore unde, neque fuga, cupiditate voluptate beatae incidunt eius voluptatum ipsa delectus a corporis explicabo nihil ullam, iure.</p>
+<p>Vero suscipit numquam cum, sed est recusandae et nemo ratione quia molestiae, eveniet rem modi beatae repudiandae atque unde dolore distinctio odio. Magnam odio unde, reprehenderit natus beatae quas, recusandae.</p>
+<p>Aspernatur, modi, a exercitationem ut fuga voluptatibus consectetur. Laborum, accusantium tempora voluptatem ea necessitatibus tenetur illum impedit voluptas, eligendi. Nam adipisci odio deleniti, eius perferendis nisi voluptatum nemo aut quae!</p>
+</div>
+</article>
+ -->
+<script id="complaint-note" type="text/x-handlebars-template">
+    <article class="complaint-note peasant-{{random 3}} r{{random 2}} folded">
+    <div>Hey {{dragonEpithet}}!
+    <br/>
+    <p class="r1">I'm just poor farmer! You burnt up {{value}} gold worth of my crops! My family's probably gonna starve. I hope you're happy! I'm filing a formal complaint with the dragon council! Just you wait!</p>
+    <p class="r2">What the hell! Your feast the other night devastated my herd. That was
+     {{value}} gold worth of animals you ate! I'm ruined! Consider this official notice of my claim to the high dragons.</p>
+    <p>{{randomName}}, {{location}}</p>
+    <p>P.S. Please don't eat me</p>
+    </div>
+    </article>
+</script>
+
+<script id="appraisal-report" type="text/x-handlebars-template">
+    <article class="appraisal-report official">
+    <div>
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Certified Thaumaturlogists</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+    <h1>Appraisal Report</h1>
+    <br/><em>Description of Article:</em>
+    <br/>Magic {{item}}, with {{runes}} runes, and enchanted with {{enchantment}} magic.
+    <br/>
+    <br/><em>Quality:</em> {{quality}}
+    <br/><em>Aura Type:</em> {{aura}}
+    <br/><em>Condition:</em> {{condition}}
+    <br/><em>Value:</em> {{withCommas value}} G
+    <footer>
+    <span class="sigline">Appraised by Certified Valuator <span class="sig">Draknaz Werntooth</span></span>
+    </footer>
+    </div>
+    </article>
+</script>
+
+<script id="ledger-row" type="text/x-handlebars-template">
+    <tr><td>{{date}}</td><td>{{description}}</td><td>{{withCommas amount}}</td><td>{{withCommas balance}}</td></tr>
+</script>
+
+  <script src="dragon-drop.js"></script>
+  <script src="dragon-taxes.js"></script>
+</body>
+</html>
