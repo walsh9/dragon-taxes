@@ -54,33 +54,46 @@ Handlebars.registerHelper('dragonEpithet', function() {
   return getRandom(epithets);
 }); 
 
-var appraisalReport = Handlebars.compile($("#appraisal-report").html());
+/* Compile Templates */
+var magicAppraisalReport = Handlebars.compile($("#magic-appraisal-report").html());
+var artAppraisalReport = Handlebars.compile($("#art-appraisal-report").html());
 var complaintNote = Handlebars.compile($("#complaint-note").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
-$('body').append(complaintNote({value: 432, location: "Northlands"}));
-$('body').append(complaintNote({value: 2232, location: "Eastlands"}));
-$('body').append(complaintNote({value: 132, location: "Southlands"}));
-$('body').append(complaintNote({value: 932, location: "Southlands"}));
+var instructions = Handlebars.compile($("#main-tax-instructions").html());
 
+/* Lists */
 var races = ["dragon","erk","drev","gronk","glorn"];
-
 var treasures = ["sword","book","amulet","goblet","ring","helmet","shield","spear",
 "lance","boots","flute","panpipes","whistle","battleaxe","mace","trinket","bracers","dice"];
 var runes = ["ancient","indecipherable","profane","mysterious"];
 var enchantments = ["protection","swiftness","luck","life","death","ancient","mysterious"];
 var auras = ["teal","holy","unholy","golden","orange","wistful","pale"];
 var ranking = ["AAA","AA","A","B","C"];
-var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum"];
+var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved"];
+var artDescriptors = ["Rare","Renowned","Masterful","Famous","Extraordinary"];
+var artworks = ["painting", "sculpture", "statue", "vase", "tapestry"];
+var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizzare","strange","colossal","miniature","majestic"];
+var artSubjects = ["landscape", "mountain", "lake", "castle", "village", "tree", "bridge", "cave", "battlefield"];
+var nobleTitles = ["Queen","King","Prince","Princess","Duke","Duchess"];
+var lands = ["Northland","Eastland","Southland"]; // No one lives in Westland.
 races.forEach(function(race) {
     treasures.push(race + " figurine");
     runes.push(race == "dragon" ? "draconic" : race + "ish");
     enchantments.push(race + "-slaying");
+    artSubjects.push(race);
 });
+var gemRates = {
+    diamond:  getRandomInt(280, 360) * 10,
+    emerald:  getRandomInt(210, 300) * 10,
+    ruby:     getRandomInt(95,  190) * 10,
+    sapphire: getRandomInt(55,   90) * 10,
+    opal:     getRandomInt(55,   90) * 10
+};
 var seasons = ["Frost","Feast","Roast","Xaust"];
 var days = 92;
 
-var hoard = getRandomInt(100000,10000000);
 
+/* Items */
 var MagicItem = function() {
   this.item = getRandom(treasures);
   this.runes = getRandom(runes);
@@ -97,14 +110,57 @@ var Treasure = function() {
   this.value = getRandomInt(100, 10000) * getRandomInt(1,7);
 };
 
+var Art = function() {
+  this.descriptor = getRandom(artDescriptors);
+  this.item = getRandom(artworks);
+  this.adjective = getRandom(artAdjectives);
+  this.subject = getRandom(artSubjects);
+  this.value = getRandomInt(100, 10000) * getRandomInt(1,5);
+};
+
+var Grievance = function() {
+ this.name = "John Rockshard";
+ this.value = getRandomInt(8, 130) * 10;
+ this.location = getRandom(lands);
+
+};
+
+/* TaxRules */
+taxRules = {
+    exemptionLimits : {
+        art:  getRandomInt(500, 900) * 10,
+        crops: getRandomInt(20, 50) * 10,
+        herds: getRandomInt(30, 80) * 10,
+        provincial: getRandomInt(60, 360) * 10,
+    }
+};
+
+$('body').append(instructions({rules:taxRules,rates:gemRates}));
 var numMagicItems = getRandomInt(0, 5);
 var magicItems = [];
 for (var i = 0; i < numMagicItems; i++) {
     item = new MagicItem();
     magicItems.push(item);
-    $('body').append(appraisalReport(item));
+    $('body').append(magicAppraisalReport(item));
 }
 
+var numArts = getRandomInt(0, 5);
+var arts = [];
+for (var i = 0; i < numArts; i++) {
+    item = new Art();
+    arts.push(item);
+    $('body').append(artAppraisalReport(item));
+}
+
+var numComplaints = getRandomInt(0, 5);
+var complaints = [];
+for (var i = 0; i < numArts; i++) {
+    item = new Grievance();
+    complaints.push(item);
+    $('body').append(complaintNote(item));
+}
+
+var hoard = getRandomInt(100000,10000000);
 ledgerTable = $('#ledger-table');
 seasons.forEach(function(season){
     for (var day = 1; day <= days; day++)

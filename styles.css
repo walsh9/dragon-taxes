@@ -71,7 +71,43 @@ article div {
   font-size: 25px;
 }
 
+/* Instructions */
+.instructions {
+    width: 400px;
+    min-height: 400px;
+    height: auto;
+}
 
+.instructions h1, .instructions h2, .instructions h3 {
+  font-family: sans-serif;
+  margin: 0;
+}
+.instructions h1 {
+    size: 14px;
+}
+.instructions h2 {
+    margin-top: 3px;
+    size: 10px;
+}
+.instructions h3 {
+    size: 10px;
+    font-weight: normal;
+}
+.instructions p {
+    margin: 2px 0;
+}
+.instructions table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.instructions table td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100px;
+}
+
+
+/* Tax Form */
 .tax-form, .special-form {
   background-color: #f8f8f8;
   width: 400px;
@@ -239,7 +275,7 @@ white-space: nowrap;
     line-height: 75%;
     text-decoration: underline;
     vertical-align: bottom;
-    font-family: cursive;
+    font-family: "Satisfy", cursive;
 }
 
 .complaint-note {

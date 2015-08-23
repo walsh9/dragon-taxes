@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dragon Tax Return Simulator 2015</title>
-    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script|Roboto+Mono' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script|Roboto+Mono|Satisfy|Great+Vibes' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="styles.css"/>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -136,16 +136,16 @@ Taxes are due in five minutes!!!
     </article>
 </script>
 
-<script id="appraisal-report" type="text/x-handlebars-template">
+<script id="magic-appraisal-report" type="text/x-handlebars-template">
     <article class="appraisal-report official">
     <div>
     <header>
     <p>Draknaz Werntooth</p>
-    <p>Draconian Board of Certified Thaumaturlogists</p>
+    <p>Draconian Board of Valuology</p>
     <p>232 Peak Lane, Snowy Mountain, Northlands</p>
     <h1>Appraisal Report</h1>
     <br/><em>Description of Article:</em>
-    <br/>Magic {{item}}, with {{runes}} runes, and enchanted with {{enchantment}} magic.
+    <br/>Magic {{item}}, with {{runes}} runes, enchanted with {{enchantment}} magic.
     <br/>
     <br/><em>Quality:</em> {{quality}}
     <br/><em>Aura Type:</em> {{aura}}
@@ -158,8 +158,119 @@ Taxes are due in five minutes!!!
     </article>
 </script>
 
+<script id="art-appraisal-report" type="text/x-handlebars-template">
+    <article class="appraisal-report official">
+    <div>
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Valuology</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+    <h1>Appraisal Report</h1>
+    <br/><em>Description of Article:</em>
+    <br/>{{descriptor}} {{item}} depicting a {{adjective}} {{subject}}.
+    <br/>
+    <br/><em>Quality:</em> {{quality}}
+    <br/><em>Condition:</em> {{condition}}
+    <br/><em>Value:</em> {{withCommas value}} G
+    <footer>
+    <span class="sigline">Appraised by Certified Valuator <span class="sig">Draknaz Werntooth</span></span>
+    </footer>
+    </div>
+    </article>
+</script>
+
 <script id="ledger-row" type="text/x-handlebars-template">
     <tr><td>{{date}}</td><td>{{description}}</td><td>{{withCommas amount}}</td><td>{{withCommas balance}}</td></tr>
+</script>
+
+<script id="main-tax-instructions" type="text/x-handlebars-template">
+    <article class="main-tax-instructions instructions official">
+    <div>
+    <h1>Instructions for filling out Form D-1045</h1>
+    <p>Page 1 of 2</p>
+<h2><a id="Line_A1_0"></a>Line A1</h2>
+<h3><a id="Gold_coins_1"></a>Gold coins</h3>
+<p>Total value of gold coins you aquired this year.  Only include cash on this line.</p>
+<h2><a id="Line_A2_4"></a>Line A2</h2>
+<h3><a id="Precious_Gems_5"></a>Precious Gems</h3>
+<p>Diamonds, Emeralds, Rubies, Sapphires, and Opals must be reported. This year’s values are in the following table:</p>
+<table>
+<thead>
+<tr>
+<th>Gemstone</th>
+<th>2015 Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diamond</td>
+<td>{{rates.diamond}} G each</td>
+</tr>
+<tr>
+<td>Emerald</td>
+<td>{{rates.emerald}} G each</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>{{rates.ruby}} G each</td>
+</tr>
+<tr>
+<td>Sapphire</td>
+<td>{{rates.sapphire}} G each</td>
+</tr>
+<tr>
+<td>Opal</td>
+<td>{{rates.opal}} G each</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="Line_A3_15"></a>Line A3</h2>
+<h3><a id="Magic_Items_16"></a>Magic Items</h3>
+<p>Complete with Line A6 from Form D-347. Se Instructions for Form D-347 for more information.</p>
+<h2><a id="Line_A4_19"></a>Line A4</h2>
+<h3><a id="Artwork_20"></a>Artwork</h3>
+<p>Any paintings, sculptures,  tapestries, or vases valued at over {{rules.exemptionLimits.art}} must be reported. Please see a certified valuator for valuing you treasures.</p>
+<h2><a id="Line_A5_23"></a>Line A5</h2>
+<h3><a id="Other_24"></a>Other</h3>
+<h2><a id="Line_A6_26"></a>Line A6</h2>
+<p>This is the sum of lines A1 through A5.
+This is your Hoard Gross Income for this year.</p>
+</div>
+</article>
+    <article class="main-tax-instructions instructions official">
+    <div>
+    <h1>Instructions for filling out Form D-1045</h1>
+    <p>Page 2 of 2</p>
+<h2><a id="Line_B1_30"></a>Line B1</h2>
+<h3><a id="Lair_Expenses_31"></a>Lair Expenses</h3>
+<p>Please attach form DR-743 from a certified contractor.  Use the value on line A5 of form DR-743.</p>
+<h2><a id="Line_B2_34"></a>Line B2</h2>
+<h3><a id="Adventurer_Losses_35"></a>Adventurer Losses</h3>
+<h2><a id="Line_B3_37"></a>Line B3</h2>
+<h3><a id="Cultural_Magic_Credit_38"></a>Cultural Magic Credit</h3>
+<h2><a id="Line_B4_40"></a>Line B4</h2>
+<h2><a id="Section_C_42"></a>Section C</h2>
+<h3><a id="NonExempt_mayhem_43"></a>Non-Exempt mayhem</h3>
+<p>In an effort to maintain harmony and avoid all out war with the humans, tax penalties are assessed on certain types of mayhem. The DRS keeps record of all grievances reported to the high dragon council. If you fail to report non-exempt mayhem you may be found in contempt of the high dragon council.</p>
+<h2><a id="Line_C1_46"></a>Line C1</h2>
+<h3><a id="Agricultural_47"></a>Agricultural</h3>
+<p>All damages to crops valued at over {{rules.exemptionLimits.crops}} G and all damages to livestock valued at over {{rules.exemptionLimits.herds}} G must be reported.</p>
+<h2><a id="Line_C2_50"></a>Line C2</h2>
+<h3><a id="Provincial_51"></a>Provincial</h3>
+<p>All complaints from shopkeepers and other townsefolke valued at {{rules.exemptionLimits.provincial}} and over must be reported.</p>
+<h2><a id="Line_C3_54"></a>Line C3</h2>
+<h3><a id="Royal_55"></a>Royal</h3>
+<p>Please report all damages to property of Kings, Queens, Princes, and Princesses. Dukes and Duchesses are exempt and do NOT need to be reported.</p>
+<h2><a id="Line_C4_58"></a>Line C4</h2>
+<h3><a id="Subtotal_59"></a>Subtotal</h3>
+<h2><a id="Line_C5_61"></a>Line C5</h2>
+<h3><a id="Total__penalty_62"></a>Total  penalty</h3>
+<h2><a id="Line_D1_64"></a>Line D1</h2>
+<h3><a id="_65"></a></h3>
+<h2><a id="Line_D2_67"></a>Line D2</h2>
+<h3><a id="_68"></a></h3>
+    </div>
+    </article>
 </script>
 
   <script src="dragon-drop.js"></script>
