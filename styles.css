@@ -31,8 +31,8 @@ body{
     position: absolute;
     height: 477px;
     width: 266px;
-    top: 0px;
-    right: 0px;
+    top: -50px;
+    right: -25px;
     -webkit-transform: scale(0.8,0.8);
     transform: scale(0.8,0.8);
 }
@@ -67,8 +67,8 @@ article div {
   background-color: #f6f633;
   width: 150px;
   height: 150px;
-  right: 250px;
-  top: 50px;
+  right: 230px;
+  top: 30px;
   font-family: "Kaushan Script", cursive;
   color: rgba(60,20,20,0.8);
   font-size: 25px;
