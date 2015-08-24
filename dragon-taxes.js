@@ -195,6 +195,29 @@ var RoyalGrievance = function() {
   this.location = getRandom(lands);
 };
 
+var Stacker = function($target, x, y, xOffset, yOffset, xDir, yDir) {
+    this.$target = $target;
+    this.x = x;
+    this.y = y;
+    this.xOffset = xOffset;
+    if (xOffset === undefined)
+      this.xOffset = 2;
+    this.yOffset = yOffset;
+    if (yOffset === undefined)
+      this.yOffset = 2;
+    this.xDir = xDir || 'left';
+    this.yDir = yDir || 'top';
+};
+
+Stacker.prototype.add = function(el) {
+    $el = $(el);
+    this.$target.append($el);
+    $el.css(this.xDir, this.x + 'px');
+    $el.css(this.yDir, this.y + 'px');
+    this.x += this.xOffset;
+    this.y += this.yOffset;
+};
+
 /* TaxRules */
 taxRules = {
     exemptionLimits : {
@@ -209,19 +232,23 @@ taxRules = {
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
 
-var numComplaints = getRandomInt(0, 5);
+complaintStacker = new Stacker($('body'), 12, 22, -2, -2, 'right', 'bottom');
 var complaints = [];
-for (var i = 0; i < numComplaints; i++) {
-    item = new PeasantGrievance();
-    complaints.push(item);
-    $('body').append(complaintNote(item));
-}
+
 var royalComplaints = getRandomInt(1, 2);
 for (var i = 0; i < royalComplaints; i++) {
     item = new RoyalGrievance();
     complaints.push(item);
-    $('body').append(royalComplaint(item));
+    complaintStacker.add(royalComplaint(item));
 }    
+var numComplaints = getRandomInt(3, 5);
+for (var i = 0; i < numComplaints; i++) {
+    item = new PeasantGrievance();
+    complaints.push(item);
+    complaintStacker.add(complaintNote(item));
+}
+
+
 
 var hoard = {};
 hoard.gold = getRandomInt(100000,10000000);
@@ -235,6 +262,15 @@ income.magic = 0;
 income.art = 0;
 income.other = 0;
 ledgerTable = $('#ledger-table');
+
+appraisalStacker = new Stacker($('body'), 340, 22, -2, -2, 'right', 'bottom');
+formStacker = new Stacker($('body'), 2, 2, 4, 4);
+formStacker.add($('.instructions.p2'));
+formStacker.add($('.instructions.p1'));
+formStacker.add($('.d1045'));
+ledgerStacker = new Stacker($('body'), 420, 2);
+ledgerStacker.add($('.ledger'));
+
 seasons.forEach(function(season){
     for (var day = 1; day <= days; day++) {
         var item;
@@ -252,29 +288,30 @@ seasons.forEach(function(season){
                 gem = (gem == "ruby") ? " rubies" : " " + gem + "s";
                 ledgerTable.append(ledgerRow({description: "- " + num_gems + gem}));
             }
-            if (Math.random() < 0.3 && hoard.magicItems.length < 5) {
+            if (Math.random() < 0.4 && hoard.magicItems.length < 4) {
                 item = new MagicItem();
                 hoard.magicItems.push(item);
                 income.magic += item.value;
-                $('body').append(magicAppraisalReport(item));
+                appraisalStacker.add(magicAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- Magic " + item.item}));
             }
-            if (Math.random() < 0.3 && hoard.art.length < 5) {
+            if (Math.random() < 0.4 && hoard.art.length < 4) {
                 item = new Art();
                 hoard.art.push(item);
                 if (item.value >= taxRules.exemptionLimits.art) {
                    income.art += item.value;
                 }
-                $('body').append(artAppraisalReport(item));
+                appraisalStacker.add(artAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.item) + " of " + item.subject}));
             }
-            if (Math.random() < 0.3 && hoard.treasures.length < 5) {
+            if (Math.random() < 0.4 && hoard.treasures.length < 4) {
                 item = new Treasure();
+                console.log(item);
                 hoard.treasures.push(item);
                 if (item.value >= taxRules.exemptionLimits.treasure) {
                    income.other += item.value;
                 }
-                $('body').append(treasureAppraisalReport(item));
+                appraisalStacker.add(treasureAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.adjective) + " " + item.item}));
             }
         }
