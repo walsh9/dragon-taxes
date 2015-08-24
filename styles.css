@@ -223,7 +223,9 @@ white-space: nowrap;
      font-family: "Kaushan Script", cursive;
 }
 .dnw {
-    float:right;
+    display: block;
+    width: 100%;
+    text-align: right;
     padding-right: 0px;
 }
 .ouo {
