@@ -171,7 +171,6 @@ Handlebars.registerHelper('exasperatedComplaint', function() {
     "My fields are littered in bones.",
     "I've but a single sheep left.",
     "My fields are permeated by an enduring stench of death.",
-    ""
     ];
 Handlebars.registerHelper('farmerAppeal', function() {
   return getRandom(peasantAppeals.concat(farmerAppeals));   
@@ -467,6 +466,13 @@ for (var season = 0; season < seasons.length; season++) {
         }
     }
 }
+
+var callCourier = function() {
+    console.log("courier");
+    $("#courier").removeClass("js-hide").addClass("js-show");
+    done = false;
+};
+
 var askedForExtraTime = -1;
 var done = false;
 var startTime = Date.now();
@@ -475,14 +481,14 @@ var timer = function(){
   var currentTime = Date.now();
   var elapsed = currentTime - startTime;
   if (elapsed <= timeLimit && done === false) {
-    $('#timer').text(milliToTime(timeLimit - elapsed));
+    $('#time').text(milliToTime(timeLimit - elapsed));
     requestAnimationFrame(timer);
   } else {
     //Times up!
-    $("#courier").removeClass("js-hide").addClass("js-show");
-    done = false;
+    callCourier();
   }
 };
+
 var startGame = function () {
     askedForExtraTime++;
     $("#intro").removeClass("js-show").addClass("js-hide");
@@ -498,6 +504,9 @@ var showHelp = function () {
 };
 
 var line = function (id) {
+    if ($("#" + id).val() == 0) {
+      return(0);
+    }
     return Number(stripCommas( parseInt($("#" + id).val()) ));
 };
 
@@ -614,6 +623,7 @@ var evaluateTaxes = function() {
 $(".button-go").bind("click", startGame);
 $(".button-help").bind("click", showHelp);
 $(".button-finish").bind("click", evaluateTaxes);
+$(".button-ready").bind("click", callCourier);
 
 
 
