@@ -199,7 +199,7 @@ var townieGripes = [
   "Last time you came to town you left a hole the size of a dragon foot in my roof!",
   "You scared off all my best customers!",
   "On your last visit to town you kicked over my shed!",
-  "You're firebreath scorched the walls of my tavern!",
+  "Your firebreath scorched the walls of my tavern!",
   "You have utterly destroyed my business.",
 ];
 Handlebars.registerHelper('townieGripe', function() {
@@ -208,7 +208,7 @@ Handlebars.registerHelper('townieGripe', function() {
 
 var partingShots = [
   "You'll pay for this!",
-  "Just you you wait!",
+  "Just you wait!",
   "You'll see!",
   "I know my rights!",
   "I know the law!",
