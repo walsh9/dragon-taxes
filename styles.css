@@ -54,7 +54,7 @@ body{
     color: #ddd;
     font-size: 16px;
     font-family: "Kaushan Script", sans-serif;
-    position: absolute;
+    position: fixed;
     bottom: 5px;
     left: 5px; 
     cursor:pointer;
