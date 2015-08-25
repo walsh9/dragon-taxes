@@ -13,12 +13,15 @@ A game where you are a dragon and you need to finish your tax return quickly. Pe
 ## Mini FAQ
 
 **Where are forms D-347 and D-223?**
+
 There are none. That was from an early version of the game and the text wasn't removed in time.
 
 **Why are there no deductions?**
+
 Dragons rarely actually spend their hoards, so they have no expenses to deduct.
 
 **Why does a dragon have a smartphone?**
+
 It's 2105.
 
 ## License
