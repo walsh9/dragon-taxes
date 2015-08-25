@@ -441,7 +441,7 @@ formStacker.add($('.instructions.p3'));
 formStacker.add($('.instructions.p2'));
 formStacker.add($('.instructions.p1'));
 formStacker.add($('.d1045'));
-ledgerStacker = new Stacker($('body'), 420, 2);
+ledgerStacker = new Stacker($('body'), 450, 2);
 ledgerStacker.add($('.ledger'));
 
 var numEvents = getRandomInt(7,9);
