@@ -238,7 +238,7 @@ white-space: nowrap;
     display: block;
     width: 100%;
     text-align: right;
-    padding-right: 0px;
+    padding: 10px;
 }
 .ouo {
 border-bottom: 1px solid black;
