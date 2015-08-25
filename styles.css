@@ -112,7 +112,7 @@ article div {
 
 /* Instructions */
 .instructions {
-    width: 400px;
+    width: 430px;
     min-height: 600px;
     height: auto;
 }
@@ -148,7 +148,7 @@ article div {
 /* Tax Form */
 .tax-form, .special-form {
   background-color: #f8f8f8;
-  width: 400px;
+  width: 430px;
   height: 600px;  
 }
 .tax-form h1 {
