@@ -89,7 +89,7 @@ Taxes are due in ten minutes!!!
   <div>
   <h1>How to Play</h1>
   <p>The goal of the game is to complete your D-1045 form on time without any errors. You can drag documents around with your mouse. Follow the instructions included with the form for an explanation of how to complete each line item.</p>
-  <p>A pen and paper will be handy.</p><p>A calculator is also highly reccomended.</p>
+  <p>A pen and paper will be handy.</p><p>A calculator is also highly recommended.</p>
   <button class="button-go">I'm Ready!</button>
   </div>
 </div>
@@ -109,12 +109,13 @@ Taxes are due in ten minutes!!!
 <div id="report" class="dialog js-hide">
   <div>
   <h1>Assessment</h1>
-  <p>A few days later, over tea, you look over your paperwork with your friend, Verna Fairwing, Professional Dragon Accountant (PDA). She gives you an assesment of your return.
+  <p>A few days later, over tea, you look over your paperwork with your friend, Verna Fairwing, Professional Dragon Accountant (PDA). She gives you an assessment of your return.
   <h2>Breakdown</h2>
   <ul id="final-report"></ul>
   <h2>Tips</h2>
   <ul id="tips"></ul>
   <p class="thanks">Thanks for playing!</p>
+  <button class="button-restart">Play Again!</button>
   </div>
 </div>
 
@@ -141,6 +142,21 @@ Taxes are due in ten minutes!!!
        You gobbled up {{value}} gold worth of my herds! 
        {{herderAppeal}} 
        {{peasantNotice}} 
+       {{partingShot}}</p>
+    <p>{{randomName}}, {{location}}</p>
+    <p>P.S. {{grovelling}}</p>
+    </div>
+    </article>
+</script>
+
+<script id="townie-complaint-note" type="text/x-handlebars-template">
+    <article class="complaint-note peasant-{{random 3}} folded">
+    <div>Hey {{dragonEpithet}}!
+    <br/>
+    <p>{{exasperatedComplaint}} 
+       {{townieGripe}}
+       {{townieAppeal}} 
+       I'm filing a complaint with the council for {{value}} G worth of damages!
        {{partingShot}}</p>
     <p>{{randomName}}, {{location}}</p>
     <p>P.S. {{grovelling}}</p>

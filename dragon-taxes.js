@@ -191,6 +191,21 @@ Handlebars.registerHelper('peasantNotice', function() {
     return getRandom(peasantNotices);
 });
 
+var townieGripes = [
+  "Your last flyby blew the roof off of my shop!",
+  "When you raided the town last week you really did a number on my shop!",
+  "You blew out all my windows of my inn on your last flyby",
+  "You wrecked my storefront!",
+  "Last time you came to town you left a hole the size of a dragon foot in my roof!",
+  "You scared off all my best customers!",
+  "On your last visit to town you kicked over my shed!",
+  "You're firebreath scorched the walls of my tavern!",
+  "You have utterly destroyed my business.",
+];
+Handlebars.registerHelper('townieGripe', function() {
+    return getRandom(townieGripes);
+});
+
 var partingShots = [
   "You'll pay for this!",
   "Just you you wait!",
@@ -199,7 +214,6 @@ var partingShots = [
   "I know the law!",
   "Justice will be mine!",
   "I have to do what I have to do.",
-  "Nothing personal though.",
   ];
 Handlebars.registerHelper('partingShot', function() {
     return getRandom(partingShots);
@@ -212,7 +226,19 @@ Handlebars.registerHelper('dragonEpithet', function() {
 }); 
 
 Handlebars.registerHelper('grovelling', function(person) {
-  return getRandom(["Please don't eat me!", "Spare my family!", "I'm so sorry!", "Spare my life!", "Forgive me!",]);
+  return getRandom([
+    "Please don't eat me!", 
+    "Spare my family!", 
+    "I'm so sorry!", 
+    "Spare my life!", 
+    "Forgive me!",
+    "No offense",
+    "I have the utmost respect for dragons.",
+    "Please don't take this personally!",
+    "I mean, if that's okay with you.",
+    "I am the worst. Don't hurt me.",
+    "It's just business. You understand, right?",
+    ]);
 });
 
 /* Compile Handlebar Templates */
@@ -221,6 +247,7 @@ var artAppraisalReport = Handlebars.compile($("#art-appraisal-report").html());
 var treasureAppraisalReport = Handlebars.compile($("#treasure-appraisal-report").html());
 var farmerComplaint = Handlebars.compile($("#farmer-complaint-note").html());
 var herderComplaint = Handlebars.compile($("#herder-complaint-note").html());
+var townieComplaint = Handlebars.compile($("#townie-complaint-note").html());
 var royalComplaint = Handlebars.compile($("#royal-complaint").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
 var instructions = Handlebars.compile($("#main-tax-instructions").html());
@@ -236,7 +263,7 @@ var ranking = ["AAA","AA","A","B","C"];
 var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved","glass","onyx","silver"];
 var artDescriptors = ["Rare","Renowned","Masterful","Famous","Extraordinary","Elaborate"];
 var artworks = ["painting", "sculpture", "statue", "vase", "tapestry"];
-var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizzare","strange","colossal","miniature","majestic"];
+var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizarre","strange","colossal","miniature","majestic"];
 var artSubjects = ["landscape", "mountain", "lake", "castle", "village", "tree", "bridge", "cave", "battlefield"];
 var nobleTitles = ["Queen","King","Prince","Princess","Duke","Duchess","Count","Countess","Baron","Baroness"];
 var lands = ["Northland","Eastland","Southland"]; // No one lives in Westland.
@@ -297,6 +324,12 @@ var PeasantGrievance = function() {
   this.type = getRandom(["herds","crops"]);
 };
 
+var TownieGrievance = function() {
+  this.name = randomName();
+  this.value = getRandomInt(10, 600) * 10;
+  this.location = getRandom(lands);
+};
+
 var RoyalGrievance = function() {
   this.title = getRandom(nobleTitles);
   this.name = randomFamilyName();
@@ -335,7 +368,7 @@ var taxRules = {
         treasure: getRandomInt(400,700) * 10,
         crops: getRandomInt(30, 60) * 10,
         herds: getRandomInt(40, 80) * 10,
-        provincial: getRandomInt(60, 360) * 10,
+        provincial: getRandomInt(100, 360) * 10,
     },
     exemptClasses: {
         nobles: getRandom([["Duke","Duchess"],["Count","Countess"],["Baron","Baroness"]]),
@@ -365,8 +398,18 @@ for (var i = 0; i < nobleComplaints; i++) {
     complaintStacker.add(royalComplaint(item));
 }    
 
+var townieComplaints = getRandomInt(2, 4);
+for (i = 0; i < townieComplaints; i++) {
+    item = new TownieGrievance();
+    complaints.push(item);
+    if (item.value > taxRules.exemptionLimits.provincial) {
+        mayhem.townsfolk += item.value;
+    }
+    complaintStacker.add(townieComplaint(item));
+}
+
 var peasantComplaints = getRandomInt(3, 5);
-for (var i = 0; i < peasantComplaints; i++) {
+for (i = 0; i < peasantComplaints; i++) {
     item = new PeasantGrievance();
     complaints.push(item);
     if ((item.type === "crops" && item.value > taxRules.exemptionLimits.crops) ||
@@ -378,10 +421,6 @@ for (var i = 0; i < peasantComplaints; i++) {
     else //herds
       complaintStacker.add(herderComplaint(item));
 }
-
-
-
-
 
 var hoard = {};
 hoard.gold = getRandomInt(100000,10000000);
