@@ -658,11 +658,14 @@ var evaluateTaxes = function() {
   }  
   } $('#report').removeClass("js-hide").addClass("js-show");
 };
-
+var restart = function(){
+  location.reload();
+};
 $(".button-go").bind("click", startGame);
 $(".button-help").bind("click", showHelp);
 $(".button-finish").bind("click", evaluateTaxes);
 $(".button-ready").bind("click", callCourier);
+$(".button-restart").bind("click", restart);
 
 
 
