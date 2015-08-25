@@ -450,7 +450,10 @@ var numArt = getRandomInt(3,4);
 var numTreasures = getRandomInt(3,4);
 var numGems = getRandomInt(2,3);
 var schedule = uniqueRandomInts(1, days * seasons.length, numEvents);
-
+var magicSchedule = getRandoms(schedule, numMagicItems);
+var artSchedule = getRandoms(schedule, numArt);
+var treasureSchedule = getRandoms(schedule, numTreasures);
+var gemSchedule = getRandoms(schedule, numGems);
 
 for (var season = 0; season < seasons.length; season++) {
     for (var day = 1; day <= days; day++) {
@@ -467,14 +470,14 @@ for (var season = 0; season < seasons.length; season++) {
                                       "Treasure Hunt"]) + " in " + getRandom(lands);
             ledgerTable.append(ledgerRow({day:day,season:seasons[season], description:raidtype}));
             ledgerTable.append(ledgerRow({description:"- Gold", amount:amount, balance:hoard.gold}));
-            if (Math.random() < 0.3) {
+            if (gemSchedule.indexOf(scehduleDay) > -1) {
                 var num_gems = getRandomInt(3,80);
                 var gem = getRandom(Object.keys(gemRates));
                 income.gems += num_gems * gemRates[gem];
                 gem = (gem == "ruby") ? " rubies" : " " + gem + "s";
                 ledgerTable.append(ledgerRow({description: "- " + num_gems + gem}));
             }
-            if (Math.random() < 0.4 && hoard.magicItems.length < 4) {
+            if (magicSchedule.indexOf(scehduleDay) > -1) {
                 item = new MagicItem();
                 hoard.magicItems.push(item);
                 if ((taxRules.exemptClasses.enchantments.indexOf(item.enchantment) === -1) &&
@@ -484,7 +487,7 @@ for (var season = 0; season < seasons.length; season++) {
                 appraisalStacker.add(magicAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- Magic " + item.item}));
             }
-            if (Math.random() < 0.4 && hoard.art.length < 4) {
+            if (artSchedule.indexOf(scehduleDay) > -1) {
                 item = new Art();
                 hoard.art.push(item);
                 if (item.value >= taxRules.exemptionLimits.art) {
@@ -493,7 +496,7 @@ for (var season = 0; season < seasons.length; season++) {
                 appraisalStacker.add(artAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.item) + " of " + item.subject}));
             }
-            if (Math.random() < 0.4 && hoard.treasures.length < 4) {
+            if (treasureSchedule.indexOf(scehduleDay) > -1) {
                 item = new Treasure();
                 hoard.treasures.push(item);
                 if (item.value >= taxRules.exemptionLimits.treasure) {
