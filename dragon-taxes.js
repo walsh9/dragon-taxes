@@ -664,6 +664,7 @@ var evaluateTaxes = function() {
 var restart = function(){
   location.reload();
 };
+$("#d1045")[0].reset(); //clear form
 $(".button-go").bind("click", startGame);
 $(".button-help").bind("click", showHelp);
 $(".button-finish").bind("click", evaluateTaxes);
