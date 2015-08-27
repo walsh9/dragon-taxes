@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Dragon Tax Return Simulator 2015</title>
-    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script|Roboto+Mono|Satisfy|Great+Vibes|Merriweather' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script|Roboto+Mono|Satisfy|Great+Vibes|Merriweather|Special+Elite|Rye|Miltonian+Tattoo|Sancreek' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="fonts/typoBackgrounds/typoBackgrounds.css" type="text/css" charset="utf-8" />
     <link type="text/css" rel="stylesheet" href="styles.css"/>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -120,7 +121,7 @@ Taxes are due in ten minutes!!!
 </div>
 
 <script id="farmer-complaint-note" type="text/x-handlebars-template">
-    <article class="complaint-note peasant-{{random 3}} folded">
+    <article class="complaint-note font-variant-{{random 3}} font-size-variant-{{random 3}} paper-style-variant-{{random 3}} paper-shade-variant-{{random 4}}">
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
@@ -135,7 +136,7 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="herder-complaint-note" type="text/x-handlebars-template">
-    <article class="complaint-note peasant-{{random 3}} folded">
+    <article class="complaint-note font-variant-{{random 3}} font-size-variant-{{random 3}} paper-style-variant-{{random 3}} paper-shade-variant-{{random 4}}">
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
@@ -150,22 +151,39 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="townie-complaint-note" type="text/x-handlebars-template">
-    <article class="complaint-note peasant-{{random 3}} folded">
+    <article class="complaint-note font-variant-{{random 4}} font-size-variant-{{random 3}} paper-style-variant-{{random 3}} paper-shade-variant-{{random 4}}">
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
        {{townieGripe}}
        {{townieAppeal}} 
-       I'm filing a complaint with the council for {{value}} G worth of damages!
+       I'm filing a complaint with the council for {{withCommas value}} G worth of damages!
        {{partingShot}}</p>
-    <p>{{randomName}}, {{location}}</p>
+    <p>{{randomName}}<br>{{location}}</p>
     <p>P.S. {{grovelling}}</p>
     </div>
     </article>
 </script>
 
+<script id="shopkeeper-complaint" type="text/x-handlebars-template">
+<article class="shopkeeper-complaint logo-font-variant-{{random 3}} symbol-variant-{{random 3}} paper-style-variant-{{random 5}} paper-shade-variant-{{random 4}} header-variant-{{random 3}} {{#if isTavern}}tavern{{/if}}">
+<header>
+<span class="symbol">{{randomLetter}}</span>
+<h1>{{shopName}}</h1>
+<span>{{location}}</span>
+</header>
+<p>Dear Dragon,</p>
+<p>{{townieGripe}}
+   {{townieAppeal}}
+   I've filed a complaint with the council for {{withCommas value}} G worth of damages!
+   {{partingShot}}
+   <p class="sig">{{name}}<br>{{shopName}}<br>{{location}}</p>
+</p>
+</article>
+</script>
+
 <script id="royal-complaint" type="text/x-handlebars-template">
-    <article class="royal-complaint {{location}}">
+    <article class="royal-complaint font-variant-{{random 4}} font-size-variant-{{random 3}} paper-shade-variant-{{random 4}} paper-style-variant-{{random 5}} {{location}}">
     <div>
     <p class="date">{{randomHumanoidDate}}</p>
     <p class="to">Dear Dragon,</p>

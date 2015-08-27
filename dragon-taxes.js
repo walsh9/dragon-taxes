@@ -111,6 +111,28 @@ var randomName = function() {
   return randomGivenName() + " " + randomFamilyName();
 };
 
+/* Lists */
+var races = ["dragon","erk","drev","gronk","glorn"];
+var treasures = ["sword","book","amulet","goblet","ring","helmet","shield","spear",
+"lance","boots","flute","panpipes","whistle","battleaxe","mace","trinket","bracers","dice"];
+var runes = ["ancient","indecipherable","profane","mysterious"];
+var enchantments = ["protection","swiftness","luck","life","death","ancient","mysterious"];
+var auras = ["teal","holy","unholy","golden","orange","wistful","pale"];
+var ranking = ["AAA","AA","A","B","C"];
+var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved","glass","onyx","silver"];
+var artDescriptors = ["Rare","Renowned","Masterful","Famous","Extraordinary","Elaborate"];
+var artworks = ["painting", "sculpture", "statue", "vase", "tapestry"];
+var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizarre","strange","colossal","miniature","majestic"];
+var artSubjects = ["landscape", "mountain", "lake", "castle", "village", "tree", "bridge", "cave", "battlefield"];
+var nobleTitles = ["Queen","King","Prince","Princess","Duke","Duchess","Count","Countess","Baron","Baroness"];
+var lands = ["Northland","Eastland","Southland"]; // No one lives in Westland.
+races.forEach(function(race) {
+    treasures.push(race + " figurine");
+    runes.push(race == "dragon" ? "draconic" : race + "ish");
+    enchantments.push(race + "-slaying");
+    artSubjects.push(race);
+});
+
 /* Handlebars.js helpers */
 Handlebars.registerHelper('random', function(n) {
   return  getRandomInt(1, n);
@@ -146,16 +168,61 @@ Handlebars.registerHelper('fancyTitle', function(chance) {
   return "";
 });
 
+Handlebars.registerHelper('randomLetter', function() {
+  return  getRandom("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz12345678".split(""));
+}); 
+
+
 var aideTitles = ["Aide", "Secretary", "Clerk", "Assistant", "Personal Aide", "Personal Clerk"];
 Handlebars.registerHelper('aideTitle', function() {
   return getRandom(aideTitles);
 });
 
-
 Handlebars.registerHelper('dragonEpithet', function() {
   var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face"];
   return getRandom(epithets);
 }); 
+
+
+/*Shop names*/
+var shopNouns = ["Elephant","Hedgehog","Grasshopper","Lamb","Eagle","Falcon","Lion","Hound","Swan","Horse","Ghost","Bishop","Snake","Serpent","Squirrel","Anchor","Bell","Lock","Key","Lute","Harp","Castle","Tower","Helm","Crown","Rose","Vine"];
+shopNouns = shopNouns.concat("Gnat", "Flea", "Tick", "Spider", "Ant", "Bee", "Moth", "Worm", "Beetle", "Weevil");
+shopNouns = shopNouns.concat(races.map(toTitleCase));
+var shopAdjectives = ["Blue","Golden","Gilded","Lucky","Wretched","Rusty","Brazen","Green","Red","Half","Old","Third","Second","First","Seventh","Silent","Wistful","Rowdy","Smiling","Laughing","Finest"];
+shopTypes = ["Anvil","Forge","Larder","Supplies","Traders","Tavern","Alehouse","Pub","Lodge","Inn","Planks","Candles","Goods","Fishes","Fishery","Pies","Meats","Grains","Textiles","Cloths","Fabrics","Ointments","Talismans","Pots","Glass","Lenses","Jewelry","Pharmacy","Apocethary","Delights","Wonders","Curiosities","Oddities","Sundries","Financing","Valuation","Shipping"];
+var randomShopName = function(ownerName) {
+  ownerName = ownerName || randomName();
+  ownerGivenName = ownerName.split(" ")[0];
+  ownerSurname = ownerName.split(" ")[1];
+  var chance = Math.random();
+  if        (chance < 0.05) {
+    return  getRandom(["Two","Three","Four","Seven","Ten","One Hundred"]) + 
+      " " + getRandom(shopNouns) + "s";
+  } else if (chance < 0.10) {
+    return  "The " + getRandom(nobleTitles.concat(races.map(toTitleCase)).map(function(t){return t + "'s";})) + " " + getRandom(shopNouns);
+  } else if (chance < 0.35) {
+    return  "The " + getRandom(shopNouns) + " and The "  + getRandom(shopNouns);
+  } else if (chance < 0.50) {
+    return  "The " + getRandom(shopAdjectives) + " " + getRandom(shopNouns);
+  } else if (chance < 0.85) {
+    return  getRandom(shopAdjectives) + " " + getRandom(shopNouns) + " " + getRandom(shopTypes);
+  } else if (chance < 0.92) {
+  return  ownerSurname + " " + getRandom(shopTypes);
+  }
+  return ownerGivenName + "'s " + getRandom(shopTypes);
+};
+
+/* Townnames */
+var townPrefixes = ["Village of ", "Hamlet of ", "City of ", ];
+var townSuffixes = ["ville", "burg", "ton", "stead", " Village", " City", " Settlement"];
+var randomTownName = function() {
+  var chance = Math.random();
+  if (chance < 0.66) {
+    return randomFamilyName() + getRandom(townSuffixes);
+  } 
+  return getRandom(townPrefixes) + randomFamilyName();
+};
+
 
   var exasperatedComplaints = [
     "Enough is enough!",
@@ -267,33 +334,12 @@ var treasureAppraisalReport = Handlebars.compile($("#treasure-appraisal-report")
 var farmerComplaint = Handlebars.compile($("#farmer-complaint-note").html());
 var herderComplaint = Handlebars.compile($("#herder-complaint-note").html());
 var townieComplaint = Handlebars.compile($("#townie-complaint-note").html());
+var shopkeeperComplaint = Handlebars.compile($("#shopkeeper-complaint").html());
 var royalComplaint = Handlebars.compile($("#royal-complaint").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
 var instructions = Handlebars.compile($("#main-tax-instructions").html());
 
-/* Lists */
-var races = ["dragon","erk","drev","gronk","glorn"];
-var treasures = ["sword","book","amulet","goblet","ring","helmet","shield","spear",
-"lance","boots","flute","panpipes","whistle","battleaxe","mace","trinket","bracers","dice"];
-var runes = ["ancient","indecipherable","profane","mysterious"];
-var enchantments = ["protection","swiftness","luck","life","death","ancient","mysterious"];
-var auras = ["teal","holy","unholy","golden","orange","wistful","pale"];
-var ranking = ["AAA","AA","A","B","C"];
-var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved","glass","onyx","silver"];
-var artDescriptors = ["Rare","Renowned","Masterful","Famous","Extraordinary","Elaborate"];
-var artworks = ["painting", "sculpture", "statue", "vase", "tapestry"];
-var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizarre","strange","colossal","miniature","majestic"];
-var artSubjects = ["landscape", "mountain", "lake", "castle", "village", "tree", "bridge", "cave", "battlefield"];
-var nobleTitles = ["Queen","King","Prince","Princess","Duke","Duchess","Count","Countess","Baron","Baroness"];
-var lands = ["Northland","Eastland","Southland"]; // No one lives in Westland.
 
-
-races.forEach(function(race) {
-    treasures.push(race + " figurine");
-    runes.push(race == "dragon" ? "draconic" : race + "ish");
-    enchantments.push(race + "-slaying");
-    artSubjects.push(race);
-});
 var gemRates = {
     diamond:  getRandomInt(280, 360) * 10,
     emerald:  getRandomInt(210, 300) * 10,
@@ -346,7 +392,15 @@ var PeasantGrievance = function() {
 var TownieGrievance = function() {
   this.name = randomName();
   this.value = getRandomInt(10, 600) * 10;
-  this.location = getRandom(lands);
+  this.location = randomTownName() + ", " + getRandom(lands);
+};
+
+var ShopkeeperGrievance = function() {
+  this.name = randomName();
+  this.value = getRandomInt(10, 600) * 10;
+  this.location =  randomTownName() + ", " + getRandom(lands);
+  this.isTavern = Math.random() < 0.35;
+  this.shopName = randomShopName(this.name, this.isTavern);
 };
 
 var RoyalGrievance = function() {
@@ -397,6 +451,7 @@ var taxRules = {
     }
 };
 
+
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
 
@@ -406,6 +461,7 @@ var mayhem = {};
 mayhem.peasants = 0;
 mayhem.townsfolk = 0;
 mayhem.nobles = 0;
+
 
 var nobleComplaints = getRandomInt(3, 5);
 for (var i = 0; i < nobleComplaints; i++) {
@@ -439,6 +495,13 @@ for (i = 0; i < peasantComplaints; i++) {
       complaintStacker.add(farmerComplaint(item));
     else //herds
       complaintStacker.add(herderComplaint(item));
+}
+
+var shopkeeperComplaints = getRandomInt(7, 9);
+for (i = 0; i < shopkeeperComplaints; i++) {
+    item = new ShopkeeperGrievance();
+    complaints.push(item);
+    complaintStacker.add(shopkeeperComplaint(item));
 }
 
 var hoard = {};

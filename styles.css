@@ -89,16 +89,6 @@ article div {
   height: 100%;
 }
 
-.peasant-1 {
-  font-family: "Shadows Into Light", cursive;    
-}
-.peasant-2 {
-  font-family: "Waiting for the Sunrise", cursive;    
-}
-.peasant-3 {
-  font-family: "Annie Use Your Telescope", cursive;    
-}
-
 .sticky {
   background-color: #f6f633;
   width: 150px;
@@ -257,7 +247,7 @@ border-bottom: 1px solid black;
 
 }
 .ledger h1 {
-    font-size 16px;
+    font-size: 16px;
     margin-top: 10px;
     margin-bottom: 21px;
 }
@@ -340,11 +330,30 @@ border-bottom: 1px solid black;
   width: 260px;
   height: 360px;
   background-color: #f8e2d2; 
-  font-weight: bold;   
+  font-weight: bold;
+  font-family: "Shadows Into Light", cursive;
+  padding: 15px;
 }
 .complaint-note h1 {
     margin: 0 0 0;
     padding: 0;
+}
+
+.complaint-note.font-size-variant-1 {
+  font-size: 14px;
+}
+.complaint-note.font-size-variant-2 {
+  font-size: 14.5px;
+}
+.complaint-note.font-variant-1 {
+  font-family: "Waiting for the Sunrise", cursive;    
+}
+.complaint-note.font-variant-2 {
+  font-family: "Annie Use Your Telescope", cursive;    
+}
+.complaint-note.font-variant-4 {
+  font-family: "Special Elite", monospace;    
+  font-size: 13px;
 }
 
 /* Royal Complaint */
@@ -352,10 +361,11 @@ border-bottom: 1px solid black;
   font-size: 14px;
   width: 300px;
   height: 400px;
-  font-family: Courier, monospace;
+  font-family: "Special Elite", monospace;
   font-size: 13px;
   color: #333333;
 }
+
 .royal-complaint div {
   padding: 85px 25px 25px 25px;
 }
@@ -394,8 +404,127 @@ border-bottom: 1px solid black;
   background-size: 100px;
 }
 
+.royal-complaint.font-variant-1 {
+    font-family: "Courier New", Courier, monospace;
+}
+
+.royal-complaint.font-variant-2 {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+}
+
+.royal-complaint.font-size-variant-1 {
+    font-size: 13px;
+}
+
+.royal-complaint.paper-shade-variant-1 {
+  background-color: #f5f0e9; 
+}
+
+.royal-complaint.paper-shade-variant-2 {
+  background-color: #f8e9d9; 
+}
+/* Shopkeeper Complaint */
+.shopkeeper-complaint {
+  font-size: 14px;
+  width: 300px;
+  height: 400px;
+  font-family: "Special Elite", monospace;
+  font-size: 13px;
+  color: #333333;
+  padding: 20px;
+}
+.shopkeeper-complaint header {
+  position: relative;
+  padding: 2px 0;
+  margin: 0 0 0 36px;
+}
+.shopkeeper-complaint h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  border-bottom: 1px solid #333333;
+  font-family: Sancreek;
+}
+.shopkeeper-complaint header span{
+  font-size: 10px;
+  font-family: Merriweather, serif;
+  padding: 2px;
+  display:block;
+  text-align: right;
+}
+.shopkeeper-complaint.logo-font-variant-1 h1 {
+  font-family: "Miltonian Tattoo";
+}
+.shopkeeper-complaint.logo-font-variant-2 h1 {
+  font-family: Rye;
+}
+.shopkeeper-complaint .symbol {
+  font-family: typobackgroundsregular;
+  position: absolute;
+  display: block;
+  width: 35px;
+  height: 40px;
+  left: -42px;
+  font-size: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.shopkeeper-complaint.symbol-variant-1 .symbol {
+    width: 33px;
+    height: 33px;
+    font-size: 50px;
+    line-height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-indent: -11px;
+    border: 1px solid #333;
+}
+.shopkeeper-complaint.paper-shade-variant-1 {
+  background-color: #f5f0e9; 
+}
+
+.shopkeeper-complaint.paper-shade-variant-2 {
+  background-color: #f8e9d9; 
+}
+.shopkeeper-complaint.paper-shade-variant-3 {
+  background-color: #eee8d9;   
+}
+
+.shopkeeper-complaint.header-variant-1 .symbol {
+  left: auto;
+  right: -50px;
+}
+.shopkeeper-complaint.header-variant-1 header {
+  margin: 0 60px 0 0px;
+  border-bottom: 1px solid #333333;
+} 
+.shopkeeper-complaint.header-variant-1 header h1 { 
+    border-bottom: none; 
+}
+.shopkeeper-complaint.header-variant-1 header span { 
+    text-align: left;
+}
+
+.shopkeeper-complaint.header-variant-2 .symbol {
+  display: none;
+}
+.shopkeeper-complaint.header-variant-2 header {
+  margin: 0;
+} 
+.shopkeeper-complaint.header-variant-2 header h1 { 
+  text-align: center;
+  font-size: 18px;
+}
+.shopkeeper-complaint.header-variant-2 header span { 
+  display: none;
+}
+
 /* folded paper effect */
-.folded {
+.complaint-note.paper-style-variant-1,
+.royal-complaint.paper-style-variant-1,
+.shopkeeper-complaint.paper-style-variant-1 {
    color: rgba(20,20,20, 0.75);
    box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
    background: rgb(230,230,230);
@@ -404,6 +533,29 @@ border-bottom: 1px solid black;
    background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
    background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
    background: linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+}
+
+.complaint-note.paper-style-variant-2,
+.royal-complaint.paper-style-variant-2,
+.shopkeeper-complaint.paper-style-variant-2 {
+   color: rgba(20,20,20, 1);
+   box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
+   background: rgb(230,230,230);
+   background: -webkit-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: -moz-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+}
+.complaint-note.paper-style-variant-3 {
+   color: rgba(40,40,40, 1);
+   box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
+   background: rgb(240,240,240);
+   background: -webkit-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: -moz-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
 }
 /* Final report */
 
