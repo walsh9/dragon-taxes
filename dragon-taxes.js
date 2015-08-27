@@ -133,6 +133,25 @@ Handlebars.registerHelper('date', function(person) {
   return ordinal(this.day) + " of " + this.season;
 });
 
+var humanoidMonths = ["Gnat", "Fly", "Flea", "Tick", "Spider", "Ant", "Bee", "Moth", "Roach", "Worm", "Beetle", "Weevil"];
+Handlebars.registerHelper('randomHumanoidDate', function() {
+  return ordinal(getRandomInt(1,30)) + " of " + getRandom(humanoidMonths) + ", 2015.";
+});
+
+var fancyTitles = ["Esq.","Adv."];
+Handlebars.registerHelper('fancyTitle', function(chance) {
+  if (Math.random() < chance) {
+    return ", " + getRandom(fancyTitles);
+  }
+  return "";
+});
+
+var aideTitles = ["Aide", "Secretary", "Clerk", "Assistant", "Personal Aide", "Personal Clerk"];
+Handlebars.registerHelper('aideTitle', function() {
+  return getRandom(aideTitles);
+});
+
+
 Handlebars.registerHelper('dragonEpithet', function() {
   var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face"];
   return getRandom(epithets);

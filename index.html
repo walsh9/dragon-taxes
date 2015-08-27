@@ -165,11 +165,12 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="royal-complaint" type="text/x-handlebars-template">
-    <article class="royal-complaint">
+    <article class="royal-complaint {{location}}">
     <div>
-    <h1>Attention Dragon!</h1>
-    <p>You have encroached upon the lands of {{title}} {{name}} of {{location}}. This infraction has not gone unnoticed. Be advised that the High Dragon Council has been notified of damages in the sum of {{withCommas value}}. Please be more discreet in your future undertakings.</p>
-    <p class="from">{{aide}}, aide to the {{title}}</p>
+    <p class="date">{{randomHumanoidDate}}</p>
+    <p class="to">Dear Dragon,</p>
+    <p class="body">I write to remind you that you have encroached upon the lands of {{title}} {{name}} of {{location}}. This infraction has not gone unnoticed. Be advised that the High Dragon Council has been notified of damages in the sum of {{withCommas value}} G. Please be more discreet in your future undertakings.</p>
+    <p class="from">{{aide}}{{fancyTitle 0.5}}<br>{{aideTitle}} to the {{title}}</p>
     </div>
     </article>
 </script>

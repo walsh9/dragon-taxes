@@ -9,7 +9,7 @@ html {
 
 
 body{
-  background: url(bg.jpg) no-repeat center center fixed;
+  background: url(i/bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -28,7 +28,7 @@ body{
 }
 
 #timer {
-    background-image: url(timer.png);
+    background-image: url(i/timer.png);
     background-size: cover;
     position: absolute;
     height: 477px;
@@ -352,12 +352,46 @@ border-bottom: 1px solid black;
   font-size: 14px;
   width: 300px;
   height: 400px;
+  font-family: Courier, monospace;
+  font-size: 13px;
+  color: #333333;
+}
+.royal-complaint div {
+  padding: 85px 25px 25px 25px;
 }
 
-.royal-complaint h1 {
-    font-size: 18px;
+.royal-complaint .body {
+    text-indent: 3em;
+}
+
+.royal-complaint .date {
+    text-align: right;
+    display: block;
+}
+.royal-complaint .from {
     text-align: center;
-    font-family: Merriweather, serif;
+    display: block;
+}
+
+.Southland div {
+  background-image: url(i/southland.png);
+  background-repeat: no-repeat;
+  background-position: 70px 30px;
+  background-size: 160px;
+}
+
+.Eastland div {
+  background-image: url(i/eastland.png);
+  background-repeat: no-repeat;
+  background-position: 80px 30px;
+  background-size: 140px;
+}
+
+.Northland div {
+  background-image: url(i/northland.png);
+  background-repeat: no-repeat;
+  background-position: 100px 30px;
+  background-size: 100px;
 }
 
 /* folded paper effect */
