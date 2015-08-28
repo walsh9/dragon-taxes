@@ -102,11 +102,13 @@ article div {
 
 /* Instructions */
 .instructions {
-    width: 430px;
+    width: 440px;
     min-height: 600px;
     height: auto;
 }
-
+.instructions > div {
+  padding: 25px;  
+}
 .instructions h1, .instructions h2, .instructions h3 {
   font-family: sans-serif;
   margin: 0;
@@ -136,10 +138,13 @@ article div {
 
 
 /* Tax Form */
-.tax-form, .special-form {
+.tax-form {
   background-color: #f8f8f8;
-  width: 430px;
-  height: 600px;  
+  width: 440px;
+  height: 600px;
+}
+.tax-form > div {
+  padding: 25px;  
 }
 .tax-form h1 {
   font-size: 20px;
@@ -148,6 +153,7 @@ article div {
 .tax-form table {
     border-spacing: 0px;
     border-collapse: collapse;
+    width: 100%;
 }
 .tax-form table tbody th {
     width: 50px;
@@ -167,45 +173,17 @@ article div {
     font-weight: bold;
     width: 25px;
 }
-
-
 .tax-form table th + td,
 .tax-form table td:first-child {
     width: 250px;
     vertical-align: bottom;
 }
-
-.tax-form #d347 td {
-  border-width: 1px 1px 1px 0;
-  border-color: black; 
-  border-style: solid; 
-white-space: nowrap;
-  width: 100px;
-}
-.tax-form #d347 td:last-child {
-  border-width: 1px 1px 1px 0;
-  border-color: black; 
-  border-style: solid; 
-  width: 80px;
-}
-
-.tax-form #d347 td input {
-  border: 0;
-  width: 85%;
-  text-align: left;
-  margin: 0;  
-}
-.tax-form #d347 td:last-child input {
-  text-align: right;
-}
-
 .tax-form table label {
     display: inline-block;
     max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
 }
-
 .tax-form table span:after {
     content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ';
 }
@@ -228,7 +206,7 @@ white-space: nowrap;
     display: block;
     width: 100%;
     text-align: right;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
 }
 .ouo {
 border-bottom: 1px solid black;
@@ -255,6 +233,7 @@ border-bottom: 1px solid black;
     border-spacing: 0px;
     border-collapse: collapse;
     vertical-align: top;
+    width: 100%;
 }
 
 .ledger table tr td:nth-child(1) {
@@ -367,7 +346,20 @@ border-bottom: 1px solid black;
 }
 
 .royal-complaint div {
-  padding: 85px 25px 25px 25px;
+  padding: 25px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: center 25px;
+  background-size: auto 50px;
+}
+
+.royal-complaint img {
+  height: 50px;
+}
+
+.royal-complaint div p.to,
+.royal-complaint div p.body {
+   text-align: left;
 }
 
 .royal-complaint .body {
@@ -385,23 +377,14 @@ border-bottom: 1px solid black;
 
 .Southland div {
   background-image: url(i/southland.png);
-  background-repeat: no-repeat;
-  background-position: 70px 30px;
-  background-size: 160px;
 }
 
 .Eastland div {
   background-image: url(i/eastland.png);
-  background-repeat: no-repeat;
-  background-position: 80px 30px;
-  background-size: 140px;
 }
 
 .Northland div {
   background-image: url(i/northland.png);
-  background-repeat: no-repeat;
-  background-position: 100px 30px;
-  background-size: 100px;
 }
 
 .royal-complaint.font-variant-1 {
@@ -634,5 +617,121 @@ border-bottom: 1px solid black;
   top: 50px;
   color: #ffffff;
 }
+
+
+@media print {
+    *,
+    *:before,
+    *:after,
+    *:first-letter,
+    *:first-line {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    h1, h2, .ledger thead, {
+        font-weight: normal !important;      
+    }
+
+    body {
+      padding: 0  !important;
+    }
+
+    article {
+      border: 2px dashed black;
+      display: inline-block;
+      margin: 1em;
+      text-align: left;
+      position: relative !important;;
+      left: 0 !important;
+      top: 0 !important;
+      xwidth: 100% !important;
+      page-break-inside: avoid;
+      font-weight: normal !important;
+    }
+
+    article > div {
+      width: 100% !important;
+    }
+
+    .appraisal-report { 
+
+    }
+
+    .dialog, #loadscreen, .sticky, #timer, #button-ready {
+      display: none;
+    }
+
+    .complaint-note {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(1.1);
+      transform:scale(1.1);
+      margin: 0 36px 46px 0;
+    }
+    .appraisal-report {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(1.2);
+      transform:scale(1.2);
+      margin: 0 90px 80px 0;
+    }
+    .d1045, .instructions {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(1.4);
+      transform:scale(1.4);
+      margin: 0 176px 240px 0;
+    }
+    .royal-complaint, .shopkeeper-complaint {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(2);
+      transform:scale(2);
+      margin: 0 300px 400px 0;
+    }
+
+}
+
 
 

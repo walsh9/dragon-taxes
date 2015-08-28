@@ -2,7 +2,7 @@
 WebFontConfig = {
   active: function() {
     $('#loadscreen').fadeOut(400);
-    console.log('webfonts loaded');
+    console.log('Fonts loaded.');
   },
   google: {
     families: ['Shadows Into Light','Waiting for the Sunrise','Annie Use Your Telescope','Kaushan Script','Roboto Mono','Satisfy','Great Vibes','Merriweather','Special Elite','Rye','Miltonian Tattoo','Sancreek']
@@ -609,7 +609,7 @@ for (var season = 0; season < seasons.length; season++) {
             ledgerTable.append(ledgerRow({day:day,season:seasons[season], description:raidtype}));
             ledgerTable.append(ledgerRow({description:"- Gold", amount:amount, balance:hoard.gold}));
             if (gemSchedule.indexOf(scehduleDay) > -1) {
-                var num_gems = getRandomInt(3,80);
+                var num_gems = getRandomInt(3,30);
                 var gem = getRandom(Object.keys(gemRates));
                 income.gems += num_gems * gemRates[gem];
                 gem = (gem == "ruby") ? " rubies" : " " + gem + "s";
