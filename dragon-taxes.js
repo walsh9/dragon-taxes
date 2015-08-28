@@ -648,7 +648,7 @@ for (var season = 0; season < seasons.length; season++) {
 }
 
 var callCourier = function() {
-    $("#courier").fadeIn();//.removeClass("js-hide").addClass("js-show");
+    $("#courier").fadeIn();
     done = false;
 };
 
@@ -670,20 +670,20 @@ var timer = function(){
 
 var startGame = function () {
     askedForExtraTime++;
-    $("#intro").fadeOut();//.removeClass("js-show").addClass("js-hide");
-    $("#howto").fadeOut();//.removeClass("js-show").addClass("js-hide");
-    $("#courier").fadeOut();//.removeClass("js-show").addClass("js-hide");
+    $("#intro").fadeOut();
+    $("#howto").fadeOut();
+    $("#courier").fadeOut();
     startTime = Date.now();
     timer();
 };
 
 var showHelp = function () {
-    $("#intro").fadeOut();//removeClass("js-show").addClass("js-hide");
-    $("#howto").fadeIn();//removeClass("js-hide").addClass("js-show");
+    $("#intro").hide();
+    $("#howto").show();
 };
 
 var line = function (id) {
-    if ($("#" + id).val() == 0) {
+    if ($("#" + id).val() == 0) { // counting blank fields as 0 with ==
       return(0);
     }
     return Number(stripCommas( parseInt($("#" + id).val()) ));
@@ -793,7 +793,9 @@ var evaluateTaxes = function() {
       $('#tips').append($("<li>You got it perfect!  Great Job! Are you sure you aren't a PDA yourself?</li>"));
     }
   }  
-  } $('#report').fadeIn();//.removeClass("js-hide").addClass("js-show");
+  } 
+  $('#courier').hide();
+  $('#report').show();
 };
 var restart = function(){
   location.reload();

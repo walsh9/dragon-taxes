@@ -590,6 +590,7 @@ border-bottom: 1px solid black;
     text-align: center;
     z-index: 1000;
     background: rgba(0,0,0,0.9);
+    overflow: scroll;
 }
 .dialog > div h1 {
   margin: 10px 0;
@@ -599,20 +600,13 @@ border-bottom: 1px solid black;
 }
 .dialog > div {
   width: 700px;
+  margin: 100px auto;
   background-color: #eec;
   color: #111;
   font-size: 16px;
   border: 3px solid #844;
   border-radius: 8px;
   padding: 15px;
-  max-height: 75%;
-  position: absolute;               
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  overflow:scroll;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 
 .js-hide {
