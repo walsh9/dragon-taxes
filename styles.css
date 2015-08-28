@@ -717,18 +717,31 @@ border-bottom: 1px solid black;
       margin: 0 90px 80px 0;
     }
     .d1045, .instructions {
-      -webkit-transform-origin: 0px 0px;
-      transform-origin: 0px 0px;
+      -webkit-transform-origin: center 0;
+      transform-origin: center 0;
       -webkit-transform:scale(1.4);
       transform:scale(1.4);
-      margin: 0 176px 240px 0;
+      display: block;
+      margin: 0 auto 240px;
+      border: none;
     }
-    .royal-complaint, .shopkeeper-complaint {
+    .ledger {
       -webkit-transform-origin: 0px 0px;
       transform-origin: 0px 0px;
+      -webkit-transform:scale(1.2);
+      transform:scale(1.2);
+      margin: 0 80px 100px 0;
+      display: block;
+      border: none;
+    }
+    .royal-complaint, .shopkeeper-complaint {
+      -webkit-transform-origin: center 0;
+      transform-origin: center 0;
       -webkit-transform:scale(2);
       transform:scale(2);
-      margin: 0 300px 400px 0;
+      margin: 0 auto 400px auto;
+      display: block;
+      border: none;
     }
 
 }
