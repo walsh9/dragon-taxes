@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dragon Tax Return Simulator 2015</title>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script|Roboto+Mono|Satisfy|Great+Vibes|Merriweather' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="styles.css"/>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</head>
+<body>
+
+
+<div id="timer">
+<div id="time">5:00</div>
+</div>
+<button id="button-ready" class="button-ready">I'm finished.</button>
+
+<article class="sticky">
+<div>
+Taxes are due in ten minutes!!!
+</div>
+</article>
+
+<article class="tax-form d1045 official">
+<div>
+<header>
+<h1>D-1045 Hoard Income Tax</h1>
+<span class="dnw">Do not write in this space <input id="dnw"></span>
+</header>
+<form id="d1045">
+<table>
+<tbody>
+    <tr><th rowspan="6">Hoard Gross Income</th>
+        <td><label><em>A1.</em><span>Gold Coins</span></label></td><td><input id="a1"></td></tr>
+    <tr><td><label><em>A2.</em><span>Precious Gems</span></label></td><td><input id="a2"></td></tr>
+    <tr><td><label><em>A3.</em><span>Magic Items. Attach form D-347</span></label></td><td><input id="a3"></td></tr>
+    <tr><td><label><em>A4.</em><span>Artwork. Attach form D-223</span></label></td><td><input id="a4"></td></tr>
+    <tr><td><label><em>A5.</em><span>Other</span></label></td><td><input id="a5"></td></tr>
+    <tr><td><label><em>A6.</em><span>Add lines A1 through A5</span></label></td><td><input id="a6"></td></tr>
+</tbody>
+<tbody>
+    <tr><th rowspan="7">Mayhem Adjustement</th>
+        <td><label><em>B1.</em><span>Agricultural Mayhem</span></label></td><td><input id="b1"></td></tr>
+    <tr><td><label><em>B2.</em><span>Provincial Mayhem</span></label></td><td><input id="b2"></td></tr>
+    <tr><td><label><em>B3.</em><span>Add lines B1 and B2</span></label></td><td><input id="b3"></td></tr>
+    <tr><td><label><em>B4.</em><span>Divide line B3 by ten</span></label></td><td><input id="b4"></td></tr>
+    <tr><td><label><em>B5.</em><span>Noble Mayhem</span></label></td><td><input id="b5"></td></tr>
+    <tr><td><label><em>B6.</em><span>Divide line B5 by two</span></label></td><td><input id="b6"></td></tr>
+    <tr><td><label><em>B7.</em><span>Add lines B4 and B6</span></label></td><td><input id="b7"></td></tr>
+    </tr>
+</tbody>
+<tbody>
+    <tr><th rowspan="2">Taxes owed</th>
+        <td><label><em>C1.</em><span>Add lines A6 and B7</span></label></td><td><input id="c1"></td></tr>
+    <tr><td><label><em>C2.</em><span>Divide line C1 by ten. This is your tax owed.</span></label></td><td><input id="c2"></td></tr>
+</tbody>
+</table>
+<div class="ouo">Space below this line for official use only.</div>
+</form>
+</div>
+</article>
+
+
+<article class="ledger">
+<div>
+<h1>Hoard Ledger</h1>
+<table id="ledger-table">
+  <tr><th>Date</th><th>Description</th><th>Amount</th><th>Gold Balance</th></tr>
+</table>
+</div>
+</article>
+
+<div id="intro" class="dialog js-show">
+  <div>
+  <h1>Dragon Tax Return Simulator 2015</h1>
+  <p>Welcome to a world of fantasy and magic! A world of mysterious humanoids like the erks, the drevs, the gronks, and the glorns. And above them all, high in mountain peaks, dwell the majestic dragons.  In this game you will see through the eyes of one of these magnificent creatures.</p>
+
+  <p>Dragons are wise, powerful, and long-lived but their pride brings them into conflict with other intelligent races. In 2008 D.Y. the High Dragon Council instituted a system of taxes and penalties to establish a facade of order, aid them in diplomatic negotiations to prevent all out war between the dragons and the humanoid peoples, and funnel the vast wealth of the dragons to themselves.</p>
+
+  <p>As majestic as you may be, you're just an average dragon and in no position to oppose the council's decrees. You've procrastinated once again and now there are just ten minutes until the courier arrives to collect your tax forms. Can you finish them in time? Grab a pen, paper, and a calculator, and press the "I'm ready!" button when you're ready to begin!
+  </p>
+  <div class="buttons"><button class="button-go">I'm ready!</button><button class="button-help">Wait, how do I play?!</button></div>
+  </div>
+</div>
+
+<div id="howto" class="dialog js-hide">
+  <div>
+  <h1>How to Play</h1>
+  <p>The goal of the game is to complete your D-1045 form on time without any errors. You can drag documents around with your mouse. Follow the instructions included with the form for an explanation of how to complete each line item.</p>
+  <p>A pen and paper will be handy.</p><p>A calculator is also highly recommended.</p>
+  <button class="button-go">I'm Ready!</button>
+  </div>
+</div>
+
+
+<div id="courier" class="dialog js-hide">
+  <div>
+  <h1>Times up!</h1>
+  <p>The official council tax courier arrives for your tax forms and payment.</p>
+  <div class="buttons">
+  <button class="button-finish">Here you go!</button>
+  <button class="button-go">Please hold on! I need five more minutes!</button>
+  </div>
+  </div>
+</div>
+
+<div id="report" class="dialog js-hide">
+  <div>
+  <h1>Assessment</h1>
+  <p>A few days later, over tea, you look over your paperwork with your friend, Verna Fairwing, Professional Dragon Accountant (PDA). She gives you an assessment of your return.
+  <h2>Breakdown</h2>
+  <ul id="final-report"></ul>
+  <h2>Tips</h2>
+  <ul id="tips"></ul>
+  <p class="thanks">Thanks for playing!</p>
+  <button class="button-restart">Play Again!</button>
+  </div>
+</div>
+
+<script id="farmer-complaint-note" type="text/x-handlebars-template">
+    <article class="complaint-note peasant-{{random 3}} folded">
+    <div>Hey {{dragonEpithet}}!
+    <br/>
+    <p>{{exasperatedComplaint}} 
+       You burnt up {{value}} gold worth of my crops! 
+       {{farmerAppeal}} 
+       {{peasantNotice}} 
+       {{partingShot}}</p>
+    <p>{{randomName}}, {{location}}</p>
+    <p>P.S. {{grovelling}}</p>
+    </div>
+    </article>
+</script>
+
+<script id="herder-complaint-note" type="text/x-handlebars-template">
+    <article class="complaint-note peasant-{{random 3}} folded">
+    <div>Hey {{dragonEpithet}}!
+    <br/>
+    <p>{{exasperatedComplaint}} 
+       You gobbled up {{value}} gold worth of my herds! 
+       {{herderAppeal}} 
+       {{peasantNotice}} 
+       {{partingShot}}</p>
+    <p>{{randomName}}, {{location}}</p>
+    <p>P.S. {{grovelling}}</p>
+    </div>
+    </article>
+</script>
+
+<script id="townie-complaint-note" type="text/x-handlebars-template">
+    <article class="complaint-note peasant-{{random 3}} folded">
+    <div>Hey {{dragonEpithet}}!
+    <br/>
+    <p>{{exasperatedComplaint}} 
+       {{townieGripe}}
+       {{townieAppeal}} 
+       I'm filing a complaint with the council for {{value}} G worth of damages!
+       {{partingShot}}</p>
+    <p>{{randomName}}, {{location}}</p>
+    <p>P.S. {{grovelling}}</p>
+    </div>
+    </article>
+</script>
+
+<script id="royal-complaint" type="text/x-handlebars-template">
+    <article class="royal-complaint">
+    <div>
+    <h1>Attention Dragon!</h1>
+    <p>You have encroached upon the lands of {{title}} {{name}} of {{location}}. This infraction has not gone unnoticed. Be advised that the High Dragon Council has been notified of damages in the sum of {{withCommas value}}. Please be more discreet in your future undertakings.</p>
+    <p class="from">{{aide}}, aide to the {{title}}</p>
+    </div>
+    </article>
+</script>
+
+<script id="magic-appraisal-report" type="text/x-handlebars-template">
+    <article class="appraisal-report official">
+    <div>
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Valuology</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+    <h1>Appraisal Report</h1>
+    <br/><em>Description of Article:</em>
+    <br/>Magic {{item}}, with {{runes}} runes, enchanted with {{enchantment}} magic.
+    <br/>
+    <br/><em>Quality:</em> {{quality}}
+    <br/><em>Aura Type:</em> {{aura}}
+    <br/><em>Condition:</em> {{condition}}
+    <br/><em>Value:</em> {{withCommas value}} G
+    <footer>
+    <span class="sigline">Appraised by Certified Valuator <span class="sig">Draknaz Werntooth</span></span>
+    </footer>
+    </div>
+    </article>
+</script>
+
+<script id="art-appraisal-report" type="text/x-handlebars-template">
+    <article class="appraisal-report official">
+    <div>
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Valuology</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+    <h1>Appraisal Report</h1>
+    <br/><em>Description of Article:</em>
+    <br/>{{descriptor}} {{item}} depicting a {{adjective}} {{subject}}.
+    <br/>
+    <br/><em>Quality:</em> {{quality}}
+    <br/><em>Condition:</em> {{condition}}
+    <br/><em>Value:</em> {{withCommas value}} G
+    <footer>
+    <span class="sigline">Appraised by Certified Valuator <span class="sig">Draknaz Werntooth</span></span>
+    </footer>
+    </div>
+    </article>
+</script>
+
+<script id="treasure-appraisal-report" type="text/x-handlebars-template">
+    <article class="appraisal-report official">
+    <div>
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Valuology</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+    <h1>Appraisal Report</h1>
+    <br/><em>Description of Article:</em>
+    <br/>{{adjective}} {{item}}
+    <br/>
+    <br/><em>Quality:</em> {{quality}}
+    <br/><em>Condition:</em> {{condition}}
+    <br/><em>Value:</em> {{withCommas value}} G
+    <footer>
+    <span class="sigline">Appraised by Certified Valuator <span class="sig">Draknaz Werntooth</span></span>
+    </footer>
+    </div>
+    </article>
+</script>
+
+<script id="ledger-row" type="text/x-handlebars-template">
+    <tr><td>{{date}}</td><td>{{description}}</td><td>{{withCommas amount}}</td><td>{{withCommas balance}}</td></tr>
+</script>
+
+<script id="main-tax-instructions" type="text/x-handlebars-template">
+<article class="main-tax-instructions p1 instructions official">
+<div>
+<h1>Instructions for filling out Form D-1045</h1>
+<p>Page 1 of 3</p>
+<h2>Section A</h2>
+<h3>Gross Income</h3>
+<p>Income from Gold, gems, and treausures.</p>
+<h2>Line A1</h2>
+<h3>Gold coins</h3>
+<p>Total value of gold coins you aquired this year.  Only include cash on this line.</p>
+<h2>Line A2</h2>
+<h3>Precious Gems</h3>
+<p>Diamonds, Emeralds, Rubies, Sapphires, and Opals must be reported. This year’s values are in the following table:</p>
+<table>
+<thead>
+<tr>
+<th>Gemstone</th>
+<th>2015 Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diamond</td>
+<td>{{rates.diamond}} G each</td>
+</tr>
+<tr>
+<td>Emerald</td>
+<td>{{rates.emerald}} G each</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>{{rates.ruby}} G each</td>
+</tr>
+<tr>
+<td>Sapphire</td>
+<td>{{rates.sapphire}} G each</td>
+</tr>
+<tr>
+<td>Opal</td>
+<td>{{rates.opal}} G each</td>
+</tr>
+</tbody>
+</table>
+<h2>Line A3</h2>
+<h3>Magic Items</h3>
+<p>Most magical items of any value must be reported. However there are several exceptions. Items enchanted with {{rules.exemptClasses.enchantments.[0]}} or {{rules.exemptClasses.enchantments.[1]}} magic do not need to be reported. Items with {{rules.exemptClasses.auras.[0]}} or {{rules.exemptClasses.auras.[1]}} auras are excepted as well. Finally, items engraved with {{rules.exemptClasses.runes.[0]}} or {{rules.exemptClasses.runes.[1]}} runes are also excepted. Please see a certified valuator for valuing you treasures.</p>
+<h2>Line A4</h2>
+<h3>Artwork</h3>
+<p>Any paintings, sculptures, tapestries, or vases valued at over {{rules.exemptionLimits.art}} G must be reported. Please note, figurines are not considered sculptures. Please see a certified valuator for valuing you treasures.</p>
+<h2>Line A5</h2>
+<h3>Other</h3>
+Any other treasures valued at over {{rules.exemptionLimits.treasure}} G must also be reported. Please see a certified valuator for valuing you treasures.</p>
+<h2>Line A6</h2>
+<p>This is the sum of lines A1 through A5.
+This is your Hoard Gross Income for this year.</p>
+</div>
+</article>
+    <article class="main-tax-instructions instructions p2 official">
+    <div>
+    <h1>Instructions for filling out Form D-1045</h1>
+    <p>Page 2 of 3</p>
+<h2>Section B</h2>
+<h3>Mayhem Adjusted Income</h3>
+<p>In an effort to maintain harmony and avoid all out war with the other races, tax penalties are assessed on certain types of mayhem. Records are kept of all grievances reported to the high dragon council. If you fail to report non-exempt mayhem you will be found in contempt of the council.</p>
+<h2>Line B1</h2>
+<h3>Agricultural Mayhem</h3>
+<p>All damages to crops valued at over {{rules.exemptionLimits.crops}} G and all damages to livestock valued at over {{rules.exemptionLimits.herds}} G must be reported.</p>
+<h2>Line B2</h2>
+<h3>Provincial Mayhem</h3>
+<p>All complaints from shopkeepers and other townsefolke valued at {{rules.exemptionLimits.provincial}} and over must be reported.</p>
+<h2>Line B3</h2>
+<h3>Commoner Mayhem Subtotal</h3>
+<p>Line B1 plus line B2. All non-excepted damage to commoners.</p>
+<h2>Line B4</h2>
+<h3>Commoner Mayhem Adjustment</h3>
+<p>Line B3 divided by ten. The typical 10% penalty. Always round down.</p>
+<h2>Line B5</h2>
+<h3>Noble Mayhem</h3>
+<p>Please report all damages to property of Kings, Queens, Princes, and Princesses, and other nobles. {{rules.exemptClasses.nobles.[0]}}s and {{rules.exemptClasses.nobles.[1]}}es are exempt and do NOT need to be reported.</p>
+<h2>Line B6</h2>
+<h3>Noble Mayhem Adjustment</h3>
+<p>Line B5 divided by two. A special 50% penalty as a token of our respect for nobles of other races. Always round down.</p>
+<h2>Line B6</h2>
+<h3>Mayhem Adjustment</h3>
+<p>Line B3 plus line B5.</p>
+</article>
+    <article class="main-tax-instructions instructions p3 official">
+    <div>
+    <h1>Instructions for filling out Form D-1045</h1>
+    <p>Page 3 of 3</p>
+
+<h2>Section C</h2>
+<h3>Amount Owed</h3>
+<p>You're almost done. It's time to see what you owe.</p>
+<h2>Line C1</h2>
+<h3>Mayhem Adjusted Gross Income</h3>
+<h2>Line C2</h2>
+<h3>Taxes Owed</h3>
+<p>Line C1 divided by ten. Always round down.</p>
+<p><b>Please pay this amount to the official tax courier on the spot.</b></p>
+    </article>
+</script>
+
+  <script src="dragon-drop.js"></script>
+  <script src="dragon-taxes.js"></script>
+</body>
+</html>
