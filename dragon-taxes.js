@@ -689,6 +689,65 @@ var line = function (id) {
     return Number(stripCommas( parseInt($("#" + id).val()) ));
 };
 
+var createManualScoreTable = function() {
+  var expected = {};
+  expected.a1 = income.gold;
+  expected.a2 = income.gems;
+  expected.a3 = income.magic;
+  expected.a4 = income.art;
+  expected.a5 = income.other;
+  var grossIncome = income.gold + income.gems + income.magic + income.art + income.other;
+  expected.a6 = grossIncome;  
+  expected.b1 = mayhem.peasants;
+  expected.b2 = mayhem.townsfolk;
+  var commonerMayhemSubtotal =  mayhem.peasants + mayhem.townsfolk;
+  expected.b3 = commonerMayhemSubtotal;
+  var commonerAdjustment = (mayhem.peasants + mayhem.townsfolk) / 10;
+  expected.b4 = commonerAdjustment;
+  expected.b5 = mayhem.nobles;
+  var nobleAdjustment = mayhem.nobles / 2;
+  expected.b6 = nobleAdjustment;
+  var mayhemAdjustment = commonerAdjustment + nobleAdjustment;
+  expected.b7 = mayhemAdjustment;
+  var mayhemAdjustedGrossIncome = grossIncome + mayhemAdjustment;
+  expected.c1 = mayhemAdjustedGrossIncome;
+  var taxesOwed = mayhemAdjustedGrossIncome / 10;
+  expected.c2 = taxesOwed;
+  cols = shuffle(["a","b","c"]);
+  rows = shuffle([1,2,3,4,5,6,7]);
+
+  var table = $('<table />');
+  for(var row = -1; row < rows.length; row++) {
+    var currentRow = $('<tr />');
+    for(var col = -1; col < cols.length; col++) {
+      var cell;
+      if ((row == -1) || (col == -1)) {
+        cell = $('<th />');
+      } else {
+        cell = $('<td />');
+      }
+      var c = cols[col] || "";
+      var r = (rows[row] || "").toString();
+      if ((row == -1) || (col == -1)) {
+        cell.text((c+r).toUpperCase());
+      } else if (expected[c+r] !== undefined) {
+        cell.text(numberWithCommas((expected[c+r])));
+      } else {
+        cell.text(numberWithCommas(getRandomInt(40,20000) * 10));
+      }
+      currentRow.append(cell);
+    }
+    table.append(currentRow);
+  }
+  console.log(table);
+  $("#solution-page div").append(table);
+};
+
+createManualScoreTable();
+
+
+
+
 var evaluateTaxes = function() {
   var diffs = {};
   diffs.a1 = line("a1") - income.gold;

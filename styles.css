@@ -637,7 +637,9 @@ border-bottom: 1px solid black;
         border: 1px solid #999;
         page-break-inside: avoid;
     }
-
+    .print-only {
+      display: block;
+    }
 
     /*
      * Printing Tables:
@@ -682,7 +684,7 @@ border-bottom: 1px solid black;
       display: inline-block;
       margin: 1em;
       text-align: left;
-      position: relative !important;;
+      position: relative !important;
       left: 0 !important;
       top: 0 !important;
       xwidth: 100% !important;
@@ -724,6 +726,7 @@ border-bottom: 1px solid black;
       display: block;
       margin: 0 auto 240px;
       border: none;
+      page-break-after: always;
     }
     .ledger {
       -webkit-transform-origin: 0px 0px;
@@ -733,6 +736,7 @@ border-bottom: 1px solid black;
       margin: 0 80px 100px 0;
       display: block;
       border: none;
+      page-break-after: always;
     }
     .royal-complaint, .shopkeeper-complaint {
       -webkit-transform-origin: center 0;
@@ -742,6 +746,29 @@ border-bottom: 1px solid black;
       margin: 0 auto 400px auto;
       display: block;
       border: none;
+      page-break-after: always;
+    }
+    #solution-page {
+      font-family: Merriweather, serif;
+      display: block;
+      width: 75%;
+      border: none;
+      page-break-after: always;
+    }
+    #solution-page table, #solution-page p {
+      border-spacing: 0px;
+      border-collapse: collapse;
+      width: 3.5in;
+    }
+    #solution-page th,
+    #solution-page td {
+      padding: 2px;
+      padding: 1em;
+      text-align: right;
+      border: 1px solid black;
+    } 
+    #solution-page th, {
+      text-align: center;  
     }
 
 }
