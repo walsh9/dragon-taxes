@@ -1,3 +1,27 @@
+/*Preload Assets*/
+WebFontConfig = {
+  active: function() {
+    $('#loadscreen').fadeOut(400);
+    console.log('webfonts loaded');
+  },
+  google: {
+    families: ['Shadows Into Light','Waiting for the Sunrise','Annie Use Your Telescope','Kaushan Script','Roboto Mono','Satisfy','Great Vibes','Merriweather','Special Elite','Rye','Miltonian Tattoo','Sancreek']
+  },
+  custom: {
+    families: ['typobackgroundsregular'],
+    urls: ['fonts/typoBackgrounds/typoBackgrounds.css']
+  }
+};
+
+(function(d) {
+  var wf = d.createElement('script'), s = d.scripts[0];
+  wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+  s.parentNode.insertBefore(wf, s);
+})(document);
+
+
+
+
 /* Helper methods */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -311,7 +335,6 @@ var barkeeperGripes = [
 ].concat(shopkeeperGripes);
 
 Handlebars.registerHelper('gripe', function(person) {
-  console.log(person);
   switch(person) {
     case "townie":
       return getRandom(townieGripes);
@@ -625,7 +648,7 @@ for (var season = 0; season < seasons.length; season++) {
 }
 
 var callCourier = function() {
-    $("#courier").removeClass("js-hide").addClass("js-show");
+    $("#courier").fadeIn();//.removeClass("js-hide").addClass("js-show");
     done = false;
 };
 
@@ -647,16 +670,16 @@ var timer = function(){
 
 var startGame = function () {
     askedForExtraTime++;
-    $("#intro").removeClass("js-show").addClass("js-hide");
-    $("#howto").removeClass("js-show").addClass("js-hide");
-    $("#courier").removeClass("js-show").addClass("js-hide");
+    $("#intro").fadeOut();//.removeClass("js-show").addClass("js-hide");
+    $("#howto").fadeOut();//.removeClass("js-show").addClass("js-hide");
+    $("#courier").fadeOut();//.removeClass("js-show").addClass("js-hide");
     startTime = Date.now();
     timer();
 };
 
 var showHelp = function () {
-    $("#intro").removeClass("js-show").addClass("js-hide");
-    $("#howto").removeClass("js-hide").addClass("js-show");
+    $("#intro").fadeOut();//removeClass("js-show").addClass("js-hide");
+    $("#howto").fadeIn();//removeClass("js-hide").addClass("js-show");
 };
 
 var line = function (id) {
@@ -770,7 +793,7 @@ var evaluateTaxes = function() {
       $('#tips').append($("<li>You got it perfect!  Great Job! Are you sure you aren't a PDA yourself?</li>"));
     }
   }  
-  } $('#report').removeClass("js-hide").addClass("js-show");
+  } $('#report').fadeIn();//.removeClass("js-hide").addClass("js-show");
 };
 var restart = function(){
   location.reload();
