@@ -592,7 +592,7 @@ border-bottom: 1px solid black;
   padding: 15px;
 }
 
-.js-hide {
+.js-hide, .print-only {
     display:none;
 }
 
