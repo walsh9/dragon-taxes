@@ -95,7 +95,6 @@ Taxes are due in ten minutes!!!
   </div>
 </div>
 
-
 <div id="courier" class="dialog js-hide">
   <div>
   <h1>Times up!</h1>
@@ -155,12 +154,19 @@ Taxes are due in ten minutes!!!
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
-       {{townieGripe}}
-       {{townieAppeal}} 
+       {{#if shopName}}
+         {{#if isBar}}
+           {{gripe "barkeeper"}}
+         {{else}}
+           {{gripe "shopkeeper"}}
+         {{/if}}
+       {{else}}
+         {{gripe "townie"}}
+       {{/if}} 
        I'm filing a complaint with the council for {{withCommas value}} G worth of damages!
        {{partingShot}}</p>
-    <p>{{randomName}}<br>{{location}}</p>
-    <p>P.S. {{grovelling}}</p>
+    <p>{{randomName}}{{#if shopName}}<br>{{shopName}}{{/if}}<br>{{location}}</p>
+    {{#if shopName}}{{else}}<p>P.S. {{grovelling}}{{/if}}</p>
     </div>
     </article>
 </script>
@@ -172,9 +178,13 @@ Taxes are due in ten minutes!!!
 <h1>{{shopName}}</h1>
 <span>{{location}}</span>
 </header>
+<p class="date">{{randomHumanoidDate}}</p>
 <p>Dear Dragon,</p>
-<p>{{townieGripe}}
-   {{townieAppeal}}
+<p>{{#if isBar}}
+      {{gripe "barkeeper"}}
+    {{else}}
+      {{gripe "shopkeeper"}}
+    {{/if}}
    I've filed a complaint with the council for {{withCommas value}} G worth of damages!
    {{partingShot}}
    <p class="sig">{{name}}<br>{{shopName}}<br>{{location}}</p>

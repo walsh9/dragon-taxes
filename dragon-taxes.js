@@ -155,6 +155,7 @@ Handlebars.registerHelper('date', function(person) {
   return ordinal(this.day) + " of " + this.season;
 });
 
+// The month names of the ground dwellers
 var humanoidMonths = ["Gnat", "Fly", "Flea", "Tick", "Spider", "Ant", "Bee", "Moth", "Roach", "Worm", "Beetle", "Weevil"];
 Handlebars.registerHelper('randomHumanoidDate', function() {
   return ordinal(getRandomInt(1,30)) + " of " + getRandom(humanoidMonths) + ", 2015.";
@@ -172,7 +173,6 @@ Handlebars.registerHelper('randomLetter', function() {
   return  getRandom("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz12345678".split(""));
 }); 
 
-
 var aideTitles = ["Aide", "Secretary", "Clerk", "Assistant", "Personal Aide", "Personal Clerk"];
 Handlebars.registerHelper('aideTitle', function() {
   return getRandom(aideTitles);
@@ -181,35 +181,45 @@ Handlebars.registerHelper('aideTitle', function() {
 Handlebars.registerHelper('dragonEpithet', function() {
   var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face"];
   return getRandom(epithets);
-}); 
-
+});
 
 /*Shop names*/
 var shopNouns = ["Elephant","Hedgehog","Grasshopper","Lamb","Eagle","Falcon","Lion","Hound","Swan","Horse","Ghost","Bishop","Snake","Serpent","Squirrel","Anchor","Bell","Lock","Key","Lute","Harp","Castle","Tower","Helm","Crown","Rose","Vine"];
 shopNouns = shopNouns.concat("Gnat", "Flea", "Tick", "Spider", "Ant", "Bee", "Moth", "Worm", "Beetle", "Weevil");
 shopNouns = shopNouns.concat(races.map(toTitleCase));
 var shopAdjectives = ["Blue","Golden","Gilded","Lucky","Wretched","Rusty","Brazen","Green","Red","Half","Old","Third","Second","First","Seventh","Silent","Wistful","Rowdy","Smiling","Laughing","Finest"];
-shopTypes = ["Anvil","Forge","Larder","Supplies","Traders","Tavern","Alehouse","Pub","Lodge","Inn","Planks","Candles","Goods","Fishes","Fishery","Pies","Meats","Grains","Textiles","Cloths","Fabrics","Ointments","Talismans","Pots","Glass","Lenses","Jewelry","Pharmacy","Apocethary","Delights","Wonders","Curiosities","Oddities","Sundries","Financing","Valuation","Shipping"];
-var randomShopName = function(ownerName) {
+var shopTypes = ["Anvil","Forge","Larder","Supplies","Traders","Planks","Candles","Goods","Fishes","Fishery","Pies","Meats","Grains","Textiles","Cloths","Fabrics","Ointments","Talismans","Pots","Glass","Lenses","Jewelry","Pharmacy","Apocethary","Delights","Wonders","Curiosities","Oddities","Sundries","Financing","Valuation","Shipping","Trinkets","Wholesale"];
+var barTypes = ["Tavern","Alehouse","Pub","Lodge","Inn","House"];
+var randomShopName = function(ownerName, isBar) {
   ownerName = ownerName || randomName();
   ownerGivenName = ownerName.split(" ")[0];
   ownerSurname = ownerName.split(" ")[1];
   var chance = Math.random();
-  if        (chance < 0.05) {
-    return  getRandom(["Two","Three","Four","Seven","Ten","One Hundred"]) + 
-      " " + getRandom(shopNouns) + "s";
-  } else if (chance < 0.10) {
-    return  "The " + getRandom(nobleTitles.concat(races.map(toTitleCase)).map(function(t){return t + "'s";})) + " " + getRandom(shopNouns);
-  } else if (chance < 0.35) {
-    return  "The " + getRandom(shopNouns) + " and The "  + getRandom(shopNouns);
-  } else if (chance < 0.50) {
-    return  "The " + getRandom(shopAdjectives) + " " + getRandom(shopNouns);
-  } else if (chance < 0.85) {
-    return  getRandom(shopAdjectives) + " " + getRandom(shopNouns) + " " + getRandom(shopTypes);
-  } else if (chance < 0.92) {
-  return  ownerSurname + " " + getRandom(shopTypes);
+  if (isBar) {
+    if        (chance < 0.10) { // "n things"
+      return  getRandom(["Two","Three","Four","Seven","Ten","One Hundred"]) + 
+        " " + getRandom(shopNouns) + "s";
+    } else if (chance < 0.30) { // "The noble/race's thing"
+      return  "The " + getRandom(nobleTitles.concat(races.map(toTitleCase)).map(function(t){return t + "'s";})) + " " + getRandom(shopNouns);
+    } else if (chance < 0.60) { // "The thing and the otherthing"
+      return  "The " + getRandom(shopNouns) + " and The "  + getRandom(shopNouns);
+    } else if (chance < 0.80) { // "The adjective thing"
+      return  "The " + getRandom(shopAdjectives) + " " + getRandom(shopNouns);
+    } else { // "adjective thing bar"
+      return  getRandom(shopAdjectives) + " " + getRandom(shopNouns) + " " + getRandom(barTypes);
+    }
+  } else { // notBar
+    if        (chance < 0.10) { // "n things shop"
+      return  getRandom(["Two","Three","Four","Seven","Ten","One Hundred"]) + 
+        " " + getRandom(shopNouns) + "s "  + getRandom(shopTypes);
+    } else if (chance < 0.45) { // "adjective thing shop"
+      return  getRandom(shopAdjectives) + " " + getRandom(shopNouns) + " " + getRandom(shopTypes);
+    } else if (chance < 0.80) { // "lastname shop"
+      return  ownerSurname + " " + getRandom(shopTypes);
+    } else { // "firstname's shop"
+      return ownerGivenName + "'s " + getRandom(shopTypes);
+    }
   }
-  return ownerGivenName + "'s " + getRandom(shopTypes);
 };
 
 /* Townnames */
@@ -223,8 +233,7 @@ var randomTownName = function() {
   return getRandom(townPrefixes) + randomFamilyName();
 };
 
-
-  var exasperatedComplaints = [
+var exasperatedComplaints = [
     "Enough is enough!",
     "What the hell!",
     "Why is it always me?",
@@ -246,17 +255,21 @@ Handlebars.registerHelper('exasperatedComplaint', function() {
     "I have children to feed",
     "I have a family to feed!",
     "You've ruined me!",
-    "Please show mercy!",    
+    "Please show mercy!",
+    "I have nothing left!",
     ];
   var farmerAppeals = [
     "My fields will never be fertile again.",
     "I've nothing left but fields of ash.",
-    "My farmland is in ruins."
+    "My farmland is in ruins.",
+    "Four months of tending my fields wasted!",
     ];
   var herderAppeals = [
     "My fields are littered in bones.",
     "I've but a single sheep left.",
     "My fields are permeated by an enduring stench of death.",
+    "I still find new bones in the field every day.",
+    "I'm down to a two cows.",
     ];
 Handlebars.registerHelper('farmerAppeal', function() {
   return getRandom(peasantAppeals.concat(farmerAppeals));   
@@ -271,25 +284,42 @@ var peasantNotices = [
     "I've registered a formal complaint!",
     "Consider this my notice of a formal complaint to your council!",
     "I've told the dragon council all about it!",
-    "I'm letting the council know."
+    "I'm letting the council know.",
     ];
 Handlebars.registerHelper('peasantNotice', function() {
     return getRandom(peasantNotices);
 });
 
 var townieGripes = [
-  "Your last flyby blew the roof off of my shop!",
-  "When you raided the town last week you really did a number on my shop!",
-  "You blew out all my windows of my inn on your last flyby",
-  "You wrecked my storefront!",
-  "Last time you came to town you left a hole the size of a dragon foot in my roof!",
-  "You scared off all my best customers!",
   "On your last visit to town you kicked over my shed!",
-  "Your firebreath scorched the walls of my tavern!",
-  "You have utterly destroyed my business.",
+  "Last time you came to town you left a hole the size of a dragon foot in my roof!",
+  "When you flew over town you made my roof collapse!",
+  "That rocky landing in town tipped over all my shelves!"
 ];
-Handlebars.registerHelper('townieGripe', function() {
-    return getRandom(townieGripes);
+var shopkeeperGripes = [
+  "When you raided the town last week you really did a number on my shop!",
+  "You have utterly destroyed my business.",
+  "You scared off all my best customers!",
+  "Your last flyby blew the roof off of my shop!",
+  "You wrecked my storefront!",
+];
+var barkeeperGripes = [
+  "Your firebreath scorched the walls of my tavern!",
+  "You blew out all my windows of my inn on your last flyby",
+  "You knocked over all my bottles!",
+  "It wasn't funny when you roared and made my customers spill their drinks!",
+].concat(shopkeeperGripes);
+
+Handlebars.registerHelper('gripe', function(person) {
+  console.log(person);
+  switch(person) {
+    case "townie":
+      return getRandom(townieGripes);
+    case "shopkeeper":
+      return getRandom(shopkeeperGripes);
+    case "barkeeper":
+      return getRandom(barkeeperGripes);
+  }
 });
 
 var partingShots = [
@@ -304,7 +334,6 @@ var partingShots = [
 Handlebars.registerHelper('partingShot', function() {
     return getRandom(partingShots);
 });
-
 
 var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face"];
 Handlebars.registerHelper('dragonEpithet', function() {
@@ -339,7 +368,6 @@ var royalComplaint = Handlebars.compile($("#royal-complaint").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
 var instructions = Handlebars.compile($("#main-tax-instructions").html());
 
-
 var gemRates = {
     diamond:  getRandomInt(280, 360) * 10,
     emerald:  getRandomInt(210, 300) * 10,
@@ -351,7 +379,6 @@ var gemRates = {
 };
 var seasons = ["Frost","Feast","Roast","Xaust"]; // The four seasons of the dragon fiscal calendar
 var days = 92;
-
 
 /* Items */
 var MagicItem = function() {
@@ -399,8 +426,8 @@ var ShopkeeperGrievance = function() {
   this.name = randomName();
   this.value = getRandomInt(10, 600) * 10;
   this.location =  randomTownName() + ", " + getRandom(lands);
-  this.isTavern = Math.random() < 0.35;
-  this.shopName = randomShopName(this.name, this.isTavern);
+  this.isBar = Math.random() < 0.35;
+  this.shopName = randomShopName(this.name, this.isBar);
 };
 
 var RoyalGrievance = function() {
@@ -451,58 +478,64 @@ var taxRules = {
     }
 };
 
-
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
-
 complaintStacker = new Stacker($('body'), 12, 22, -2, -2, 'right', 'bottom');
-var complaints = [];
+var complaints= [];
+var bigNotes = [];
+var smallNotes = [];
 var mayhem = {};
 mayhem.peasants = 0;
 mayhem.townsfolk = 0;
 mayhem.nobles = 0;
 
+var numNobleComplaints = getRandomInt(3, 4);
+var numPeasantComplaints = getRandomInt(3, 4);
+var numTownsefolkeComplaints = getRandomInt(3, 4);
 
-var nobleComplaints = getRandomInt(3, 5);
-for (var i = 0; i < nobleComplaints; i++) {
+for (var i = 0; i < numNobleComplaints; i++) {
     item = new RoyalGrievance();
+    bigNotes.push(royalComplaint(item));
     complaints.push(item);
     if (taxRules.exemptClasses.nobles.indexOf(item.title) === -1) {
         mayhem.nobles += item.value;
     }
-    complaintStacker.add(royalComplaint(item));
 }    
 
-var townieComplaints = getRandomInt(2, 4);
-for (i = 0; i < townieComplaints; i++) {
-    item = new TownieGrievance();
-    complaints.push(item);
-    if (item.value > taxRules.exemptionLimits.provincial) {
-        mayhem.townsfolk += item.value;
-    }
-    complaintStacker.add(townieComplaint(item));
-}
-
-var peasantComplaints = getRandomInt(3, 5);
-for (i = 0; i < peasantComplaints; i++) {
+for (i = 0; i < numPeasantComplaints; i++) {
     item = new PeasantGrievance();
+    if (item.type === "crops") {
+      smallNotes.push(farmerComplaint(item));
+    } else { //herds
+      smallNotes.push(herderComplaint(item));
+    }
     complaints.push(item);
     if ((item.type === "crops" && item.value > taxRules.exemptionLimits.crops) ||
         (item.type === "herds" && item.value > taxRules.exemptionLimits.herds)) {
         mayhem.peasants += item.value;
     }
-    if (item.type === "crops")
-      complaintStacker.add(farmerComplaint(item));
-    else //herds
-      complaintStacker.add(herderComplaint(item));
 }
-
-var shopkeeperComplaints = getRandomInt(7, 9);
-for (i = 0; i < shopkeeperComplaints; i++) {
-    item = new ShopkeeperGrievance();
-    complaints.push(item);
-    complaintStacker.add(shopkeeperComplaint(item));
+for (i = 0; i < numTownsefolkeComplaints; i++) {
+  var chance = Math.random();
+  if (chance < 0.25) { // 25% of small complaint note
+    item = (Math.random() < 0.5) ? new TownieGrievance() : new ShopkeeperGrievance();
+    smallNotes.push(townieComplaint(item));
+  } else { // 75% chance of fancy shop note note
+    item = new ShopkeeperGrievance();    
+    bigNotes.push(shopkeeperComplaint(item));
+  }
+  complaints.push(item);
+  if (item.value > taxRules.exemptionLimits.provincial) {
+    mayhem.townsfolk += item.value;
+  }
 }
+// Shuffle complaint notes
+shuffle(bigNotes).forEach(function(note) {
+  complaintStacker.add.call(complaintStacker, note);
+});
+shuffle(smallNotes).forEach(function(note) {
+  complaintStacker.add.call(complaintStacker, note);
+});
 
 var hoard = {};
 hoard.gold = getRandomInt(100000,10000000);
@@ -592,7 +625,6 @@ for (var season = 0; season < seasons.length; season++) {
 }
 
 var callCourier = function() {
-    console.log("courier");
     $("#courier").removeClass("js-hide").addClass("js-show");
     done = false;
 };
@@ -634,8 +666,6 @@ var line = function (id) {
     return Number(stripCommas( parseInt($("#" + id).val()) ));
 };
 
-
-
 var evaluateTaxes = function() {
   var diffs = {};
   diffs.a1 = line("a1") - income.gold;
@@ -671,7 +701,6 @@ var evaluateTaxes = function() {
   } else {
   for (var l in diffs) {
     if (diffs.hasOwnProperty(l)) {
-      console.log(l);
       var difference = diffs[l];
       result = "<li><b>Line " + l.toUpperCase() +":</b> ";
       if (["a1","a2","a3","a4","a5","b1","b2","b5"].indexOf(l) > -1) {
