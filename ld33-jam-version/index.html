@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dragon Tax Return Simulator 2015</title>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light|Waiting+for+the+Sunrise|Annie+Use+Your+Telescope|Kaushan+Script|Roboto+Mono|Satisfy|Great+Vibes|Merriweather' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="styles.css"/>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -10,12 +11,9 @@
 </head>
 <body>
 
-<div id="loadscreen">
-<div>Loading...</div>
-</div>
 
 <div id="timer">
-<div id="time">9:59</div>
+<div id="time">5:00</div>
 </div>
 <button id="button-ready" class="button-ready">I'm finished.</button>
 
@@ -27,18 +25,18 @@ Taxes are due in ten minutes!!!
 
 <article class="tax-form d1045 official">
 <div>
-<form id="d1045">
 <header>
 <h1>D-1045 Hoard Income Tax</h1>
 <span class="dnw">Do not write in this space <input id="dnw"></span>
 </header>
+<form id="d1045">
 <table>
 <tbody>
     <tr><th rowspan="6">Hoard Gross Income</th>
         <td><label><em>A1.</em><span>Gold Coins</span></label></td><td><input id="a1"></td></tr>
     <tr><td><label><em>A2.</em><span>Precious Gems</span></label></td><td><input id="a2"></td></tr>
-    <tr><td><label><em>A3.</em><span>Magic Items</span></label></td><td><input id="a3"></td></tr>
-    <tr><td><label><em>A4.</em><span>Artwork</span></label></td><td><input id="a4"></td></tr>
+    <tr><td><label><em>A3.</em><span>Magic Items. Attach form D-347</span></label></td><td><input id="a3"></td></tr>
+    <tr><td><label><em>A4.</em><span>Artwork. Attach form D-223</span></label></td><td><input id="a4"></td></tr>
     <tr><td><label><em>A5.</em><span>Other</span></label></td><td><input id="a5"></td></tr>
     <tr><td><label><em>A6.</em><span>Add lines A1 through A5</span></label></td><td><input id="a6"></td></tr>
 </tbody>
@@ -96,6 +94,7 @@ Taxes are due in ten minutes!!!
   </div>
 </div>
 
+
 <div id="courier" class="dialog js-hide">
   <div>
   <h1>Times up!</h1>
@@ -120,16 +119,8 @@ Taxes are due in ten minutes!!!
   </div>
 </div>
 
-<article id="solution-page" class="print-only">
-<div>
-<h1>Dragon Tax Return Simulator 2015</h1>
-<h2>Answer Check Table for Print and Play</h2>
-<p> Match the column and row on the table below with the line items on your D-1045.  For example, your result for line A1 should match the value at column A, row 1. (Lines that do not exist on the chart have been filled with random values)</p>
-</div>
-</article>
-
 <script id="farmer-complaint-note" type="text/x-handlebars-template">
-    <article class="complaint-note font-variant-{{random 3}} font-size-variant-{{random 3}} paper-style-variant-{{random 3}} paper-shade-variant-{{random 4}}">
+    <article class="complaint-note peasant-{{random 3}} folded">
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
@@ -144,7 +135,7 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="herder-complaint-note" type="text/x-handlebars-template">
-    <article class="complaint-note font-variant-{{random 3}} font-size-variant-{{random 3}} paper-style-variant-{{random 3}} paper-shade-variant-{{random 4}}">
+    <article class="complaint-note peasant-{{random 3}} folded">
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
@@ -159,56 +150,26 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="townie-complaint-note" type="text/x-handlebars-template">
-    <article class="complaint-note font-variant-{{random 4}} font-size-variant-{{random 3}} paper-style-variant-{{random 3}} paper-shade-variant-{{random 4}}">
+    <article class="complaint-note peasant-{{random 3}} folded">
     <div>Hey {{dragonEpithet}}!
     <br/>
     <p>{{exasperatedComplaint}} 
-       {{#if shopName}}
-         {{#if isBar}}
-           {{gripe "barkeeper"}}
-         {{else}}
-           {{gripe "shopkeeper"}}
-         {{/if}}
-       {{else}}
-         {{gripe "townie"}}
-       {{/if}} 
-       I'm filing a complaint with the council for {{withCommas value}} G worth of damages!
+       {{townieGripe}}
+       {{townieAppeal}} 
+       I'm filing a complaint with the council for {{value}} G worth of damages!
        {{partingShot}}</p>
-    <p>{{randomName}}{{#if shopName}}<br>{{shopName}}{{/if}}<br>{{location}}</p>
-    {{#if shopName}}{{else}}<p>P.S. {{grovelling}}{{/if}}</p>
+    <p>{{randomName}}, {{location}}</p>
+    <p>P.S. {{grovelling}}</p>
     </div>
     </article>
 </script>
 
-<script id="shopkeeper-complaint" type="text/x-handlebars-template">
-<article class="shopkeeper-complaint logo-font-variant-{{random 3}} symbol-variant-{{random 3}} paper-style-variant-{{random 5}} paper-shade-variant-{{random 4}} header-variant-{{random 3}} {{#if isTavern}}tavern{{/if}}">
-<header>
-<span class="symbol">{{randomLetter}}</span>
-<h1>{{shopName}}</h1>
-<span>{{location}}</span>
-</header>
-<p class="date">{{randomHumanoidDate}}</p>
-<p>Dear Dragon,</p>
-<p>{{#if isBar}}
-      {{gripe "barkeeper"}}
-    {{else}}
-      {{gripe "shopkeeper"}}
-    {{/if}}
-   I've filed a complaint with the council for {{withCommas value}} G worth of damages!
-   {{partingShot}}
-   <p class="sig">{{name}}<br>{{shopName}}<br>{{location}}</p>
-</p>
-</article>
-</script>
-
 <script id="royal-complaint" type="text/x-handlebars-template">
-    <article class="royal-complaint font-variant-{{random 4}} font-size-variant-{{random 3}} paper-shade-variant-{{random 4}} paper-style-variant-{{random 5}} {{location}}">
+    <article class="royal-complaint">
     <div>
-    <img src="i/{{location}}.png"/ >
-    <p class="date">{{randomHumanoidDate}}</p>
-    <p class="to">Dear Dragon,</p>
-    <p class="body">I write to remind you that you have encroached upon the lands of {{title}} {{name}} of {{location}}. This infraction has not gone unnoticed. Be advised that the High Dragon Council has been notified of damages in the sum of {{withCommas value}} G. Please be more discreet in your future undertakings.</p>
-    <p class="from">{{aide}}{{fancyTitle 0.5}}<br>{{aideTitle}} to the {{title}}</p>
+    <h1>Attention Dragon!</h1>
+    <p>You have encroached upon the lands of {{title}} {{name}} of {{location}}. This infraction has not gone unnoticed. Be advised that the High Dragon Council has been notified of damages in the sum of {{withCommas value}}. Please be more discreet in your future undertakings.</p>
+    <p class="from">{{aide}}, aide to the {{title}}</p>
     </div>
     </article>
 </script>
@@ -305,35 +266,35 @@ Taxes are due in ten minutes!!!
 <tbody>
 <tr>
 <td>Diamond</td>
-<td>{{withCommas rates.diamond}} G each</td>
+<td>{{rates.diamond}} G each</td>
 </tr>
 <tr>
 <td>Emerald</td>
-<td>{{withCommas rates.emerald}} G each</td>
+<td>{{rates.emerald}} G each</td>
 </tr>
 <tr>
 <td>Ruby</td>
-<td>{{withCommas rates.ruby}} G each</td>
+<td>{{rates.ruby}} G each</td>
 </tr>
 <tr>
 <td>Sapphire</td>
-<td>{{withCommas rates.sapphire}} G each</td>
+<td>{{rates.sapphire}} G each</td>
 </tr>
 <tr>
 <td>Opal</td>
-<td>{{withCommas rates.opal}} G each</td>
+<td>{{rates.opal}} G each</td>
 </tr>
 </tbody>
 </table>
 <h2>Line A3</h2>
 <h3>Magic Items</h3>
-<p>All newly acquired magical items, regardless of value, must be reported with the following exceptions. Items enchanted with {{rules.exemptClasses.enchantments.[0]}} or {{rules.exemptClasses.enchantments.[1]}} magic need not be reported. Items with {{rules.exemptClasses.auras.[0]}} or {{rules.exemptClasses.auras.[1]}} auras are excepted as well. Finally, items engraved with {{rules.exemptClasses.runes.[0]}} or {{rules.exemptClasses.runes.[1]}} runes are also excepted. Please see a certified valuator for valuing your treasures.</p>
+<p>Most magical items of any value must be reported. However there are several exceptions. Items enchanted with {{rules.exemptClasses.enchantments.[0]}} or {{rules.exemptClasses.enchantments.[1]}} magic do not need to be reported. Items with {{rules.exemptClasses.auras.[0]}} or {{rules.exemptClasses.auras.[1]}} auras are excepted as well. Finally, items engraved with {{rules.exemptClasses.runes.[0]}} or {{rules.exemptClasses.runes.[1]}} runes are also excepted. Please see a certified valuator for valuing you treasures.</p>
 <h2>Line A4</h2>
 <h3>Artwork</h3>
-<p>All newly acquired paintings, sculptures, tapestries, or vases valued at over {{withCommas rules.exemptionLimits.art}} G must be reported. Please note, figurines are not considered sculptures. Please see a certified valuator for valuing your treasures.</p>
+<p>Any paintings, sculptures, tapestries, or vases valued at over {{rules.exemptionLimits.art}} G must be reported. Please note, figurines are not considered sculptures. Please see a certified valuator for valuing you treasures.</p>
 <h2>Line A5</h2>
 <h3>Other</h3>
-Any other newly acquired treasures valued at over {{withCommas rules.exemptionLimits.treasure}} G must also be reported. Please see a certified valuator for valuing your treasures.</p>
+Any other treasures valued at over {{rules.exemptionLimits.treasure}} G must also be reported. Please see a certified valuator for valuing you treasures.</p>
 <h2>Line A6</h2>
 <p>This is the sum of lines A1 through A5.
 This is your Hoard Gross Income for this year.</p>
@@ -345,28 +306,28 @@ This is your Hoard Gross Income for this year.</p>
     <p>Page 2 of 3</p>
 <h2>Section B</h2>
 <h3>Mayhem Adjusted Income</h3>
-<p>In an effort to maintain harmony and avoid all out war with the ground-dwelling races, tax penalties are assessed on certain types of mayhem. Records are kept of all grievances reported to the high dragon council. If you fail to report non-execpted mayhem you will be found in contempt of the council.</p>
+<p>In an effort to maintain harmony and avoid all out war with the other races, tax penalties are assessed on certain types of mayhem. Records are kept of all grievances reported to the high dragon council. If you fail to report non-exempt mayhem you will be found in contempt of the council.</p>
 <h2>Line B1</h2>
 <h3>Agricultural Mayhem</h3>
-<p>All damages to crops valued at over {{withCommas rules.exemptionLimits.crops}} G and all damages to livestock valued at over {{withCommas rules.exemptionLimits.herds}} G must be reported.</p>
+<p>All damages to crops valued at over {{rules.exemptionLimits.crops}} G and all damages to livestock valued at over {{rules.exemptionLimits.herds}} G must be reported.</p>
 <h2>Line B2</h2>
 <h3>Provincial Mayhem</h3>
-<p>All complaints from shopkeepers and other townsefolke valued at {{withCommas rules.exemptionLimits.provincial}} and over must be reported.</p>
+<p>All complaints from shopkeepers and other townsefolke valued at {{rules.exemptionLimits.provincial}} and over must be reported.</p>
 <h2>Line B3</h2>
 <h3>Commoner Mayhem Subtotal</h3>
 <p>Line B1 plus line B2. All non-excepted damage to commoners.</p>
 <h2>Line B4</h2>
 <h3>Commoner Mayhem Adjustment</h3>
-<p>Line B3 divided by ten. The typical 10% rate. Always round down.</p>
+<p>Line B3 divided by ten. The typical 10% penalty. Always round down.</p>
 <h2>Line B5</h2>
 <h3>Noble Mayhem</h3>
-<p>Please report all damages to property of Kings, Queens, Princes, and Princesses, and other nobles. Damages against {{rules.exemptClasses.nobles.[0]}}s and {{rules.exemptClasses.nobles.[1]}}es are excepted and do NOT need to be reported.</p>
+<p>Please report all damages to property of Kings, Queens, Princes, and Princesses, and other nobles. {{rules.exemptClasses.nobles.[0]}}s and {{rules.exemptClasses.nobles.[1]}}es are exempt and do NOT need to be reported.</p>
 <h2>Line B6</h2>
 <h3>Noble Mayhem Adjustment</h3>
-<p>Line B5 divided by two. A special 50% rate as a token of our respect for nobles of the ground-dwelling races. Always round down.</p>
-<h2>Line B7</h2>
+<p>Line B5 divided by two. A special 50% penalty as a token of our respect for nobles of other races. Always round down.</p>
+<h2>Line B6</h2>
 <h3>Mayhem Adjustment</h3>
-<p>Line B3 plus line B5. This is the penalty that will be added to your income for taxation purposes.</p>
+<p>Line B3 plus line B5.</p>
 </article>
     <article class="main-tax-instructions instructions p3 official">
     <div>
@@ -378,7 +339,6 @@ This is your Hoard Gross Income for this year.</p>
 <p>You're almost done. It's time to see what you owe.</p>
 <h2>Line C1</h2>
 <h3>Mayhem Adjusted Gross Income</h3>
-<p>Line A6 plus line B7. This is your hoard gross income plus your mayhem adjustment.</p>
 <h2>Line C2</h2>
 <h3>Taxes Owed</h3>
 <p>Line C1 divided by ten. Always round down.</p>

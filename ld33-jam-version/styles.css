@@ -1,0 +1,431 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+
+
+body{
+  background: url(bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-size: 10px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font:  Merriweather, serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#timer {
+    background-image: url(timer.png);
+    background-size: cover;
+    position: absolute;
+    height: 477px;
+    width: 266px;
+    top: -50px;
+    right: -25px;
+    -webkit-transform: scale(0.8,0.8);
+    transform: scale(0.8,0.8);
+}
+#timer #time {
+    color: rgba(100,255,255,0.4);
+    font-size: 58px;
+    font-family: Roboto Mono, sans-serif;
+    position: absolute;
+    top: 160px;
+    left: 64px;
+}
+#button-ready {
+    padding: 5px;
+    border-width: 0px;
+    border-radius: 5px;
+    background: rgba(30,30,80,0.8);
+    color: #ddd;
+    font-size: 16px;
+    font-family: "Kaushan Script", sans-serif;
+    position: fixed;
+    bottom: 5px;
+    left: 5px; 
+    cursor:pointer;
+    z-index: 1000; 
+}
+
+button {
+    margin: 5px;
+    padding: 5px 10px 5px 5px;
+    border-width: 0px;
+    border-radius: 5px;
+    cursor:pointer;
+    background: rgba(30,30,80,1);
+    color: #ddd;
+    font-size: 16px;
+    font-family: "Kaushan Script", sans-serif;
+}
+
+article {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-color: #f8f8f8;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5),  inset 0 0 100px 15px rgba(50,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5),  inset 0 0 100px 15px rgba(50,0,0,0.3);
+  position: absolute;
+  padding: 0;
+}
+
+article div {
+  padding: 10px;
+  height: 100%;
+}
+
+.peasant-1 {
+  font-family: "Shadows Into Light", cursive;    
+}
+.peasant-2 {
+  font-family: "Waiting for the Sunrise", cursive;    
+}
+.peasant-3 {
+  font-family: "Annie Use Your Telescope", cursive;    
+}
+
+.sticky {
+  background-color: #f6f633;
+  width: 150px;
+  height: 150px;
+  right: 230px;
+  top: 30px;
+  font-family: "Kaushan Script", cursive;
+  color: rgba(60,20,20,0.8);
+  font-size: 25px;
+}
+
+/* Instructions */
+.instructions {
+    width: 430px;
+    min-height: 600px;
+    height: auto;
+}
+
+.instructions h1, .instructions h2, .instructions h3 {
+  font-family: sans-serif;
+  margin: 0;
+}
+.instructions h1 {
+    size: 14px;
+}
+.instructions h2 {
+    margin-top: 3px;
+    size: 10px;
+}
+.instructions h3 {
+    size: 10px;
+}
+.instructions p {
+    margin: 2px 0;
+}
+.instructions table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.instructions table td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100px;
+}
+
+
+/* Tax Form */
+.tax-form, .special-form {
+  background-color: #f8f8f8;
+  width: 430px;
+  height: 600px;  
+}
+.tax-form h1 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+.tax-form table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+.tax-form table tbody th {
+    width: 50px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+}
+.tax-form table tbody tr:first-child td {
+    border-top: solid 1px black;
+}
+.tax-form table tbody tr:last-child td {
+    border-bottom: solid 1px black;
+}
+.tax-form table em {
+    display: inline-block;
+    font-style: normal;
+    font-weight: bold;
+    width: 25px;
+}
+
+
+.tax-form table th + td,
+.tax-form table td:first-child {
+    width: 250px;
+    vertical-align: bottom;
+}
+
+.tax-form #d347 td {
+  border-width: 1px 1px 1px 0;
+  border-color: black; 
+  border-style: solid; 
+white-space: nowrap;
+  width: 100px;
+}
+.tax-form #d347 td:last-child {
+  border-width: 1px 1px 1px 0;
+  border-color: black; 
+  border-style: solid; 
+  width: 80px;
+}
+
+.tax-form #d347 td input {
+  border: 0;
+  width: 85%;
+  text-align: left;
+  margin: 0;  
+}
+.tax-form #d347 td:last-child input {
+  text-align: right;
+}
+
+.tax-form table label {
+    display: inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tax-form table span:after {
+    content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ';
+}
+.tax-form tr td:last-child {
+    border: 1px solid black;    
+}
+.tax-form table input {
+    background: transparent;
+    width: 60px;
+    text-align: right;
+    font-family: "Kaushan Script", cursive;
+    border-width:0;
+}
+.tax-form header input {
+     background: transparent;
+     border: 1px solid;   
+     font-family: "Kaushan Script", cursive;
+}
+.dnw {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+}
+.ouo {
+border-bottom: 1px solid black;
+
+}
+
+/* Ledger */
+.ledger {
+    width: 400px;
+    min-height: 600px;
+    height: auto;
+    font-family: "Kaushan Script", cursive;
+    font-size: 12px;
+    line-height: 16px;
+    background-image: repeating-linear-gradient(180deg,rgb(255,255,200),rgb(255,255,200) 17px, rgb(200,100,100) 17px, rgb(255,200,200) 18px);
+
+}
+.ledger h1 {
+    font-size 16px;
+    margin-top: 10px;
+    margin-bottom: 21px;
+}
+.ledger table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    vertical-align: top;
+}
+
+.ledger table tr td:nth-child(1) {
+    width: 100px;
+}
+
+.ledger table tr td:nth-child(2) {
+    width: 200px;
+}
+
+.ledger table tr td:nth-child(4) {
+    width: 100px;
+    text-align: right;
+}
+
+.special-form {
+   height: 300px;  
+}
+
+.official, .official h1 {
+  font-family: sans-serif;
+}
+
+
+
+/* Appraisal Reports*/
+.appraisal-report {
+  width: 450px;
+  height: 350px;
+  font-size: 12px;  
+}
+.appraisal-report h1 {
+  margin: 10px 0;
+  padding: 0;
+  text-align: center; 
+  font-family: Merriweather, serif;
+  font-variant: small-caps;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.appraisal-report header p {
+  font-size: 8px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.appraisal-report footer {
+    border-top: 1px solid black;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    padding: 10px;
+}
+.appraisal-report em {
+    font-style: normal;
+    font-weight: bold;
+}
+.appraisal-report .sigline {
+    float: right;
+}
+.appraisal-report .sig {
+    font-size: 20px;
+    padding: 0;
+    line-height: 75%;
+    text-decoration: underline;
+    vertical-align: bottom;
+    font-family: "Satisfy", cursive;
+}
+/* Complaint Note */
+.complaint-note {
+  font-size: 15px;
+  width: 260px;
+  height: 360px;
+  background-color: #f8e2d2; 
+  font-weight: bold;   
+}
+.complaint-note h1 {
+    margin: 0 0 0;
+    padding: 0;
+}
+
+/* Royal Complaint */
+.royal-complaint {
+  font-size: 14px;
+  width: 300px;
+  height: 400px;
+}
+
+.royal-complaint h1 {
+    font-size: 18px;
+    text-align: center;
+    font-family: Merriweather, serif;
+}
+
+/* folded paper effect */
+.folded {
+   color: rgba(20,20,20, 0.75);
+   box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
+   background: rgb(230,230,230);
+   background: -webkit-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: -moz-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+   background: linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+}
+/* Final report */
+
+#final-report, #tips {
+  font-family: sans-serif;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+#report h2 {
+  margin: 10px 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.thanks {
+    font-size: 30px;
+    font-family: "Satisfy", cursive;   
+}
+/* Modal Dialog boxes */
+.dialog {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 1000;
+    background: rgba(0,0,0,0.9);
+}
+.dialog > div h1 {
+  margin: 10px 0;
+  padding: 0;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+.dialog > div {
+  width: 700px;
+  margin: 100px auto;
+  background-color: #eec;
+  color: #111;
+  font-size: 16px;
+  border: 3px solid #844;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.js-hide {
+    visibility: hidden;
+}
+
+
+
+

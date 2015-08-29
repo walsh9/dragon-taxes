@@ -9,7 +9,7 @@ html {
 
 
 body{
-  background: url(bg.jpg) no-repeat center center fixed;
+  background: url(i/bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -28,7 +28,7 @@ body{
 }
 
 #timer {
-    background-image: url(timer.png);
+    background-image: url(i/timer.png);
     background-size: cover;
     position: absolute;
     height: 477px;
@@ -89,16 +89,6 @@ article div {
   height: 100%;
 }
 
-.peasant-1 {
-  font-family: "Shadows Into Light", cursive;    
-}
-.peasant-2 {
-  font-family: "Waiting for the Sunrise", cursive;    
-}
-.peasant-3 {
-  font-family: "Annie Use Your Telescope", cursive;    
-}
-
 .sticky {
   background-color: #f6f633;
   width: 150px;
@@ -112,11 +102,13 @@ article div {
 
 /* Instructions */
 .instructions {
-    width: 430px;
+    width: 440px;
     min-height: 600px;
     height: auto;
 }
-
+.instructions > div {
+  padding: 25px;  
+}
 .instructions h1, .instructions h2, .instructions h3 {
   font-family: sans-serif;
   margin: 0;
@@ -146,10 +138,13 @@ article div {
 
 
 /* Tax Form */
-.tax-form, .special-form {
+.tax-form {
   background-color: #f8f8f8;
-  width: 430px;
-  height: 600px;  
+  width: 440px;
+  height: 600px;
+}
+.tax-form > div {
+  padding: 25px;  
 }
 .tax-form h1 {
   font-size: 20px;
@@ -158,6 +153,7 @@ article div {
 .tax-form table {
     border-spacing: 0px;
     border-collapse: collapse;
+    width: 100%;
 }
 .tax-form table tbody th {
     width: 50px;
@@ -177,45 +173,17 @@ article div {
     font-weight: bold;
     width: 25px;
 }
-
-
 .tax-form table th + td,
 .tax-form table td:first-child {
     width: 250px;
     vertical-align: bottom;
 }
-
-.tax-form #d347 td {
-  border-width: 1px 1px 1px 0;
-  border-color: black; 
-  border-style: solid; 
-white-space: nowrap;
-  width: 100px;
-}
-.tax-form #d347 td:last-child {
-  border-width: 1px 1px 1px 0;
-  border-color: black; 
-  border-style: solid; 
-  width: 80px;
-}
-
-.tax-form #d347 td input {
-  border: 0;
-  width: 85%;
-  text-align: left;
-  margin: 0;  
-}
-.tax-form #d347 td:last-child input {
-  text-align: right;
-}
-
 .tax-form table label {
     display: inline-block;
     max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
 }
-
 .tax-form table span:after {
     content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ';
 }
@@ -238,7 +206,7 @@ white-space: nowrap;
     display: block;
     width: 100%;
     text-align: right;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
 }
 .ouo {
 border-bottom: 1px solid black;
@@ -257,7 +225,7 @@ border-bottom: 1px solid black;
 
 }
 .ledger h1 {
-    font-size 16px;
+    font-size: 16px;
     margin-top: 10px;
     margin-bottom: 21px;
 }
@@ -265,6 +233,7 @@ border-bottom: 1px solid black;
     border-spacing: 0px;
     border-collapse: collapse;
     vertical-align: top;
+    width: 100%;
 }
 
 .ledger table tr td:nth-child(1) {
@@ -336,15 +305,34 @@ border-bottom: 1px solid black;
 }
 /* Complaint Note */
 .complaint-note {
-  font-size: 15px;
+  font-size: 14px;
   width: 260px;
   height: 360px;
   background-color: #f8e2d2; 
-  font-weight: bold;   
+  font-weight: bold;
+  font-family: "Shadows Into Light", cursive;
+  padding: 15px;
 }
 .complaint-note h1 {
     margin: 0 0 0;
     padding: 0;
+}
+
+.complaint-note.font-size-variant-1 {
+  font-size: 13px;
+}
+.complaint-note.font-size-variant-2 {
+  font-size: 13.5px;
+}
+.complaint-note.font-variant-1 {
+  font-family: "Waiting for the Sunrise", cursive;    
+}
+.complaint-note.font-variant-2 {
+  font-family: "Annie Use Your Telescope", cursive;    
+}
+.complaint-note.font-variant-4 {
+  font-family: "Special Elite", monospace;    
+  font-size: 13px;
 }
 
 /* Royal Complaint */
@@ -352,16 +340,174 @@ border-bottom: 1px solid black;
   font-size: 14px;
   width: 300px;
   height: 400px;
+  font-family: "Special Elite", monospace;
+  font-size: 13px;
+  color: #333333;
 }
 
-.royal-complaint h1 {
-    font-size: 18px;
+.royal-complaint div {
+  padding: 25px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: center 25px;
+  background-size: auto 50px;
+}
+
+.royal-complaint img {
+  height: 50px;
+}
+
+.royal-complaint div p.to,
+.royal-complaint div p.body {
+   text-align: left;
+}
+
+.royal-complaint .body {
+    text-indent: 3em;
+}
+
+.royal-complaint .date {
+    text-align: right;
+    display: block;
+}
+.royal-complaint .from {
     text-align: center;
-    font-family: Merriweather, serif;
+    display: block;
+}
+
+.Southland div {
+  background-image: url(i/southland.png);
+}
+
+.Eastland div {
+  background-image: url(i/eastland.png);
+}
+
+.Northland div {
+  background-image: url(i/northland.png);
+}
+
+.royal-complaint.font-variant-1 {
+    font-family: "Courier New", Courier, monospace;
+}
+
+.royal-complaint.font-variant-2 {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+}
+
+.royal-complaint.font-size-variant-1 {
+    font-size: 13px;
+}
+
+.royal-complaint.paper-shade-variant-1 {
+  background-color: #f5f0e9; 
+}
+
+.royal-complaint.paper-shade-variant-2 {
+  background-color: #f8e9d9; 
+}
+/* Shopkeeper Complaint */
+.shopkeeper-complaint {
+  font-size: 14px;
+  width: 300px;
+  height: 400px;
+  font-family: "Special Elite", monospace;
+  font-size: 13px;
+  color: #333333;
+  padding: 20px;
+}
+.shopkeeper-complaint header {
+  position: relative;
+  padding: 2px 0;
+  margin: 0 0 0 36px;
+}
+.shopkeeper-complaint h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  border-bottom: 1px solid #333333;
+  font-family: Sancreek;
+}
+.shopkeeper-complaint header span{
+  font-size: 10px;
+  font-family: Merriweather, serif;
+  padding: 2px;
+  display:block;
+  text-align: right;
+}
+.shopkeeper-complaint.logo-font-variant-1 h1 {
+  font-family: "Miltonian Tattoo";
+}
+.shopkeeper-complaint.logo-font-variant-2 h1 {
+  font-family: Rye;
+}
+.shopkeeper-complaint .symbol {
+  font-family: typobackgroundsregular;
+  position: absolute;
+  display: block;
+  width: 35px;
+  height: 40px;
+  left: -42px;
+  font-size: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.shopkeeper-complaint.symbol-variant-1 .symbol {
+    width: 33px;
+    height: 33px;
+    font-size: 50px;
+    line-height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-indent: -11px;
+    border: 1px solid #333;
+}
+.shopkeeper-complaint.paper-shade-variant-1 {
+  background-color: #f5f0e9; 
+}
+
+.shopkeeper-complaint.paper-shade-variant-2 {
+  background-color: #f8e9d9; 
+}
+.shopkeeper-complaint.paper-shade-variant-3 {
+  background-color: #eee8d9;   
+}
+
+.shopkeeper-complaint.header-variant-1 .symbol {
+  left: auto;
+  right: -50px;
+}
+.shopkeeper-complaint.header-variant-1 header {
+  margin: 0 60px 0 0px;
+  border-bottom: 1px solid #333333;
+} 
+.shopkeeper-complaint.header-variant-1 header h1 { 
+    border-bottom: none; 
+}
+.shopkeeper-complaint.header-variant-1 header span { 
+    text-align: left;
+}
+
+.shopkeeper-complaint.header-variant-2 .symbol {
+  display: none;
+}
+.shopkeeper-complaint.header-variant-2 header {
+  margin: 0;
+} 
+.shopkeeper-complaint.header-variant-2 header h1 { 
+  text-align: center;
+  font-size: 18px;
+}
+.shopkeeper-complaint.header-variant-2 header span { 
+  display: none;
 }
 
 /* folded paper effect */
-.folded {
+.complaint-note.paper-style-variant-1,
+.royal-complaint.paper-style-variant-1,
+.shopkeeper-complaint.paper-style-variant-1 {
    color: rgba(20,20,20, 0.75);
    box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
    background: rgb(230,230,230);
@@ -370,6 +516,29 @@ border-bottom: 1px solid black;
    background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
    background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
    background: linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,200, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,210, 1));
+}
+
+.complaint-note.paper-style-variant-2,
+.royal-complaint.paper-style-variant-2,
+.shopkeeper-complaint.paper-style-variant-2 {
+   color: rgba(20,20,20, 1);
+   box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
+   background: rgb(230,230,230);
+   background: -webkit-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: -moz-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+   background: linear-gradient(top, rgba(255,255,255, 1),  rgba(230,230,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(230,230,220, 1));
+}
+.complaint-note.paper-style-variant-3 {
+   color: rgba(40,40,40, 1);
+   box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 0 100px 15px rgba(50,50,0,0.3);
+   background: rgb(240,240,240);
+   background: -webkit-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: -moz-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: -ms-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: -o-linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
+   background: linear-gradient(top, rgba(255,255,255, 1),  rgba(240,240,220, 1) 50%, rgba(255,255,255, 1) 51%, rgba(240,240,220, 1));
 }
 /* Final report */
 
@@ -404,6 +573,7 @@ border-bottom: 1px solid black;
     text-align: center;
     z-index: 1000;
     background: rgba(0,0,0,0.9);
+    overflow: scroll;
 }
 .dialog > div h1 {
   margin: 10px 0;
@@ -422,10 +592,186 @@ border-bottom: 1px solid black;
   padding: 15px;
 }
 
-.js-hide {
-    visibility: hidden;
+.js-hide, .print-only {
+    display:none;
 }
 
+#loadscreen {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 2000;
+    background: rgba(0,0,0,1);  
+}
+
+#loadscreen > div {
+  position: absolute;
+  font-family: sans-serif;
+  font-size: 40px;
+  right: 50px;
+  top: 50px;
+  color: #ffffff;
+}
+
+
+@media print {
+    *,
+    *:before,
+    *:after,
+    *:first-letter,
+    *:first-line {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+    .print-only {
+      display: block;
+    }
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    h1, h2, .ledger thead, {
+        font-weight: normal !important;      
+    }
+
+    body {
+      padding: 0  !important;
+    }
+
+    article {
+      border: 2px dashed black;
+      display: inline-block;
+      margin: 1em;
+      text-align: left;
+      position: relative !important;
+      left: 0 !important;
+      top: 0 !important;
+      xwidth: 100% !important;
+      page-break-inside: avoid;
+      font-weight: normal !important;
+    }
+
+    article > div {
+      width: 100% !important;
+    }
+
+    .appraisal-report { 
+
+    }
+
+    .dialog, #loadscreen, .sticky, #timer, #button-ready {
+      display: none;
+    }
+
+    .complaint-note {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(1.1);
+      transform:scale(1.1);
+      margin: 0 36px 46px 0;
+    }
+    .appraisal-report {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(1.2);
+      transform:scale(1.2);
+      margin: 0 90px 80px 0;
+    }
+    .d1045, .instructions {
+      -webkit-transform-origin: center 0;
+      transform-origin: center 0;
+      -webkit-transform:scale(1.4);
+      transform:scale(1.4);
+      display: block;
+      margin: 0 auto 240px;
+      border: none;
+      page-break-after: always;
+    }
+    .ledger {
+      -webkit-transform-origin: 0px 0px;
+      transform-origin: 0px 0px;
+      -webkit-transform:scale(1.2);
+      transform:scale(1.2);
+      margin: 0 80px 100px 0;
+      display: block;
+      border: none;
+      page-break-after: always;
+    }
+    .royal-complaint, .shopkeeper-complaint {
+      -webkit-transform-origin: center 0;
+      transform-origin: center 0;
+      -webkit-transform:scale(2);
+      transform:scale(2);
+      margin: 0 auto 400px auto;
+      display: block;
+      border: none;
+      page-break-after: always;
+    }
+    #solution-page {
+      font-family: Merriweather, serif;
+      display: block;
+      width: 75%;
+      border: none;
+      page-break-after: always;
+    }
+    #solution-page table, #solution-page p {
+      border-spacing: 0px;
+      border-collapse: collapse;
+      width: 3.5in;
+    }
+    #solution-page th,
+    #solution-page td {
+      padding: 2px;
+      padding: 1em;
+      text-align: right;
+      border: 1px solid black;
+    } 
+    #solution-page th, {
+      text-align: center;  
+    }
+
+}
 
 
 
