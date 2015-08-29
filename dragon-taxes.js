@@ -711,7 +711,7 @@ var createManualScoreTable = function() {
   expected.b7 = mayhemAdjustment;
   var mayhemAdjustedGrossIncome = grossIncome + mayhemAdjustment;
   expected.c1 = mayhemAdjustedGrossIncome;
-  var taxesOwed = mayhemAdjustedGrossIncome / 10;
+  var taxesOwed = Math.floor(mayhemAdjustedGrossIncome / 10);
   expected.c2 = taxesOwed;
   cols = shuffle(["a","b","c"]);
   rows = shuffle([1,2,3,4,5,6,7]);
@@ -731,9 +731,9 @@ var createManualScoreTable = function() {
       if ((row == -1) || (col == -1)) {
         cell.text((c+r).toUpperCase());
       } else if (expected[c+r] !== undefined) {
-        cell.text(numberWithCommas((expected[c+r])));
+        cell.text(numberWithCommas((expected[c+r])) || "0,000");
       } else {
-        cell.text(numberWithCommas(getRandomInt(40,20000) * 10));
+        cell.text(Math.random() < 0.05 ? "0,000" : numberWithCommas(getRandomInt(40,20000) * 10));
       }
       currentRow.append(cell);
     }
@@ -770,7 +770,7 @@ var evaluateTaxes = function() {
   diffs.b7 = line("b7") - mayhemAdjustment;
   var mayhemAdjustedGrossIncome = grossIncome + mayhemAdjustment;
   diffs.c1 = line("c1") - mayhemAdjustedGrossIncome;
-  var taxesOwed = mayhemAdjustedGrossIncome / 10;
+  var taxesOwed = Math.floor(mayhemAdjustedGrossIncome / 10);
   diffs.c2 = line("c2") - taxesOwed;
   var over = 0;
   var under = 0;
