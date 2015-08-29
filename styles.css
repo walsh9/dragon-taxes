@@ -375,18 +375,6 @@ border-bottom: 1px solid black;
     display: block;
 }
 
-.Southland div {
-  background-image: url(i/southland.png);
-}
-
-.Eastland div {
-  background-image: url(i/eastland.png);
-}
-
-.Northland div {
-  background-image: url(i/northland.png);
-}
-
 .royal-complaint.font-variant-1 {
     font-family: "Courier New", Courier, monospace;
 }
