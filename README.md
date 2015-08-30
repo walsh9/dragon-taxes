@@ -2,7 +2,9 @@
 
 ![screenshot](https://cloud.githubusercontent.com/assets/6074785/9476809/c076b3d8-4b3c-11e5-997c-6ec2412d648c.jpg)
 
-A game created in 72 hours for [Ludum Dare](http://ludumdare.com/) 33, theme "You are the Monster".
+A game created in 72 hours for [Ludum Dare](http://ludumdare.com/) 33 for the theme "You are the Monster".
+
+The game has been updated since the game jam release, but the original Ludum Dare entry version is preserved at https://github.com/walsh9/dragon-taxes/ld33-jam-version
 
 [Ludum Dare entry page](http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=56320)
 
@@ -24,9 +26,7 @@ It's 2015.
 
 Well, the simplest United States income tax form, the 1040EZ, is two pages long and has 43 pages of instructions. But on the other hand, most people have longer than 10 minutes to work on it.
 
-## Post Jam Update
-
-The original Ludum Dare entry version is preserved at https://github.com/walsh9/dragon-taxes/ld33-jam-version
+## Post Jam Updates
 
 ### New Stuff
 - Fancy letterheads for noble complaint notes.
@@ -55,13 +55,34 @@ The original Ludum Dare entry version is preserved at https://github.com/walsh9/
 6. Put aside the Answer Checker Table to remove temptation.
 7. With scissors, cut out the appraisal reports and small complaint notes.
 8. (optional) Set a timer. 
-9. Fill out the D-1045 form as usual. This is the game!
+9. Lay out all the papers and fill out the D-1045 form as usual. This is the game!
 10. When you're done, use the Answer Checker Table to check your answers and see how you did!
 
 ### Other modes
 - Try to finish the form together with a friend.
 - Print multiple copies and race *against* a friend or friends.
 - Make up your own rules, there's no wrong way to play!
+
+## Thanks
+
+The following tools and libraries were used:
+
+- [jQuery](http://jquery.com) and [jQuery UI](http://jqueryui.com)
+- [handlebars.js](http://handlebarsjs.com)
+- [Web Font Loader](https://github.com/typekit/webfontloader)
+
+Thanks to the creators of the following fonts:
+
+- TypoBackgrounds by (Manfred Klein)[http://manfred-klein.ina-mar.com]
+- Annie Use Your Telescope, Shadows into Light, and Waiting for the Sunrise by (Kimblery Geswein)[http://www.kimberlygeswein.com]
+- Kaushan Script and Miltonian Tattoo by (Pablo Impallari)[http://www.impallari.com]
+- Roboto Mono by (Christian Robertson)[http://betatype.com]
+- Satisfy by (Sideshow)[http://www.fontbros.com/foundries/sideshow]
+- Great Vibes by TypeSETit
+- Merriweather by (Eben Sorkin)[http://sorkintype.com]
+- Special Elite by (Astigmatic)[http://www.astigmatic.com]
+- Rye by (Nicole Fally)[http://www.t-g-d.at]
+- Sancreek by Vernon Adams
 
 ## License
 
