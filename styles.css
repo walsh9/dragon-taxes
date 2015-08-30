@@ -689,7 +689,7 @@ border-bottom: 1px solid black;
     }
 
     .dialog, #loadscreen, .sticky, #timer, #button-ready {
-      display: none;
+      display: none !important;
     }
 
     .complaint-note {
