@@ -73,15 +73,15 @@ The following tools and libraries were used:
 
 Thanks to the creators of the following fonts:
 
-- TypoBackgrounds by (Manfred Klein)[http://manfred-klein.ina-mar.com]
-- Annie Use Your Telescope, Shadows into Light, and Waiting for the Sunrise by (Kimblery Geswein)[http://www.kimberlygeswein.com]
-- Kaushan Script and Miltonian Tattoo by (Pablo Impallari)[http://www.impallari.com]
-- Roboto Mono by (Christian Robertson)[http://betatype.com]
-- Satisfy by (Sideshow)[http://www.fontbros.com/foundries/sideshow]
+- TypoBackgrounds by [Manfred Klein](http://manfred-klein.ina-mar.com)
+- Annie Use Your Telescope, Shadows into Light, and Waiting for the Sunrise by [Kimblery Geswein](http://www.kimberlygeswein.com)
+- Kaushan Script and Miltonian Tattoo by [Pablo Impallari](http://www.impallari.com)
+- Roboto Mono by [Christian Robertson](http://betatype.com)
+- Satisfy by [Sideshow](http://www.fontbros.com/foundries/sideshow)
 - Great Vibes by TypeSETit
-- Merriweather by (Eben Sorkin)[http://sorkintype.com]
-- Special Elite by (Astigmatic)[http://www.astigmatic.com]
-- Rye by (Nicole Fally)[http://www.t-g-d.at]
+- Merriweather by [Eben Sorkin](http://sorkintype.com)
+- Special Elite by [Astigmatic](http://www.astigmatic.com)
+- Rye by [Nicole Fally](http://www.t-g-d.at)
 - Sancreek by Vernon Adams
 
 ## License
