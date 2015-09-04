@@ -4,7 +4,7 @@
 
 A game created in 72 hours for [Ludum Dare](http://ludumdare.com/) 33 for the theme "You are the Monster".
 
-The game has been updated since the game jam release, but the original Ludum Dare entry version is preserved at https://github.com/walsh9/dragon-taxes/ld33-jam-version
+The game has been updated since the game jam release, but the original Ludum Dare entry version is preserved at https://walsh9.github.io/dragon-taxes/ld33-jam-version
 
 [Ludum Dare entry page](http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=56320)
 
@@ -84,6 +84,8 @@ Thanks to the creators of the following fonts:
 - Rye by [Nicole Fally](http://www.t-g-d.at)
 - Sancreek by Vernon Adams
 
-## License
+## Licenses
 
-© Matt Walsh 2015 under the MIT License
+Dragon Tax Simulator 2015 is © Matt Walsh 2015 under the MIT License.
+
+TypoBackgrounds font is © Manfred Klein, used under Simple Terms of Use at http://manfred-klein.ina-mar.com
