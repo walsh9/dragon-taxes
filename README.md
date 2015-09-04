@@ -84,6 +84,8 @@ Thanks to the creators of the following fonts:
 - Rye by [Nicole Fally](http://www.t-g-d.at)
 - Sancreek by Vernon Adams
 
-## License
+## Licenses
 
-© Matt Walsh 2015 under the MIT License
+Dragon Tax Simulator 2015 is © Matt Walsh 2015 under the MIT License.
+
+TypoBackgrounds font is © Manfred Klein, used under Simple Terms of Use at http://manfred-klein.ina-mar.com
