@@ -4,7 +4,7 @@
 
 A game created in 72 hours for [Ludum Dare](http://ludumdare.com/) 33 for the theme "You are the Monster".
 
-The game has been updated since the game jam release, but the original Ludum Dare entry version is preserved at https://github.com/walsh9/dragon-taxes/ld33-jam-version
+The game has been updated since the game jam release, but the original Ludum Dare entry version is preserved at https://walsh9.github.io/dragon-taxes/ld33-jam-version
 
 [Ludum Dare entry page](http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=56320)
 
