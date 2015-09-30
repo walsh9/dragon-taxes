@@ -500,6 +500,14 @@ var taxRules = {
         runes: getRandoms(runes,2),
     }
 };
+var record = {};
+
+var addToRecord = function(lineKey, goldValue, description, exceptionReason) {
+  if (!record[lineKey]) {
+    record[lineKey] = [];
+  }
+  record[lineKey].push({"goldValue": goldValue, "descripton": description, "exceptionReason": exceptionReason});
+};
 
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
@@ -520,8 +528,12 @@ for (var i = 0; i < numNobleComplaints; i++) {
     item = new RoyalGrievance();
     bigNotes.push(royalComplaint(item));
     complaints.push(item);
+    description = "Damages to " + item.title + " " + item.name + " (" + numberWithCommas(item.value) + " G)";
     if (taxRules.exemptClasses.nobles.indexOf(item.title) === -1) {
         mayhem.nobles += item.value;
+        addToRecord("B5", item.value, description);
+    } else {
+        addToRecord("B5", 0, description, "Exception for " + item.title + item.title.slice(-2) == "ss" ? "es" : "s");
     }
 }    
 
@@ -532,11 +544,16 @@ for (i = 0; i < numPeasantComplaints; i++) {
     } else { //herds
       smallNotes.push(herderComplaint(item));
     }
+    description = "Damages to " + item.givenName + " " + item.familyName + " (" + numberWithCommas(item.value) + " G)";
     complaints.push(item);
     if ((item.type === "crops" && item.value > taxRules.exemptionLimits.crops) ||
         (item.type === "herds" && item.value > taxRules.exemptionLimits.herds)) {
         mayhem.peasants += item.value;
+        addToRecord("B1", item.value, description);
+    } else {
+        addToRecord("B1", 0, description, "Exception for damages to " + item.type +" under "  + taxRules.exemptionLimits[item.type] + " G" );      
     }
+
 }
 for (i = 0; i < numTownsefolkeComplaints; i++) {
   var chance = Math.random();
@@ -548,9 +565,14 @@ for (i = 0; i < numTownsefolkeComplaints; i++) {
     bigNotes.push(shopkeeperComplaint(item));
   }
   complaints.push(item);
+  description = "Damages to " + item.givenName + " " + item.familyName + " (" + numberWithCommas(item.value) + " G)";
   if (item.value > taxRules.exemptionLimits.provincial) {
     mayhem.townsfolk += item.value;
+    addToRecord("B2", item.value, description);
+  } else {
+    addToRecord("B2", 0, description, "Exception for provincial damages under "  + taxRules.exemptionLimits.provincial + " G" );      
   }
+
 }
 // Shuffle complaint notes
 shuffle(bigNotes).forEach(function(note) {
@@ -593,6 +615,17 @@ var artSchedule = getRandoms(schedule, numArt);
 var treasureSchedule = getRandoms(schedule, numTreasures);
 var gemSchedule = getRandoms(schedule, numGems);
 
+var magicItemExceptionReason = function(item, taxRules) {
+  rules = taxRules.exemptClasses;
+  enchantmentExceptionIndex = rules.enchantments.indexOf(item.enchantment);
+  auraExceptionIndex = rules.auras.indexOf(item.aura);
+  runeExceptionIndex = rules.runes.indexOf(item.runes);
+  if (enchantmentExceptionIndex !== 1) {return rules.enchantments[enchantmentExceptionIndex] + " enchantment";}
+  if (auraExceptionIndex !== 1) {return rules.auras[enchantmentExceptionIndex] + " aura";}
+  if (runeExceptionIndex !== 1) {return rules.runes[enchantmentExceptionIndex] + " runes";}
+  return false;
+};
+
 for (var season = 0; season < seasons.length; season++) {
     for (var day = 1; day <= days; day++) {
         var item;
@@ -608,28 +641,38 @@ for (var season = 0; season < seasons.length; season++) {
                                       "Treasure Hunt"]) + " in " + getRandom(lands);
             ledgerTable.append(ledgerRow({day:day,season:seasons[season], description:raidtype}));
             ledgerTable.append(ledgerRow({description:"- Gold", amount:amount, balance:hoard.gold}));
+            addToRecord("A1", amount, raidtype);
             if (gemSchedule.indexOf(scehduleDay) > -1) {
                 var num_gems = getRandomInt(3,30);
                 var gem = getRandom(Object.keys(gemRates));
                 income.gems += num_gems * gemRates[gem];
-                gem = (gem == "ruby") ? " rubies" : " " + gem + "s";
-                ledgerTable.append(ledgerRow({description: "- " + num_gems + gem}));
+                gem_plural = (gem == "ruby") ? " rubies" : " " + gem + "s";
+                ledgerTable.append(ledgerRow({description: "- " + num_gems + gem_plural}));
+                addToRecord("A2",  num_gems * gemRates[gem], gem_plural + " (" + num_gems + " x " + numberWithCommas(gemRates[gem]) + ")");
             }
             if (magicSchedule.indexOf(scehduleDay) > -1) {
                 item = new MagicItem();
                 hoard.magicItems.push(item);
-                if ((taxRules.exemptClasses.enchantments.indexOf(item.enchantment) === -1) &&
-                    (taxRules.exemptClasses.auras.indexOf(item.aura) === -1) &&
-                    (taxRules.exemptClasses.runes.indexOf(item.runes) === -1))
-                income.magic += item.value;
+                description = "Magic " + item.item + "(" + numberWithCommas(item.value) + " G)";
+                exceptionReason = magicItemExceptionReason(item, taxRules);
+                if (!exceptionReason) {
+                    income.magic += item.value; 
+                    addToRecord("A3", item.value, description); 
+                } else {
+                    addToRecord("A3", 0, description, "Exception for " + exceptionReason);
+                }
                 appraisalStacker.add(magicAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- Magic " + item.item}));
             }
             if (artSchedule.indexOf(scehduleDay) > -1) {
                 item = new Art();
                 hoard.art.push(item);
+                description = item.item + " of " + item.subject + " (" + item.value + ")";
                 if (item.value >= taxRules.exemptionLimits.art) {
                    income.art += item.value;
+                    addToRecord("A4", item.value, description); 
+                } else {
+                    addToRecord("A4", 0, description, "Exception for art valued under " + taxRules.exemptionLimits.art); 
                 }
                 appraisalStacker.add(artAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.item) + " of " + item.subject}));
@@ -637,8 +680,12 @@ for (var season = 0; season < seasons.length; season++) {
             if (treasureSchedule.indexOf(scehduleDay) > -1) {
                 item = new Treasure();
                 hoard.treasures.push(item);
+                description = item.adjective + " " + item.item + " (" + item.value + ")";
                 if (item.value >= taxRules.exemptionLimits.treasure) {
                    income.other += item.value;
+                    addToRecord("A5", item.value, description); 
+                } else {
+                    addToRecord("A5", 0, description, "Exception for treasure valued under " + taxRules.exemptionLimits.treasure); 
                 }
                 appraisalStacker.add(treasureAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.adjective) + " " + item.item}));
