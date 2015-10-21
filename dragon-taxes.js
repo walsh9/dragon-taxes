@@ -19,9 +19,6 @@ WebFontConfig = {
   s.parentNode.insertBefore(wf, s);
 })(document);
 
-
-
-
 /* Helper methods */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -506,8 +503,25 @@ var addToRecord = function(lineKey, goldValue, description, exceptionReason) {
   if (!record[lineKey]) {
     record[lineKey] = [];
   }
-  record[lineKey].push({"goldValue": goldValue, "descripton": description, "exceptionReason": exceptionReason});
+  record[lineKey].push({"goldValue": goldValue, "description": description, "exceptionReason": exceptionReason});
 };
+
+var debugRecord = function(record) {
+  var lines, lineDetails, lineTotal;
+  lines = ["A1", "A2", "A3", "A4", "A5"];
+  for (var i = 0; i < lines.length; i++) {
+    console.log ("Line " + lines[i]);
+    lineDetails = record[lines[i]];
+    lineTotal = 0;
+    for (var j = 0; j < lineDetails.length; j++) {
+      detail = lineDetails[j];
+      lineTotal += detail.goldValue;
+      console.log("   " + detail.goldValue + ", " + detail.description + (detail.exceptionReason  ? " : " + detail.exceptionReason : ""));
+    }
+    console.log("Total: " + lineTotal);
+  }
+};
+
 
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
