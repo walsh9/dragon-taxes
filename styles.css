@@ -136,7 +136,6 @@ article div {
     width: 100px;
 }
 
-
 /* Tax Form */
 .tax-form {
   background-color: #f8f8f8;
@@ -549,6 +548,15 @@ border-bottom: 1px solid black;
     font-size: 30px;
     font-family: "Satisfy", cursive;   
 }
+/* Detailed final report */
+.detailed-report {
+    width: 400px;
+    min-height: 500px;
+    height: auto;
+}
+
+
+
 /* Modal Dialog boxes */
 .dialog {
     position: fixed;

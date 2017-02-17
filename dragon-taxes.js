@@ -387,6 +387,7 @@ var shopkeeperComplaint = Handlebars.compile($("#shopkeeper-complaint").html());
 var royalComplaint = Handlebars.compile($("#royal-complaint").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
 var instructions = Handlebars.compile($("#main-tax-instructions").html());
+var detailedReport = Handlebars.compile($("#detailed-report").html());
 
 var gemRates = {
     diamond:  getRandomInt(280, 360) * 10,
@@ -497,13 +498,79 @@ var taxRules = {
         runes: getRandoms(runes,2),
     }
 };
+
 var record = {};
 
 var addToRecord = function(lineKey, goldValue, description, exceptionReason) {
   if (!record[lineKey]) {
-    record[lineKey] = [];
+    record[lineKey] = {};
+    record[lineKey].number = lineKey;
+    record[lineKey].entries = [];
+    record[lineKey].total = 0;
   }
-  record[lineKey].push({"goldValue": goldValue, "description": description, "exceptionReason": exceptionReason});
+  record[lineKey].entries.push({"goldValue": goldValue, "description": description, "exceptionReason": exceptionReason});
+  if (!exceptionReason) {delete record[lineKey].exceptionReason;}
+  record[lineKey].total += goldValue;
+};
+
+var finalizeRecord = function() {
+  var a6Value = record.A1.total + record.A2.total + record.A3.total + record.A4.total + record.A5.total;
+  var a6Desc = "A1 + A2 + A3 + A4 + A5";
+  addToRecord("A6", a6Value, a6Desc);
+
+  var b3Value = record.B1.total + record.B2.total;
+  var b3Desc = "B1 + B2";
+  addToRecord("B3", b3Value, b3Desc);
+
+  var b4Value = Math.floor(record.B3.total / 10);
+  var b4Desc = "B3 divided by 10";
+  addToRecord("B4", b4Value, b4Desc);
+
+  var b6Value = Math.floor(record.B5.total / 2);
+  var b6Desc = "B5 divided by 2";
+  addToRecord("B6", b6Value, b6Desc);
+
+  var b7Value = record.B4.total + record.B6.total;
+  var b7Desc = "B4 + B6";
+  addToRecord("B7", b7Value, b7Desc);
+
+  var c1Value = record.A6.total + record.B7.total;
+  var c1Desc = "A6 + B7";
+  addToRecord("C1", c1Value, c1Desc);
+
+  var c2Value = Math.floor(record.C1.total / 10);
+  var c2Desc = "C1 divided by 10";
+  addToRecord("C2", c2Value, c2Desc);
+};
+
+var sortRecord = function(record) {
+  var keys = Object.keys(record);
+  var newRecord = {};
+  keys.sort().forEach( function(key) {
+    newRecord[key] = record[key];
+  });
+  return newRecord;
+};
+
+var paginateRecord = function(record, maxLinesPerPage) {
+  var pages = [];
+  pages[0] = {};
+  var currentPage = 0;
+  var currentPageLines = 0;
+  Object.keys(record).forEach( function(key) {
+    var sectionLines = record[key].entries.length + 1;
+    if (currentPageLines !== 0 && 
+        currentPageLines + sectionLines > maxLinesPerPage) {
+      currentPage++;
+      currentPageLines = 0;
+      pages[currentPage] = {};
+    } else {
+      currentPageLines += sectionLines;
+    }
+    currentPageLines += sectionLines;
+    pages[currentPage][key] = record[key];
+  });
+  return pages;
 };
 
 var debugRecord = function(record) {
@@ -521,7 +588,6 @@ var debugRecord = function(record) {
     console.log("Total: " + lineTotal);
   }
 };
-
 
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
@@ -542,12 +608,12 @@ for (var i = 0; i < numNobleComplaints; i++) {
     item = new RoyalGrievance();
     bigNotes.push(royalComplaint(item));
     complaints.push(item);
-    description = "Damages to " + item.title + " " + item.name + " (" + numberWithCommas(item.value) + " G)";
+    description = "Damages to " + item.title + " " + item.name + "'s lands (" + numberWithCommas(item.value) + " G)";
     if (taxRules.exemptClasses.nobles.indexOf(item.title) === -1) {
         mayhem.nobles += item.value;
         addToRecord("B5", item.value, description);
     } else {
-        addToRecord("B5", 0, description, "Exception for " + item.title + item.title.slice(-2) == "ss" ? "es" : "s");
+        addToRecord("B5", 0, description, "Exception for " + item.title + (item.title.slice(-2) == "ss" ? "es" : "s"));
     }
 }    
 
@@ -558,7 +624,7 @@ for (i = 0; i < numPeasantComplaints; i++) {
     } else { //herds
       smallNotes.push(herderComplaint(item));
     }
-    description = "Damages to " + item.givenName + " " + item.familyName + " (" + numberWithCommas(item.value) + " G)";
+    description = "Damages to " + item.name + "'s " + item.type + " (" + numberWithCommas(item.value) + " G)";
     complaints.push(item);
     if ((item.type === "crops" && item.value > taxRules.exemptionLimits.crops) ||
         (item.type === "herds" && item.value > taxRules.exemptionLimits.herds)) {
@@ -579,7 +645,8 @@ for (i = 0; i < numTownsefolkeComplaints; i++) {
     bigNotes.push(shopkeeperComplaint(item));
   }
   complaints.push(item);
-  description = "Damages to " + item.givenName + " " + item.familyName + " (" + numberWithCommas(item.value) + " G)";
+  console.log(item);
+  description = "Damages to " + (item.shopName || item.name + "'s property") + " (" + numberWithCommas(item.value) + " G)";
   if (item.value > taxRules.exemptionLimits.provincial) {
     mayhem.townsfolk += item.value;
     addToRecord("B2", item.value, description);
@@ -630,13 +697,13 @@ var treasureSchedule = getRandoms(schedule, numTreasures);
 var gemSchedule = getRandoms(schedule, numGems);
 
 var magicItemExceptionReason = function(item, taxRules) {
-  rules = taxRules.exemptClasses;
-  enchantmentExceptionIndex = rules.enchantments.indexOf(item.enchantment);
-  auraExceptionIndex = rules.auras.indexOf(item.aura);
-  runeExceptionIndex = rules.runes.indexOf(item.runes);
-  if (enchantmentExceptionIndex !== 1) {return rules.enchantments[enchantmentExceptionIndex] + " enchantment";}
-  if (auraExceptionIndex !== 1) {return rules.auras[enchantmentExceptionIndex] + " aura";}
-  if (runeExceptionIndex !== 1) {return rules.runes[enchantmentExceptionIndex] + " runes";}
+  var rules = taxRules.exemptClasses;
+  var enchantmentExceptionIndex = rules.enchantments.indexOf(item.enchantment);
+  var auraExceptionIndex = rules.auras.indexOf(item.aura);
+  var runeExceptionIndex = rules.runes.indexOf(item.runes);
+  if (enchantmentExceptionIndex > 0) {return rules.enchantments[enchantmentExceptionIndex] + " enchantment";}
+  if (auraExceptionIndex > 0) {return rules.auras[auraExceptionIndex] + " aura";}
+  if (runeExceptionIndex > 0) {return rules.runes[runeExceptionIndex] + " runes";}
   return false;
 };
 
@@ -667,7 +734,7 @@ for (var season = 0; season < seasons.length; season++) {
             if (magicSchedule.indexOf(scehduleDay) > -1) {
                 item = new MagicItem();
                 hoard.magicItems.push(item);
-                description = "Magic " + item.item + "(" + numberWithCommas(item.value) + " G)";
+                description = "Magic " + item.item + " (" + numberWithCommas(item.value) + " G)";
                 exceptionReason = magicItemExceptionReason(item, taxRules);
                 if (!exceptionReason) {
                     income.magic += item.value; 
@@ -712,6 +779,11 @@ var callCourier = function() {
     $("#courier").fadeIn();
     done = false;
 };
+
+finalizeRecord();
+paginateRecord(sortRecord(record), 20).forEach(function(page, index) {
+  ledgerStacker.add(detailedReport({pageNo: index + 1, pageContents: page}));
+});
 
 var askedForExtraTime = -1;
 var done = false;
@@ -926,9 +998,6 @@ $(".button-help").bind("click", showHelp);
 $(".button-finish").bind("click", evaluateTaxes);
 $(".button-ready").bind("click", callCourier);
 $(".button-restart").bind("click", restart);
-
-
-
 
 
 

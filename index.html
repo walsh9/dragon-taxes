@@ -386,6 +386,35 @@ This is your Hoard Gross Income for this year.</p>
     </article>
 </script>
 
+<script id="detailed-report" type="text/x-handlebars-template">
+<article class="detailed-report">
+    <header>
+    <p>Draknaz Werntooth</p>
+    <p>Draconian Board of Valuology</p>
+    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
+</header>
+<h1>Detailed Report</h1>
+<span>Page {{pageNo}}
+{{#each pageContents}}
+<h2>Line {{@key}}</h2>
+<table>
+  {{#each entries}}
+    <tr>
+      <td>{{description}}</td>
+      <td>{{withCommas goldValue}}</td>
+      <td>{{exception}}</td>
+    </tr>
+  {{/each}}
+  </tr>
+  <td>Total:</td></td></td>
+  <td>{{withCommas this.total}}</td>
+  </tr>
+</table>
+{{/each}}
+</article>
+</script>
+
+
   <script src="dragon-drop.js"></script>
   <script src="dragon-taxes.js"></script>
 </body>
