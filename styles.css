@@ -25,6 +25,7 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: url(i/claw-proto.png) 5 1, pointer;
 }
 
 #timer {
@@ -57,7 +58,7 @@ body{
     position: fixed;
     bottom: 5px;
     left: 5px; 
-    cursor:pointer;
+    cursor: url(i/claw-proto.png) 5 1, pointer;
     z-index: 1000; 
 }
 
@@ -66,7 +67,7 @@ button {
     padding: 5px 10px 5px 5px;
     border-width: 0px;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: url(i/claw-proto.png) 5 1, pointer;
     background: rgba(30,30,80,1);
     color: #ddd;
     font-size: 16px;
@@ -196,11 +197,13 @@ article div {
     text-align: right;
     font-family: "Kaushan Script", cursive;
     border-width:0;
+    cursor: url(i/claw-test_pen.png) 2 27, text;
 }
 .tax-form header input {
      background: transparent;
      border: 1px solid;   
      font-family: "Kaushan Script", cursive;
+    cursor: url(i/claw-test_pen.png) 2 27, text;
 }
 .dnw {
     display: block;
@@ -758,8 +761,16 @@ border-bottom: 1px solid black;
     #solution-page th, {
       text-align: center;  
     }
-
 }
 
+.ui-draggable {
+  cursor: grab;
+  cursor: url(i/claw-test_grab.png) 16 7, auto;
+}
+
+.ui-draggable-dragging {
+  cursor: grabbing;
+  cursor: url(i/claw-test_grabbing.png) 16 7, auto;
+}
 
 
