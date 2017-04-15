@@ -116,7 +116,7 @@ Taxes are due in ten minutes!!!
   <h2>Tips</h2>
   <ul id="tips"></ul>
   <p class="thanks">Thanks for playing!</p>
-  <button class="button-restart">Play Again!</button>
+  <button class="button-view">View Report</button>
   </div>
 </div>
 
@@ -388,26 +388,38 @@ This is your Hoard Gross Income for this year.</p>
 
 <script id="detailed-report" type="text/x-handlebars-template">
 <article class="detailed-report">
-    <header>
-    <p>Draknaz Werntooth</p>
-    <p>Draconian Board of Valuology</p>
-    <p>232 Peak Lane, Snowy Mountain, Northlands</p>
-</header>
-<h1>Detailed Report</h1>
-<span>Page {{pageNo}}
+  <header>
+    <p>Verna Fairwing, Professional Dragon Accountant</p>
+    <p>12 West Road, Old Forest Peak #6, Northlands</p>
+  </header>
+<table>
+<tr>
+  <td>Tax Report</td>
+  <td>Page {{pageNo}}</td>
+</tr>
+</table>
 {{#each pageContents}}
-<h2>Line {{@key}}</h2>
+<h3>Line {{@key}}</h3>
+<h3>-------------</h3>
 <table>
   {{#each entries}}
     <tr>
-      <td>{{description}}</td>
-      <td>{{withCommas goldValue}}</td>
-      <td>{{exception}}</td>
+      <td>{{description}}<br><em>{{exceptionReason}}</em></td>
+      <td>{{withCommas goldValue}} G</td>
     </tr>
   {{/each}}
   </tr>
   <td>Total:</td></td></td>
-  <td>{{withCommas this.total}}</td>
+  <td>{{withCommas this.total}} G</td>
+  </tr>
+  
+{{#if this.error}}
+  <tr class="error">
+{{else}}
+  <tr>
+{{/if}}
+    <td>You put: </td>
+    <td>{{currency this.youPut}}</td>
   </tr>
 </table>
 {{/each}}
