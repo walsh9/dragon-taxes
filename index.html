@@ -5,7 +5,7 @@
     <title>Dragon Tax Return Simulator 2015</title>
     <link type="text/css" rel="stylesheet" href="styles.css"/>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
 </head>
 <body>
@@ -278,7 +278,7 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="ledger-row" type="text/x-handlebars-template">
-    <tr><td>{{date}}</td><td>{{description}}</td><td>{{withCommas amount}}</td><td>{{withCommas balance}}</td></tr>
+    <tr><td>{{date}}</td><td>{{description}}</td><td>{{currency amount}}</td><td>{{currency balance}}</td></tr>
 </script>
 
 <script id="main-tax-instructions" type="text/x-handlebars-template">
@@ -419,7 +419,7 @@ This is your Hoard Gross Income for this year.</p>
   <tr>
 {{/if}}
     <td>You put: </td>
-    <td>{{currency this.youPut}}</td>
+    <td>{{formatInput this.youPut}}</td>
   </tr>
 </table>
 {{/each}}

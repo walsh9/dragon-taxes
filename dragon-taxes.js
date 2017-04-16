@@ -173,7 +173,16 @@ Handlebars.registerHelper('currency', function(n) {
   if (isNaN(n)) {
     return n
   } else {
-    return  numberWithCommas(n) + " G";
+    return  numberWithCommas(n);
+  }
+});
+
+
+Handlebars.registerHelper('formatInput', function(n) {
+  if (isNaN(n)) {
+    return n
+  } else {
+    return numberWithCommas(n) + " G";
   }
 });
 
