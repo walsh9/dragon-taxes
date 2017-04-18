@@ -9,7 +9,10 @@ $(function() {
         }
     });
     $( "article" ).find("input").preventDisableSelection();
-    $( "article,#timer" ).draggable().mousedown(function() {
+    $( "article" ).draggable().mousedown(function() {
+        $(this).parent().append(this);
+    });
+    $( "#timer" ).draggable().mousedown(function() {
         $(this).parent().append(this);
     });
 });
