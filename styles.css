@@ -585,6 +585,7 @@ border-bottom: 1px solid black;
 .detailed-report h1,
 .detailed-report h2,
 .detailed-report h3 {
+  font-weight: normal;
   font-family: "Special Elite", monospace;
   font-size: 10px;
   line-height: 12px;
