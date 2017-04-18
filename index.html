@@ -116,7 +116,7 @@ Taxes are due in ten minutes!!!
   <h2>Tips</h2>
   <ul id="tips"></ul>
   <p class="thanks">Thanks for playing!</p>
-  <button class="button-restart">Play Again!</button>
+  <button class="button-view">View Report</button>
   </div>
 </div>
 
@@ -278,7 +278,7 @@ Taxes are due in ten minutes!!!
 </script>
 
 <script id="ledger-row" type="text/x-handlebars-template">
-    <tr><td>{{date}}</td><td>{{description}}</td><td>{{withCommas amount}}</td><td>{{withCommas balance}}</td></tr>
+    <tr><td>{{date}}</td><td>{{description}}</td><td>{{currency amount}}</td><td>{{currency balance}}</td></tr>
 </script>
 
 <script id="main-tax-instructions" type="text/x-handlebars-template">
@@ -385,6 +385,47 @@ This is your Hoard Gross Income for this year.</p>
 <p><b>Please pay this amount to the official tax courier on the spot.</b></p>
     </article>
 </script>
+
+<script id="detailed-report" type="text/x-handlebars-template">
+<article class="detailed-report">
+  <header>
+    <p>Verna Fairwing, Professional Dragon Accountant</p>
+    <p>12 West Road, Old Forest Peak #6, Northlands</p>
+  </header>
+<table>
+<tr>
+  <td>Tax Report</td>
+  <td>Page {{pageNo}}</td>
+</tr>
+</table>
+{{#each pageContents}}
+<h3>Line {{@key}}</h3>
+<h3>-------------</h3>
+<table>
+  {{#each entries}}
+    <tr>
+      <td>{{description}}<br><em>{{exceptionReason}}</em></td>
+      <td>{{withCommas goldValue}} G</td>
+    </tr>
+  {{/each}}
+  </tr>
+  <td>Total:</td></td></td>
+  <td>{{withCommas this.total}} G</td>
+  </tr>
+  
+{{#if this.error}}
+  <tr class="error">
+{{else}}
+  <tr>
+{{/if}}
+    <td>You put: </td>
+    <td>{{formatInput this.youPut}}</td>
+  </tr>
+</table>
+{{/each}}
+</article>
+</script>
+
 
   <script src="dragon-drop.js"></script>
   <script src="dragon-taxes.js"></script>

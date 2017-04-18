@@ -19,9 +19,6 @@ WebFontConfig = {
   s.parentNode.insertBefore(wf, s);
 })(document);
 
-
-
-
 /* Helper methods */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -67,6 +64,8 @@ function getRandoms(array, num) {
 function numberWithCommas(n) {
     if (n)
         return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    else
+        return '0';
 }
 
 function stripCommas(s){
@@ -172,6 +171,23 @@ Handlebars.registerHelper('ordinal', function(n) {
 
 Handlebars.registerHelper('withCommas', function(n) {
   return  numberWithCommas(n);
+});
+
+Handlebars.registerHelper('currency', function(n) {
+  if (isNaN(n)) {
+    return n
+  } else {
+    return  numberWithCommas(n);
+  }
+});
+
+
+Handlebars.registerHelper('formatInput', function(n) {
+  if (isNaN(n)) {
+    return n
+  } else {
+    return numberWithCommas(n) + " G";
+  }
 });
 
 Handlebars.registerHelper('randomName', function() {
@@ -394,6 +410,7 @@ var shopkeeperComplaint = Handlebars.compile($("#shopkeeper-complaint").html());
 var royalComplaint = Handlebars.compile($("#royal-complaint").html());
 var ledgerRow = Handlebars.compile($("#ledger-row").html());
 var instructions = Handlebars.compile($("#main-tax-instructions").html());
+var detailedReport = Handlebars.compile($("#detailed-report").html());
 
 var gemRates = {
     diamond:  getRandomInt(280, 360) * 10,
@@ -506,6 +523,93 @@ var taxRules = {
     }
 };
 
+var record = {};
+
+var addToRecord = function(lineKey, goldValue, description, exceptionReason) {
+  if (!record[lineKey]) {
+    record[lineKey] = {};
+    record[lineKey].number = lineKey;
+    record[lineKey].entries = [];
+    record[lineKey].total = 0;
+  }
+  record[lineKey].entries.push({"goldValue": goldValue, "description": description, "exceptionReason": exceptionReason});
+  if (!exceptionReason) {delete record[lineKey].exceptionReason;}
+  record[lineKey].total += goldValue;
+};
+
+var finalizeRecord = function() {
+  var a6Value = record.A1.total + record.A2.total + record.A3.total + record.A4.total + record.A5.total;
+  var a6Desc = "A1 + A2 + A3 + A4 + A5";
+  addToRecord("A6", a6Value, a6Desc);
+
+  var b3Value = record.B1.total + record.B2.total;
+  var b3Desc = "B1 + B2";
+  addToRecord("B3", b3Value, b3Desc);
+
+  var b4Value = Math.floor(record.B3.total / 10);
+  var b4Desc = "B3 divided by 10";
+  addToRecord("B4", b4Value, b4Desc);
+
+  var b6Value = Math.floor(record.B5.total / 2);
+  var b6Desc = "B5 divided by 2";
+  addToRecord("B6", b6Value, b6Desc);
+
+  var b7Value = record.B4.total + record.B6.total;
+  var b7Desc = "B4 + B6";
+  addToRecord("B7", b7Value, b7Desc);
+
+  var c1Value = record.A6.total + record.B7.total;
+  var c1Desc = "A6 + B7";
+  addToRecord("C1", c1Value, c1Desc);
+
+  var c2Value = Math.floor(record.C1.total / 10);
+  var c2Desc = "C1 divided by 10";
+  addToRecord("C2", c2Value, c2Desc);
+};
+
+var sortRecord = function(record) {
+  var keys = Object.keys(record);
+  var newRecord = {};
+  keys.sort().forEach( function(key) {
+    newRecord[key] = record[key];
+  });
+  return newRecord;
+};
+
+var paginateRecord = function(record, maxLinesPerPage) {
+  var pages = [];
+  pages[0] = {};
+  var currentPage = 0;
+  var currentPageLines = 0;
+  Object.keys(record).forEach( function(key) {
+    var sectionLines = record[key].entries.length + 5;
+    if (currentPageLines !== 0 && 
+        currentPageLines + sectionLines > maxLinesPerPage) {
+      currentPage++;
+      currentPageLines = 0;
+      pages[currentPage] = {};
+    } else {
+      currentPageLines += sectionLines;
+    }
+    currentPageLines += sectionLines;
+    pages[currentPage][key] = record[key];
+  });
+  return pages;
+};
+
+var debugRecord = function(record) {
+  var lines, lineDetails, lineTotal;
+  lines = ["A1", "A2", "A3", "A4", "A5"];
+  for (var i = 0; i < lines.length; i++) {
+    lineDetails = record[lines[i]];
+    lineTotal = 0;
+    for (var j = 0; j < lineDetails.length; j++) {
+      detail = lineDetails[j];
+      lineTotal += detail.goldValue;
+    }
+  }
+};
+
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
 complaintStacker = new Stacker($('body'), 12, 22, -2, -2, 'right', 'bottom');
@@ -525,8 +629,12 @@ for (var i = 0; i < numNobleComplaints; i++) {
     item = new RoyalGrievance();
     bigNotes.push(royalComplaint(item));
     complaints.push(item);
+    description = "Damages to " + item.title + " " + item.name + "'s lands (" + numberWithCommas(item.value) + " G)";
     if (taxRules.exemptClasses.nobles.indexOf(item.title) === -1) {
         mayhem.nobles += item.value;
+        addToRecord("B5", item.value, description);
+    } else {
+        addToRecord("B5", 0, description, "Exc. for " + item.title + (item.title.slice(-2) == "ss" ? "es" : "s"));
     }
 }    
 
@@ -537,11 +645,16 @@ for (i = 0; i < numPeasantComplaints; i++) {
     } else { //herds
       smallNotes.push(herderComplaint(item));
     }
+    description = "Damages to " + item.name + "'s " + item.type + " (" + numberWithCommas(item.value) + " G)";
     complaints.push(item);
     if ((item.type === "crops" && item.value > taxRules.exemptionLimits.crops) ||
         (item.type === "herds" && item.value > taxRules.exemptionLimits.herds)) {
         mayhem.peasants += item.value;
+        addToRecord("B1", item.value, description);
+    } else {
+        addToRecord("B1", 0, description, "Exc. for damages to " + item.type +" under "  + numberWithCommas(taxRules.exemptionLimits[item.type]) + " G" );      
     }
+
 }
 for (i = 0; i < numTownsefolkeComplaints; i++) {
   var chance = Math.random();
@@ -553,9 +666,14 @@ for (i = 0; i < numTownsefolkeComplaints; i++) {
     bigNotes.push(shopkeeperComplaint(item));
   }
   complaints.push(item);
+  description = "Damages to " + (item.shopName || item.name + "'s property") + " (" + numberWithCommas(item.value) + " G)";
   if (item.value > taxRules.exemptionLimits.provincial) {
     mayhem.townsfolk += item.value;
+    addToRecord("B2", item.value, description);
+  } else {
+    addToRecord("B2", 0, description, "Exc. for provincial damages under "  + numberWithCommas(taxRules.exemptionLimits.provincial) + " G" );      
   }
+
 }
 // Shuffle complaint notes
 shuffle(bigNotes).forEach(function(note) {
@@ -598,6 +716,17 @@ var artSchedule = getRandoms(schedule, numArt);
 var treasureSchedule = getRandoms(schedule, numTreasures);
 var gemSchedule = getRandoms(schedule, numGems);
 
+var magicItemExceptionReason = function(item, taxRules) {
+  var rules = taxRules.exemptClasses;
+  var enchantmentExceptionIndex = rules.enchantments.indexOf(item.enchantment);
+  var auraExceptionIndex = rules.auras.indexOf(item.aura);
+  var runeExceptionIndex = rules.runes.indexOf(item.runes);
+  if (enchantmentExceptionIndex > 0) {return rules.enchantments[enchantmentExceptionIndex] + " enchantment";}
+  if (auraExceptionIndex > 0) {return rules.auras[auraExceptionIndex] + " aura";}
+  if (runeExceptionIndex > 0) {return rules.runes[runeExceptionIndex] + " runes";}
+  return false;
+};
+
 for (var season = 0; season < seasons.length; season++) {
     for (var day = 1; day <= days; day++) {
         var item;
@@ -613,28 +742,39 @@ for (var season = 0; season < seasons.length; season++) {
                                       "Treasure Hunt"]) + " in " + getRandom(lands);
             ledgerTable.append(ledgerRow({day:day,season:seasons[season], description:raidtype}));
             ledgerTable.append(ledgerRow({description:"- Gold", amount:amount, balance:hoard.gold}));
+            addToRecord("A1", amount, raidtype);
             if (gemSchedule.indexOf(scehduleDay) > -1) {
                 var num_gems = getRandomInt(3,30);
                 var gem = getRandom(Object.keys(gemRates));
                 income.gems += num_gems * gemRates[gem];
-                gem = (gem == "ruby") ? " rubies" : " " + gem + "s";
-                ledgerTable.append(ledgerRow({description: "- " + num_gems + gem}));
+                gem_plural = (gem == "ruby") ? " rubies" : " " + gem + "s";
+                ledgerTable.append(ledgerRow({description: "- " + num_gems + gem_plural}));
+                gemValue = gemRates[gem] || 0;
+                addToRecord("A2",  num_gems * gemValue, gem_plural + " (" + num_gems + " x " + numberWithCommas(gemValue) + ")", gemValue ? '' : "No tax on " + gem_plural);
             }
             if (magicSchedule.indexOf(scehduleDay) > -1) {
                 item = new MagicItem();
                 hoard.magicItems.push(item);
-                if ((taxRules.exemptClasses.enchantments.indexOf(item.enchantment) === -1) &&
-                    (taxRules.exemptClasses.auras.indexOf(item.aura) === -1) &&
-                    (taxRules.exemptClasses.runes.indexOf(item.runes) === -1))
-                income.magic += item.value;
+                description = "Magic " + item.item + " (" + numberWithCommas(item.value) + " G)";
+                exceptionReason = magicItemExceptionReason(item, taxRules);
+                if (!exceptionReason) {
+                    income.magic += item.value; 
+                    addToRecord("A3", item.value, description); 
+                } else {
+                    addToRecord("A3", 0, description, "Exc. for " + exceptionReason);
+                }
                 appraisalStacker.add(magicAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- Magic " + item.item}));
             }
             if (artSchedule.indexOf(scehduleDay) > -1) {
                 item = new Art();
                 hoard.art.push(item);
+                description = item.item + " of " + item.subject + " (" + numberWithCommas(item.value) + " G" + ")";
                 if (item.value >= taxRules.exemptionLimits.art) {
                    income.art += item.value;
+                    addToRecord("A4", item.value, description); 
+                } else {
+                    addToRecord("A4", 0, description, "Exc. for art valued under " +  numberWithCommas(taxRules.exemptionLimits.art) + " G"); 
                 }
                 appraisalStacker.add(artAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.item) + " of " + item.subject}));
@@ -642,8 +782,12 @@ for (var season = 0; season < seasons.length; season++) {
             if (treasureSchedule.indexOf(scehduleDay) > -1) {
                 item = new Treasure();
                 hoard.treasures.push(item);
+                description = item.adjective + " " + item.item + " (" + numberWithCommas(item.value) + " G" + ")";
                 if (item.value >= taxRules.exemptionLimits.treasure) {
                    income.other += item.value;
+                    addToRecord("A5", item.value, description); 
+                } else {
+                    addToRecord("A5", 0, description, "Exc. for treasure valued under " +  numberWithCommas(taxRules.exemptionLimits.treasure) + " G"); 
                 }
                 appraisalStacker.add(treasureAppraisalReport(item));
                 ledgerTable.append(ledgerRow({description:"- " + toTitleCase(item.adjective) + " " + item.item}));
@@ -656,6 +800,8 @@ var callCourier = function() {
     $("#courier").fadeIn();
     done = false;
 };
+
+finalizeRecord();
 
 var askedForExtraTime = -1;
 var done = false;
@@ -688,10 +834,13 @@ var showHelp = function () {
 };
 
 var line = function (id) {
-    if ($("#" + id).val() == 0) { // counting blank fields as 0 with ==
+    var value = $("#" + id.toLowerCase()).val();
+    if (value == 0) { // counting blank fields as 0 with ==
       return(0);
+    } else if (isNaN(value)) {
+      return value;
     }
-    return Number(stripCommas( parseInt($("#" + id).val()) ));
+    return Number(stripCommas( parseInt(value) ));
 };
 
 var createManualScoreTable = function() {
@@ -744,7 +893,6 @@ var createManualScoreTable = function() {
     }
     table.append(currentRow);
   }
-  console.log(table);
   $("#solution-page div").append(table);
 };
 
@@ -754,6 +902,19 @@ createManualScoreTable();
 
 
 var evaluateTaxes = function() {
+  Object.keys(record).forEach(function(lineNumber) {
+    record[lineNumber].youPut = line(lineNumber)
+    if (record[lineNumber].total != line(lineNumber)) {
+      record[lineNumber].error = true;
+    }
+  });
+
+  let finalRecord = paginateRecord(sortRecord(record), 16)
+  for (var index = finalRecord.length - 1; index >= 0; index--) {
+    var page = finalRecord[index];
+    ledgerStacker.add(detailedReport({pageNo: index + 1, pageContents: page}));
+  };
+
   var diffs = {};
   diffs.a1 = line("a1") - income.gold;
   diffs.a2 = line("a2") - income.gems;
@@ -861,6 +1022,15 @@ var evaluateTaxes = function() {
   $('#courier').hide();
   $('#report').show();
 };
+
+var viewDetailedReport = function() {
+  $("#report").hide();
+  $(".detailed-report").draggable().mousedown(function() {
+    $(this).parent().append(this);
+  }); 
+  $(".button-ready").text("Play Again!").bind("click", restart);
+}
+
 var restart = function(){
   location.reload();
 };
@@ -869,10 +1039,7 @@ $(".button-go").bind("click", startGame);
 $(".button-help").bind("click", showHelp);
 $(".button-finish").bind("click", evaluateTaxes);
 $(".button-ready").bind("click", callCourier);
-$(".button-restart").bind("click", restart);
-
-
-
+$(".button-view").bind("click", viewDetailedReport);
 
 
 
