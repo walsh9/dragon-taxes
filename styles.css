@@ -5,9 +5,6 @@ html {
   box-sizing: inherit;
 }
 
-
-
-
 body{
   background: url(i/bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -25,6 +22,7 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: url(i/claw-pointer.png) 12 10, pointer;
 }
 
 #timer {
@@ -57,7 +55,7 @@ body{
     position: fixed;
     bottom: 5px;
     left: 5px; 
-    cursor:pointer;
+    cursor: url(i/claw-pointer.png) 12 10, pointer;
     z-index: 1000; 
 }
 
@@ -66,7 +64,7 @@ button {
     padding: 5px 10px 5px 5px;
     border-width: 0px;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: url(i/claw-pointer.png) 12 10, pointer;
     background: rgba(30,30,80,1);
     color: #ddd;
     font-size: 16px;
@@ -821,8 +819,16 @@ border-bottom: 1px solid black;
     #solution-page th, {
       text-align: center;  
     }
-
 }
 
+.ui-draggable, .ui-draggable table {
+  cursor: grab;
+  cursor: url(i/claw-grab.png) 16 17, auto;
+}
+
+.ui-draggable-dragging, .ui-draggable-dragging table  {
+  cursor: grabbing;
+  cursor: url(i/claw-grabbing.png) 16 17, auto;
+}
 
 
