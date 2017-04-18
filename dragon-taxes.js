@@ -612,7 +612,7 @@ var debugRecord = function(record) {
 
 $('body').append(instructions({rules:taxRules,rates:gemRates}));
 
-complaintStacker = new Stacker($('body'), 12, 22, -2, -2, 'right', 'bottom');
+complaintStacker = new Stacker($('body'), 22, 22, -2, -2, 'right', 'bottom');
 var complaints= [];
 var bigNotes = [];
 var smallNotes = [];
