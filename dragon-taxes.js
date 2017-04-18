@@ -137,24 +137,28 @@ var randomName = function() {
 
 /* Lists */
 var races = ["dragon","erk","drev","gronk","glorn"];
-var treasures = ["sword","book","amulet","goblet","ring","helmet","shield","spear",
-"lance","boots","flute","panpipes","whistle","battleaxe","mace","trinket","bracers","dice"];
+var treasures = ["sword","tome","amulet","goblet","ring","helmet","shield","spear",
+"lance","boots","flute","panpipes","whistle","battleaxe","mace","trinket","bracers","dice","lantern","staff","necklace","brooch","sphere","cube","pyramid","talisman","device","music box","spoon","token","totem","cauldron","bottle","mask","key","urn","mirror","locket","bircage","crown","idol","chalice","mechanism","apparatus","box","bell"];
+var runed = ["engraved", "marked", "painted", "etched", "inscribed","adorned"];
 var runes = ["ancient","indecipherable","profane","mysterious"];
-var enchantments = ["protection","swiftness","luck","life","death","ancient","mysterious"];
+var enchantments = ["protection","swiftness","luck","life","death","ancient","mysterious","creation","banishment","sealing","clockwork","equation"];
 var auras = ["teal","holy","unholy","golden","orange","wistful","pale"];
 var ranking = ["AAA","AA","A","B","C"];
-var treasureAdjectives = ["golden","jeweled","ancient","jade","sapphire","ruby","platinum","engraved","glass","onyx","silver"];
-var artDescriptors = ["Rare","Renowned","Masterful","Famous","Extraordinary","Elaborate"];
-var artworks = ["painting", "sculpture", "vase", "tapestry"];
-var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizarre","strange","colossal","miniature","majestic"];
-var artSubjects = ["landscape", "mountain", "lake", "castle", "village", "tree", "bridge", "cave", "battlefield"];
+var treasureAdjectives = ["ancient","engraved","shimmering","masterwork","slimy","ornate","antique","shiny","radiant","unusual","flawless","curious"];
+var treasureMaterials = ["golden","jeweled","jade","sapphire","emerald","ruby","platinum","glass","onyx","silver","bronze","brass","ivory","copper","titanium"];
+var artDescriptors = ["Rare","Masterpiece","Famous","Extraordinary","Elaborate","One of a kind","Exquisite","Antique","Priceless","Audacious","Timeless"];
+var artworks = ["painting","sculpture","vase","tapestry"];
+var artAdjectives = ["gloomy","sinister","radiant","beautiful","stunning","mysterious","bizarre","strange","colossal","miniature","majestic","haunting","wispy","grotesque","resplendent","eerie","forgotten","underground","golden","ethereal","twisted","bizzare","burning","underwater","ancient","quiet","striking","unusual","old"];
+var artSubjects = ["landscape","mountain","lake","castle","village","tree","bridge","cave","battlefield","tundra","desert","sunset","sunrise","spirit","doorway","manor","forest","waterway","city","tower","palace","kingdom","marketplace","tunnel","mausoleum","garden","orchard","glade"];
 var nobleTitles = ["Queen","King","Prince","Princess","Duke","Duchess","Count","Countess","Baron","Baroness"];
 var lands = ["Northland","Eastland","Southland"]; // No one lives in Westland.
 races.forEach(function(race) {
+    var raceAdjective = race == "dragon" ? "draconic" : race + "ish";
     treasures.push(race + " figurine");
-    runes.push(race == "dragon" ? "draconic" : race + "ish");
-    enchantments.push(race + "-slaying");
-    artSubjects.push(race);
+    runes.push(raceAdjective);
+    artSubjects.push(raceAdjective + " warrior");
+    artSubjects.push(raceAdjective + " wizard");
+    artSubjects.push(raceAdjective + " ruler");
 });
 
 /* Handlebars.js helpers */
@@ -203,16 +207,16 @@ Handlebars.registerHelper('aideTitle', function() {
 });
 
 Handlebars.registerHelper('dragonEpithet', function() {
-  var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face"];
+  var epithets = ["dragon","lava breath","smoggy","sky lizard","gasbag","wing worm","blasto","smoke snout","scale face","flame frog","gassy gecko"];
   return getRandom(epithets);
 });
 
 /*Shop names*/
-var shopNouns = ["Elephant","Hedgehog","Grasshopper","Lamb","Eagle","Falcon","Lion","Hound","Swan","Horse","Ghost","Bishop","Snake","Serpent","Squirrel","Anchor","Bell","Lock","Key","Lute","Harp","Castle","Tower","Helm","Crown","Rose","Vine"];
+var shopNouns = ["Elephant","Hedgehog","Grasshopper","Lamb","Eagle","Falcon","Lion","Hound","Swan","Horse","Rodent","Ghost","Bishop","Sailor","Fiddler","Traveler","Wanderer","Farmer","Snake","Serpent","Squirrel","Owl","Squid","Spirit","Anchor","Bell","Lock","Key","Lute","Harp","Castle","Tower","Helm","Crown","Rose","Vine"];
 shopNouns = shopNouns.concat("Gnat", "Flea", "Tick", "Spider", "Ant", "Bee", "Moth", "Worm", "Beetle", "Weevil");
 shopNouns = shopNouns.concat(races.map(toTitleCase));
-var shopAdjectives = ["Blue","Golden","Gilded","Lucky","Wretched","Rusty","Brazen","Green","Red","Half","Old","Third","Second","First","Seventh","Silent","Wistful","Rowdy","Smiling","Laughing","Finest"];
-var shopTypes = ["Anvil","Forge","Larder","Supplies","Traders","Planks","Candles","Goods","Fishes","Fishery","Pies","Meats","Grains","Textiles","Cloths","Fabrics","Ointments","Talismans","Pots","Glass","Lenses","Jewelry","Pharmacy","Apothecary","Delights","Wonders","Curiosities","Oddities","Sundries","Financing","Valuation","Shipping","Trinkets","Wholesale"];
+var shopAdjectives = ["Blue","Golden","Gilded","Silver","Lucky","Wretched","Rusty","Brazen","Green","Red","Half","Old","Third","Second","First","Seventh","Silent","Wistful","Rowdy","Smiling","Laughing","Finest","Unfortunate","Fortunate","Lost","Leaping","Soaring","Coy","Charming","Clever","Sleepy","Dancing","Waltzing"];
+var shopTypes = ["Anvil","Forge","Carpentry","Larder","Supplies","Traders","Planks","Candles","Goods","Fishes","Fishery","Pies","Meats","Grains","Herbs","Textiles","Cloths","Fabrics","Ointments","Liniments","Medicines","Talismans","Charms","Fortune Telling","Pots","Glass","Lenses","Ropes","Books","Jewelry","Pharmacy","Apothecary","Delights","Wonders","Curiosities","Oddities","Sundries","Financing","Valuation","Shipping","Trinkets","Wholesale","Gear","Provisions","Junk Shop","Used Goods","Secrets","Solutions","Finery"];
 var barTypes = ["Tavern","Alehouse","Pub","Lodge","Inn","House"];
 var randomShopName = function(ownerName, isBar) {
   ownerName = ownerName || randomName();
@@ -247,7 +251,7 @@ var randomShopName = function(ownerName, isBar) {
 };
 
 /* Townnames */
-var townPrefixes = ["Village of ", "Hamlet of ", "City of ", ];
+var townPrefixes = ["Village of ", "Town of", "Hamlet of ", "City of ", ];
 var townSuffixes = ["ville", "burg", "ton", "stead", " Village", " City", " Settlement"];
 var randomTownName = function() {
   var chance = Math.random();
@@ -406,6 +410,7 @@ var days = 92;
 /* Items */
 var MagicItem = function() {
   this.item = getRandom(treasures);
+  this.runed = getRandom(runed);
   this.runes = getRandom(runes);
   this.enchantment = getRandom(enchantments);
   this.aura = getRandom(auras);
@@ -415,7 +420,7 @@ var MagicItem = function() {
 };
 
 var Art = function() {
-  this.descriptor = toTitleCase(getRandom(artDescriptors));
+  this.descriptor = getRandom(artDescriptors);
   this.item = getRandom(artworks);
   this.adjective = getRandom(artAdjectives);
   this.subject = getRandom(artSubjects);
@@ -426,7 +431,7 @@ var Art = function() {
 
 var Treasure = function() {
   this.item = getRandom(treasures);
-  this.adjective = toTitleCase((getRandom(treasureAdjectives)));
+  this.adjective = toTitleCase((getRandom(treasureAdjectives))) + " " + getRandom(treasureMaterials);
   this.quality = getRandom(ranking);
   this.condition = getRandom(ranking);
   this.value = getRandomInt(10, 1000) * getRandomInt(1,3) * 10;
