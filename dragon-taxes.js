@@ -721,9 +721,9 @@ var magicItemExceptionReason = function(item, taxRules) {
   var enchantmentExceptionIndex = rules.enchantments.indexOf(item.enchantment);
   var auraExceptionIndex = rules.auras.indexOf(item.aura);
   var runeExceptionIndex = rules.runes.indexOf(item.runes);
-  if (enchantmentExceptionIndex > 0) {return rules.enchantments[enchantmentExceptionIndex] + " enchantment";}
-  if (auraExceptionIndex > 0) {return rules.auras[auraExceptionIndex] + " aura";}
-  if (runeExceptionIndex > 0) {return rules.runes[runeExceptionIndex] + " runes";}
+  if (enchantmentExceptionIndex !== undefined) {return rules.enchantments[enchantmentExceptionIndex] + " enchantment";}
+  if (auraExceptionIndex !== undefined) {return rules.auras[auraExceptionIndex] + " aura";}
+  if (runeExceptionIndex !== undefined) {return rules.runes[runeExceptionIndex] + " runes";}
   return false;
 };
 
