@@ -717,7 +717,6 @@ var treasureSchedule = getRandoms(schedule, numTreasures);
 var gemSchedule = getRandoms(schedule, numGems);
 
 var magicItemExceptionReason = function(item, taxRules) {
-  debugger;
   var rules = taxRules.exemptClasses;
   var enchantmentExceptionIndex = rules.enchantments.indexOf(item.enchantment);
   var auraExceptionIndex = rules.auras.indexOf(item.aura);
