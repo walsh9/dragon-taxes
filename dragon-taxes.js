@@ -1028,18 +1028,18 @@ var viewDetailedReport = function() {
   $(".detailed-report").draggable().mousedown(function() {
     $(this).parent().append(this);
   }); 
-  $(".button-ready").text("Play Again!").bind("click", restart);
+  $(".button-ready").text("Play Again!").on("click", restart);
 }
 
 var restart = function(){
   location.reload();
 };
 $("#d1045")[0].reset(); //clear form
-$(".button-go").bind("click", startGame);
-$(".button-help").bind("click", showHelp);
-$(".button-finish").bind("click", evaluateTaxes);
-$(".button-ready").bind("click", callCourier);
-$(".button-view").bind("click", viewDetailedReport);
+$(".button-go").on("click", startGame);
+$(".button-help").on("click", showHelp);
+$(".button-ready").on("click", callCourier);
+$(".button-finish").one("click", evaluateTaxes);
+$(".button-view").one("click", viewDetailedReport);
 
 
 
