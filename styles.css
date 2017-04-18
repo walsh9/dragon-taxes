@@ -31,9 +31,9 @@ body{
     position: absolute;
     height: 381px;
     width: 212px;
-    top: -50px;
-    right: -25px;
-}
+    top: 5px;
+    right: 5px;
+g}
 #timer #time {
     color: rgba(100,255,255,0.4);
     font-size: 58px;
