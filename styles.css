@@ -29,12 +29,10 @@ body{
     background-image: url(i/timer.png);
     background-size: cover;
     position: absolute;
-    height: 477px;
-    width: 266px;
+    height: 381px;
+    width: 212px;
     top: -50px;
     right: -25px;
-    -webkit-transform: scale(0.8,0.8);
-    transform: scale(0.8,0.8);
 }
 #timer #time {
     color: rgba(100,255,255,0.4);
@@ -42,7 +40,7 @@ body{
     font-family: Roboto Mono, sans-serif;
     position: absolute;
     top: 160px;
-    left: 64px;
+    left: 38px;
 }
 #button-ready {
     padding: 5px;
