@@ -26,7 +26,20 @@ It's 2015.
 
 Well, the simplest United States income tax form, the 1040EZ, is two pages long and has 43 pages of instructions. But on the other hand, most people have longer than 10 minutes to work on it.
 
-## Post Jam Updates
+## 2017 Auditor's Cut Update
+
+### New Stuff
+
+- Detailed final report lets you figure out where you went wrong.
+- Claw cursor.
+- Updates to shop name and item name generators.
+
+### Fixes
+
+- Fixed a bug that made the page always start with scrollbars.
+- One type of form had a . missing.
+
+## Post Jam Update
 
 ### New Stuff
 - Fancy letterheads for noble complaint notes.

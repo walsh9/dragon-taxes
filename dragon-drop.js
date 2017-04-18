@@ -9,12 +9,7 @@ $(function() {
         }
     });
     $( "article" ).find("input").preventDisableSelection();
-    $( "article" ).draggable().mousedown(function() {
+    $( "article,#timer" ).draggable().mousedown(function() {
         $(this).parent().append(this);
     });
-    $( "article" ).find("input").preventDisableSelection();
-    $( "#timer" ).draggable().mousedown(function() {
-        $(this).parent().append(this);
-    }); 
 });
-
