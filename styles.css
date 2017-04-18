@@ -5,9 +5,6 @@ html {
   box-sizing: inherit;
 }
 
-
-
-
 body{
   background: url(i/bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -25,7 +22,7 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  cursor: url(i/claw-proto.png) 5 1, pointer;
+  cursor: url(i/claw-pointer.png) 12 10, pointer;
 }
 
 #timer {
@@ -58,7 +55,7 @@ body{
     position: fixed;
     bottom: 5px;
     left: 5px; 
-    cursor: url(i/claw-proto.png) 5 1, pointer;
+    cursor: url(i/claw-pointer.png) 12 10, pointer;
     z-index: 1000; 
 }
 
@@ -67,7 +64,7 @@ button {
     padding: 5px 10px 5px 5px;
     border-width: 0px;
     border-radius: 5px;
-    cursor: url(i/claw-proto.png) 5 1, pointer;
+    cursor: url(i/claw-pointer.png) 12 10, pointer;
     background: rgba(30,30,80,1);
     color: #ddd;
     font-size: 16px;
@@ -197,13 +194,11 @@ article div {
     text-align: right;
     font-family: "Kaushan Script", cursive;
     border-width:0;
-    cursor: url(i/claw-test_pen.png) 2 27, text;
 }
 .tax-form header input {
      background: transparent;
      border: 1px solid;   
      font-family: "Kaushan Script", cursive;
-    cursor: url(i/claw-test_pen.png) 2 27, text;
 }
 .dnw {
     display: block;
@@ -763,14 +758,14 @@ border-bottom: 1px solid black;
     }
 }
 
-.ui-draggable {
+.ui-draggable, .ui-draggable table {
   cursor: grab;
-  cursor: url(i/claw-test_grab.png) 16 7, auto;
+  cursor: url(i/claw-grab.png) 16 17, auto;
 }
 
-.ui-draggable-dragging {
+.ui-draggable-dragging, .ui-draggable-dragging table  {
   cursor: grabbing;
-  cursor: url(i/claw-test_grabbing.png) 16 7, auto;
+  cursor: url(i/claw-grabbing.png) 16 17, auto;
 }
 
 
